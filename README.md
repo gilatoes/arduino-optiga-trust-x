@@ -1,4 +1,4 @@
-# OPTIGA&trade; Trust X Arduino library
+﻿# OPTIGA&trade; Trust X Arduino library
 ![TrustXPackage](https://github.com/Infineon/Assets/raw/master/Pictures/OPTIGA-Trust-X.png)
 
 Infineon's [OPTIGA&trade; Trust X](https://www.infineon.com/cms/en/product/security-smart-card-solutions/optiga-embedded-security-solutions/optiga-trust/optiga-trust-x-sls-32aia/) security solution library for Arduino
@@ -41,10 +41,10 @@ To install the OPTIGA&trade; Trust X library in the Arduino IDE several options 
 
 ## Supported Devices
 In general, the library should be compatible with any Arduino board, however it has been tested for the following platforms:
+* XMC1100 2Go (Infineon Technologies, XMC1100, Cortex M0)
 * Sparkfun ESP32 Thing (Espressif Systems, ESP32, Xtensa)
 * Adafruit Feather M0 (Atmel, SAMD21, Cortex M0)
 * STM32 Nucleo (ST Microelectronics, STM32F0, Cortex M0)
-* XMC1100 2Go (Infineon Technologies, XMC1100, Cortex M0)
 * XMC4700 Relax Kit (Infineon Technologies, XMC4700, Cortex M4)
 * WEMOS D1 mini (Espressif Systems, ESP8266, Xtensa)
 
@@ -63,6 +63,11 @@ which was limited by default down to 32 bytes (in case of 32 bytes the library w
 
 Please check settings for your specific platform, if you want to improve the performance of the hashing function. 
 
+### getCertificate, getUniqueID 
+getCertificate and getUniqueID demonstrate examples of retrievieng various properties of the OPTIGA™ Trust X Chip. 
+As well as these examples the developer can also call getCurrentLimit/setCurrentLimit in order to get or modify the
+current limitation of the chip (varies from 5mA by default to maximum 15mA) 
+
 ### calculateSignVerifySign  
 calculateSignVerifySign demonstrates signature generation and signature verification methods of the library. 
 This example shows two modes of operation: 
@@ -78,11 +83,6 @@ For the verification three methods are available:
 ### generateKeypair
 calculateSignVerifySign demonstrates methods for keypair generation, either with a private key export, or without. 
 In the latter case the developer should specify the Object ID of the private key. 
-
-### getCertificate, getUniqueID 
-getCertificate and getUniqueID demonstrate examples of retrievieng various properties of the OPTIGA™ Trust X Chip. 
-As well as these examples the developer can also call getCurrentLimit/setCurrentLimit in order to get or modify the
-current limitation of the chip (varies from 5mA by default to maximum 15mA) 
 
 ### getRandom
 getRandom demonstrates random number generator capabilities. This example outputs random numbers of various sizes (16, 32, 64, 128, 256)
