@@ -579,8 +579,16 @@ static int32_t IntLib_VerifyAC(eMetaDataTag_d PeMetaDataTag, sACVector_d *PpsACV
         i4Status = IntLib_GetTagPos(PpsACVal->psMetaData->prgbStream,(uint8_t)eLCSO,&bTagLocation);
         if(INT_LIB_OK == i4Status)
         {
+        	if(LENGTH_METADATA<=(bTagLocation+2))
+        	{
+        		i4Status = (int32_t)INT_LIB_ERROR;
+        		//Serial.println("Assert: Array out of bound!");
+        		//Serial.println(bTagLocation,HEX);
+        	}
+        	else{
             //get the LcsO value from TLV
-            PpsACVal->bLcsO = (PpsACVal->psMetaData->prgbStream)[bTagLocation+2];            
+            PpsACVal->bLcsO = (PpsACVal->psMetaData->prgbStream)[bTagLocation+2];
+        	}
         }
         else
         {

@@ -28,11 +28,33 @@ extern "C" {
 #define MAXCMD_LEN			255
 #define HEXDUMP_COLS    	16
 
-
 #ifndef SUPPRESSHEXDUMP
 #define SUPPRESSHEXDUMP		0
 #endif
 #define HEXDUMP(a, b)		(SUPPRESSHEXDUMP==0) ? __hexdump__(a,b) : (void) 0;
+
+#if( UC_FAMILY == XMC1 )
+inline void led1On() {
+  pinMode(14, OUTPUT);
+  digitalWrite(14, HIGH); // turn the LED1 on (HIGH is the voltage level) 
+  }
+
+inline void led1Off() {
+  pinMode(14, OUTPUT);
+  digitalWrite(14, LOW); // turn the LED1 off (LOW is the voltage level) 
+  }
+
+inline void led2On() {
+  pinMode(15, OUTPUT);
+  digitalWrite(15, HIGH); // turn the LED2 on (HIGH is the voltage level) 
+  }
+  
+inline void led2Off() {
+  pinMode(15, OUTPUT);
+  digitalWrite(15, LOW); // turn the LED2 off (LOW is the voltage level) 
+  }
+#endif
+  
 /**
  *
  * This function prints a given input in green 
@@ -41,9 +63,13 @@ extern "C" {
  * @retval  None
  */
 inline void printlnGreen(const char c[]) {
-	char tmp[100];
-	sprintf(tmp, "%s%s%s", ANSI_COLOR_GREEN, c, ANSI_COLOR_RESET);
-	Serial.println(tmp);
+	static char tmp[100];
+
+  if(strlen(c)<100){
+    sprintf(tmp, "%s%s%s", ANSI_COLOR_GREEN, c, ANSI_COLOR_RESET);
+    Serial.println(tmp);  
+  }else{Serial.println("Error: printInGreen buffer overflow");}
+	
 }
 
 /**
@@ -54,9 +80,12 @@ inline void printlnGreen(const char c[]) {
  * @retval  None
  */
 inline void printlnRed(const char c[]) {
-	char tmp[100];
-	sprintf(tmp, "%s%s%s", ANSI_COLOR_RED, c, ANSI_COLOR_RESET);
-	Serial.println(tmp);
+	static char tmp[100];
+ 
+  if(strlen(c)<100){
+	  sprintf(tmp, "%s%s%s", ANSI_COLOR_RED, c, ANSI_COLOR_RESET);
+	  Serial.println(tmp);
+  }else{Serial.println("Error: printlnRed buffer overflow");}
 }
 
 /**
@@ -67,9 +96,12 @@ inline void printlnRed(const char c[]) {
  * @retval  None
  */
 inline void printlnMagenta(const char c[]) {
-	char tmp[100];
-	sprintf(tmp, "%s%s%s", ANSI_COLOR_MAGENTA, c, ANSI_COLOR_RESET);
-	Serial.println(tmp);
+	static char tmp[100];
+  
+  if(strlen(c)<100){
+	  sprintf(tmp, "%s%s%s", ANSI_COLOR_MAGENTA, c, ANSI_COLOR_RESET);
+	  Serial.println(tmp);
+  }else{Serial.println("Error: printlnMagenta buffer overflow");}  
 }
 
 /**
@@ -80,9 +112,12 @@ inline void printlnMagenta(const char c[]) {
  * @retval  None
  */
 inline void printMagenta(const char c[]) {
-	char tmp[100];
-	sprintf(tmp, "%s%s%s", ANSI_COLOR_MAGENTA, c, ANSI_COLOR_RESET);
-	Serial.print(tmp);
+	static char tmp[100];
+
+  if(strlen(c)<100){
+	  sprintf(tmp, "%s%s%s", ANSI_COLOR_MAGENTA, c, ANSI_COLOR_RESET);
+	  Serial.print(tmp);
+  }else{Serial.println("Error: printMagenta buffer overflow");}  
 }
 
 /**
@@ -93,9 +128,12 @@ inline void printMagenta(const char c[]) {
  * @retval  None
  */
 inline void printGreen(const char c[]) {
-	char tmp[100];
-	sprintf(tmp, "%s%s%s", ANSI_COLOR_GREEN, c, ANSI_COLOR_RESET);
-	Serial.print(tmp);
+	static char tmp[100];
+
+  if(strlen(c)<100){
+	  sprintf(tmp, "%s%s%s", ANSI_COLOR_GREEN, c, ANSI_COLOR_RESET);
+	  Serial.print(tmp);
+  }else{Serial.println("Error: printGreen buffer overflow");}  
 }
 
 /**
@@ -113,7 +151,7 @@ inline void printGreen(const char c[]) {
  */
 inline void __hexdump__(const void* p_buf, uint32_t l_len) {
 	unsigned int i, j;
-	char str[MAXCMD_LEN];
+	static char str[MAXCMD_LEN];
 	for (i = 0;	i < l_len + ((l_len % HEXDUMP_COLS) ?
 					( HEXDUMP_COLS - l_len % HEXDUMP_COLS) : 0);
 			i++) {
