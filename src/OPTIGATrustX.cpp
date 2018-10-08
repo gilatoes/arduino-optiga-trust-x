@@ -221,7 +221,7 @@ int32_t IFX_OPTIGA_TrustX::getGenericData(uint16_t oid, uint8_t* p_data, uint16_
             break;
         }
         
-        //Read complete data strucuture
+        //Read complete data structure
         data_opt.wOffset = 0x00;
         data_opt.wLength = hashLength;
         data_opt.wOID = oid;

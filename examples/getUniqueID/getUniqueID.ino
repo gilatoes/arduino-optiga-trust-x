@@ -74,10 +74,13 @@ void loop()
     
     if (ret) {
       printlnRed("Failed");
-      Serial.println(ret,HEX);     
+      Serial.println(ret,HEX);  
+      //close the connection
+      trustX.end();         
     }else{  
     HEXDUMP(uid, uidLength);
     }
+
   }
   printlnGreen("\r\nPress i to re-initialize.. other key to loop...");   
   while (Serial.available()==0){} //Wait for user input  
@@ -89,6 +92,8 @@ void loop()
     {
       //Do not execute
       sys_init=0;
+      //close the connection
+      trustX.end();
     }else
     {
       sys_init=1;
