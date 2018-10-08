@@ -100,6 +100,49 @@ typedef enum eSessionCtxId_d {
 } eSessionCtxId_d;
 
 /**
+ * \brief  Typedef for Arbitrary Data object
+ */
+typedef enum eArbitraryDataObject {
+    //Arbitrary Data object type1 1
+    arbitrary_data_object_type1_1 = 0xf1d0,
+    //Arbitrary Data object type1 2
+    arbitrary_data_object_type1_2 = 0xf1d1,
+    //Arbitrary Data object type1 3
+    arbitrary_data_object_type1_3 = 0xf1d2,
+    //Arbitrary Data object type1 4
+    arbitrary_data_object_type1_4 = 0xf1d3,
+    //Arbitrary Data object type1 5
+    arbitrary_data_object_type1_5 = 0xf1d4,
+    //Arbitrary Data object type1 6
+    arbitrary_data_object_type1_6 = 0xf1d5,
+    //Arbitrary Data object type1 7
+    arbitrary_data_object_type1_7 = 0xf1d6,
+    //Arbitrary Data object type1 8
+    arbitrary_data_object_type1_8 = 0xf1d7,
+    //Arbitrary Data object type1 9
+    arbitrary_data_object_type1_9 = 0xf1d8,
+    //Arbitrary Data object type1 10
+    arbitrary_data_object_type1_10 = 0xf1d9,
+    //Arbitrary Data object type1 11
+    arbitrary_data_object_type1_11 = 0xf1da,
+    //Arbitrary Data object type1 12
+    arbitrary_data_object_type1_12 = 0xf1db,
+    //Arbitrary Data object type1 13
+    arbitrary_data_object_type1_13 = 0xf1dc,
+    //Arbitrary Data object type1 14
+    arbitrary_data_object_type1_14 = 0xf1dd,
+    //Arbitrary Data object type1 15
+    arbitrary_data_object_type1_15 = 0xf1de,
+    //Arbitrary Data object type1 16
+    arbitrary_data_object_type1_16 = 0xf1df,
+
+    //Arbitrary Data object type2 1
+    arbitrary_data_object_type2_1 = 0xf1e0,
+    //Arbitrary Data object type2 2
+    arbitrary_data_object_type2_2 = 0xf1e1,
+} eArbitraryDataObject_d;
+
+/**
  * @defgroup ifx_optiga_library Infineon OPTIGA Trust X Command Library
  * @{
  * @ingroup ifx_optiga
@@ -206,7 +249,31 @@ public:
      * @retval  1 If the operation failed.
      */
     int32_t getUniqueID(uint8_t uniqueID[], uint16_t& uidLength) { return uidLength != 0?getGenericData(eCOPROCESSOR_UID, uniqueID, uidLength):1; }
-
+     /**
+     * This function writes arbitary data object value in the oid. Length is defined by the user.     
+     *
+     * @param[out] arbitary_data_object_buffer    Pointer where the arbitary data object value will be stored
+     * @param[in]  arbitary_data_object_Length    Pointer where the length of the arbitary data object value is stored
+     *
+     * @retval  0 If function was successful.
+     * @retval  1 If the operation failed.
+     */
+    int32_t setArbitaryDataObject(uint16_t& oid, uint8_t arbitary_data_object_buffer[], uint16_t& arbitary_data_objectLength)
+    { return arbitary_data_objectLength != 0?setGenericData(oid, arbitary_data_object_buffer, arbitary_data_objectLength):1; }
+	
+	
+     /**
+     * This function writes arbitary data object value in the oid. Length is defined by the user.
+     *
+     * @param[out] arbitary_data_object_buffer    Pointer where the arbitary data object value will be stored
+     * @param[in]  arbitary_data_object_Length    Pointer where the length of the arbitary data object value is stored
+     *
+     * @retval  0 If function was successful.
+     * @retval  1 If the operation failed.
+     */
+    int32_t getArbitaryDataObject(uint16_t& oid, uint8_t arbitary_data_object_buffer[], uint16_t& arbitary_data_objectLength)
+    { return arbitary_data_objectLength != 0?getGenericData(oid, arbitary_data_object_buffer, arbitary_data_objectLength):1; }
+	
     /**
      * @brief Get a random number.
      *
