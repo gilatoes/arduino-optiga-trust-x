@@ -25,36 +25,36 @@ extern "C" {
 #define ANSI_COLOR_RESET   ""
 #endif
 
-#define MAXCMD_LEN			255
-#define HEXDUMP_COLS    	16
+#define MAXCMD_LEN      255
+#define HEXDUMP_COLS      16
 
 #ifndef SUPPRESSHEXDUMP
-#define SUPPRESSHEXDUMP		0
+#define SUPPRESSHEXDUMP   0
 #endif
-#define HEXDUMP(a, b)		(SUPPRESSHEXDUMP==0) ? __hexdump__(a,b) : (void) 0;
+#define HEXDUMP(a, b)   (SUPPRESSHEXDUMP==0) ? __hexdump__(a,b) : (void) 0;
 
 #if( UC_FAMILY == XMC1 )
 inline void led1On() {
   pinMode(14, OUTPUT);
-  digitalWrite(14, HIGH); // turn the LED1 on (HIGH is the voltage level)
+  digitalWrite(14, HIGH); // turn the LED1 on (HIGH is the voltage level) 
   }
 
 inline void led1Off() {
   pinMode(14, OUTPUT);
-  digitalWrite(14, LOW); // turn the LED1 off (LOW is the voltage level)
+  digitalWrite(14, LOW); // turn the LED1 off (LOW is the voltage level) 
   }
 
 inline void led2On() {
   pinMode(15, OUTPUT);
-  digitalWrite(15, HIGH); // turn the LED2 on (HIGH is the voltage level)
+  digitalWrite(15, HIGH); // turn the LED2 on (HIGH is the voltage level) 
   }
-
+  
 inline void led2Off() {
   pinMode(15, OUTPUT);
-  digitalWrite(15, LOW); // turn the LED2 off (LOW is the voltage level)
+  digitalWrite(15, LOW); // turn the LED2 off (LOW is the voltage level) 
   }
 #endif
-
+  
 /**
  *
  * This function prints a given input in green 
@@ -63,13 +63,13 @@ inline void led2Off() {
  * @retval  None
  */
 inline void printlnGreen(const char c[]) {
-	static char tmp[100];
+  static char tmp[100];
 
   if(strlen(c)<100){
     sprintf(tmp, "%s%s%s", ANSI_COLOR_GREEN, c, ANSI_COLOR_RESET);
-    Serial.println(tmp);
+    Serial.println(tmp);  
   }else{Serial.println("Error: printInGreen buffer overflow");}
-
+  
 }
 
 /**
@@ -80,11 +80,11 @@ inline void printlnGreen(const char c[]) {
  * @retval  None
  */
 inline void printlnRed(const char c[]) {
-	static char tmp[100];
-
+  static char tmp[100];
+ 
   if(strlen(c)<100){
-	  sprintf(tmp, "%s%s%s", ANSI_COLOR_RED, c, ANSI_COLOR_RESET);
-	  Serial.println(tmp);
+    sprintf(tmp, "%s%s%s", ANSI_COLOR_RED, c, ANSI_COLOR_RESET);
+    Serial.println(tmp);
   }else{Serial.println("Error: printlnRed buffer overflow");}
 }
 
@@ -96,12 +96,12 @@ inline void printlnRed(const char c[]) {
  * @retval  None
  */
 inline void printlnMagenta(const char c[]) {
-	static char tmp[100];
-
+  static char tmp[100];
+  
   if(strlen(c)<100){
-	  sprintf(tmp, "%s%s%s", ANSI_COLOR_MAGENTA, c, ANSI_COLOR_RESET);
-	  Serial.println(tmp);
-  }else{Serial.println("Error: printlnMagenta buffer overflow");}
+    sprintf(tmp, "%s%s%s", ANSI_COLOR_MAGENTA, c, ANSI_COLOR_RESET);
+    Serial.println(tmp);
+  }else{Serial.println("Error: printlnMagenta buffer overflow");}  
 }
 
 /**
@@ -112,12 +112,12 @@ inline void printlnMagenta(const char c[]) {
  * @retval  None
  */
 inline void printMagenta(const char c[]) {
-	static char tmp[100];
+  static char tmp[100];
 
   if(strlen(c)<100){
-	  sprintf(tmp, "%s%s%s", ANSI_COLOR_MAGENTA, c, ANSI_COLOR_RESET);
-	  Serial.print(tmp);
-  }else{Serial.println("Error: printMagenta buffer overflow");}
+    sprintf(tmp, "%s%s%s", ANSI_COLOR_MAGENTA, c, ANSI_COLOR_RESET);
+    Serial.print(tmp);
+  }else{Serial.println("Error: printMagenta buffer overflow");}  
 }
 
 /**
@@ -128,20 +128,82 @@ inline void printMagenta(const char c[]) {
  * @retval  None
  */
 inline void printGreen(const char c[]) {
-	static char tmp[100];
+  static char tmp[100];
 
   if(strlen(c)<100){
-	  sprintf(tmp, "%s%s%s", ANSI_COLOR_GREEN, c, ANSI_COLOR_RESET);
-	  Serial.print(tmp);
-  }else{Serial.println("Error: printGreen buffer overflow");}
+    sprintf(tmp, "%s%s%s", ANSI_COLOR_GREEN, c, ANSI_COLOR_RESET);
+    Serial.print(tmp);
+  }else{Serial.println("Error: printGreen buffer overflow");}  
 }
 
 /**
  *
+ * Printout data in hex view only for ease of cut and paste
+ *
+ * @param[in] p_buf   Pointer to data which should be printed out.
+ * @param[in] l_len   Length of a data
+ *
+ * @retval  None
+ * @example  
+ 2e 2f 68 65 78 64 75 6d 
+ 70 00 53 53 48 5f 41 47 
+ 45 4e 54 5f             
+ */
+inline void __hexdump__(const void* p_buf, uint32_t l_len) {
+  unsigned int i, j;
+  static char str[MAXCMD_LEN];
+  for (i = 0; i < l_len + ((l_len % HEXDUMP_COLS) ?
+          ( HEXDUMP_COLS - l_len % HEXDUMP_COLS) : 0);
+      i++) {
+    /* print offset */
+    if (i % HEXDUMP_COLS == 0) {
+      //sprintf(str, "0x%06x: ", i);
+      //Serial.print(str);
+    }
+
+    /* print hex data */
+    if (i < l_len) {
+      sprintf(str, "%02x ", 0xFF & ((char*) p_buf)[i]);
+      Serial.print(str);
+    } else /* end of block, just aligning for ASCII dump */
+    {
+      sprintf(str, "   ");
+      Serial.print(str);
+    }
+
+
+    /* print ASCII dump */
+    if (i % HEXDUMP_COLS == ( HEXDUMP_COLS - 1)) 
+    {
+      #if 0
+      for (j = i - ( HEXDUMP_COLS - 1); j <= i; j++) {
+        if (j >= l_len) /* end of block, not really printing */
+        {
+          Serial.print(' ');
+        } else if (isprint((int) ((char*) p_buf)[j])) /* printable char */
+        {
+          Serial.print(((char*) p_buf)[j]);
+        } else /* other char */
+        {
+          Serial.print('.');
+        }
+      }
+
+      #endif
+      Serial.print('\r');
+      Serial.print('\n');
+    }
+   
+  }
+}
+
+#if 0
+/**
+ *
  * Printout data in a standard hex view
  *
- * @param[in] p_buf		Pointer to data which should be printed out.
- * @param[in] l_len		Length of a data
+ * @param[in] p_buf   Pointer to data which should be printed out.
+ * @param[in] l_len   Length of a data
  *
  * @retval  None
  * @example  
@@ -150,46 +212,47 @@ inline void printGreen(const char c[]) {
  0x000010: 45 4e 54 5f             ENT_
  */
 inline void __hexdump__(const void* p_buf, uint32_t l_len) {
-	unsigned int i, j;
-	static char str[MAXCMD_LEN];
-	for (i = 0;	i < l_len + ((l_len % HEXDUMP_COLS) ?
-					( HEXDUMP_COLS - l_len % HEXDUMP_COLS) : 0);
-			i++) {
-		/* print offset */
-		if (i % HEXDUMP_COLS == 0) {
-			sprintf(str, "0x%06x: ", i);
-			Serial.print(str);
-		}
+  unsigned int i, j;
+  static char str[MAXCMD_LEN];
+  for (i = 0; i < l_len + ((l_len % HEXDUMP_COLS) ?
+          ( HEXDUMP_COLS - l_len % HEXDUMP_COLS) : 0);
+      i++) {
+    /* print offset */
+    if (i % HEXDUMP_COLS == 0) {
+      sprintf(str, "0x%06x: ", i);
+      Serial.print(str);
+    }
 
-		/* print hex data */
-		if (i < l_len) {
-			sprintf(str, "%02x ", 0xFF & ((char*) p_buf)[i]);
-			Serial.print(str);
-		} else /* end of block, just aligning for ASCII dump */
-		{
-			sprintf(str, "   ");
-			Serial.print(str);
-		}
+    /* print hex data */
+    if (i < l_len) {
+      sprintf(str, "%02x ", 0xFF & ((char*) p_buf)[i]);
+      Serial.print(str);
+    } else /* end of block, just aligning for ASCII dump */
+    {
+      sprintf(str, "   ");
+      Serial.print(str);
+    }
 
-		/* print ASCII dump */
-		if (i % HEXDUMP_COLS == ( HEXDUMP_COLS - 1)) {
-			for (j = i - ( HEXDUMP_COLS - 1); j <= i; j++) {
-				if (j >= l_len) /* end of block, not really printing */
-				{
-					Serial.print(' ');
-				} else if (isprint((int) ((char*) p_buf)[j])) /* printable char */
-				{
-					Serial.print(((char*) p_buf)[j]);
-				} else /* other char */
-				{
-					Serial.print('.');
-				}
-			}
-			Serial.print('\r');
-			Serial.print('\n');
-		}
-	}
+    /* print ASCII dump */
+    if (i % HEXDUMP_COLS == ( HEXDUMP_COLS - 1)) {
+      for (j = i - ( HEXDUMP_COLS - 1); j <= i; j++) {
+        if (j >= l_len) /* end of block, not really printing */
+        {
+          Serial.print(' ');
+        } else if (isprint((int) ((char*) p_buf)[j])) /* printable char */
+        {
+          Serial.print(((char*) p_buf)[j]);
+        } else /* other char */
+        {
+          Serial.print('.');
+        }
+      }
+      Serial.print('\r');
+      Serial.print('\n');
+    }
+  }
 }
+#endif
 
 #ifdef __cplusplus
 }
