@@ -99,6 +99,8 @@ void loop()
 {
   uint32_t ret = 0;
   uint8_t ifxPublicKey[64+TLV_PADDING];
+  // Timestamp is used to measure the execution time of a command
+  uint32_t ts = 0;
 
   if(sys_init)
   { 
@@ -106,8 +108,7 @@ void loop()
      * Get random value of RND_LENGTH length
      */
     Serial.println("Trust X generate random number...");
-    ret = trustX.getRandom(RND_LENGTH, rnd);
-    ASSERT(ret);
+    ret = trustX.getRandom(RND_LENGTH, rnd);    
     output_result("Random Message", rnd, RND_LENGTH);
   
     /* 
@@ -115,16 +116,14 @@ void loop()
      */
     Serial.println("Calculate Hash on the message...");
     ret = trustX.sha256(rnd, RND_LENGTH, hash);
-    hashLen = 32;
-    ASSERT(ret);
+    hashLen = 32;  
     output_result("SHA256", hash, hashLen);
   
     /* 
      * Generate a signature NIST-P256 on the message
      */
     Serial.println("Calculate signature from Trust X...");
-    ret = trustX.calculateSignature(hash, hashLen, formSign, signLen);
-    ASSERT(ret);
+    ret = trustX.calculateSignature(hash, hashLen, formSign, signLen);   
     output_result("Signature", formSign, signLen);
   
     /* 
@@ -172,12 +171,17 @@ void loop()
       }
     }
     
-    output_result("Signature", signature, SIGNATURE_LENGTH);    
+    output_result("Signature", signature, SIGNATURE_LENGTH); 
+    ts = millis();   
     ret = uECC_verify(ifxPublicKey+TLV_OFFSET,
                       hash,
                       hashLen,
                       signature,
                       uECC_secp256r1());
+    ts = millis() - ts;
+    Serial.print(ts, DEC);
+    Serial.println("ms");
+    
     if(ret==1){
     Serial.println("\r\nPassed Verification");
     }
@@ -187,9 +191,13 @@ void loop()
       Serial.println("\r\nInvalid result");
       }
 #else      
-    printGreen("Verify Signature using Trust X");
+    Serial.println("Verify Signature using Trust X");
+    ts = millis(); 
     ret = trustX.verifySignature(hash, hashLen, formSign, signLen, ifxPublicKey,
     sizeof(ifxPublicKey) / sizeof(ifxPublicKey[0]));
+    ts = millis() - ts;
+    Serial.print(ts, DEC);
+    Serial.println("ms");
     
     if(ret==0){
     Serial.println("\r\nPassed Verification");
@@ -202,7 +210,7 @@ void loop()
 #endif
 
   }
-
+    
   printlnGreen("\r\nPress i to re-initialize.. other key to loop...");   
   while (Serial.available()==0){} //Wait for user input  
   String input = Serial.readString();  //Reading the Input string from Serial port.
