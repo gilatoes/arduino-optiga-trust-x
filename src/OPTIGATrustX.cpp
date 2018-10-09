@@ -23,7 +23,6 @@
  *
  * Arduino library for OPTIGA™ Trust X.
  */
-
 #include "OPTIGATrustX.h"
 #include "optiga_trustx/CommandLib.h"
 #include "optiga_trustx/IntegrationLib.h"
@@ -91,6 +90,51 @@ int32_t IFX_OPTIGA_TrustX::begin(void)
 }
 
 
+inline void __hexdump__(const void* p_buf, uint32_t l_len) {
+#define MAXCMD_LEN      255
+#define HEXDUMP_COLS      16
+
+  unsigned int i, j;
+  static char str[MAXCMD_LEN];
+  for (i = 0; i < l_len + ((l_len % HEXDUMP_COLS) ?
+          ( HEXDUMP_COLS - l_len % HEXDUMP_COLS) : 0);
+      i++) {
+    /* print offset */
+    if (i % HEXDUMP_COLS == 0) {
+      sprintf(str, "0x%06x: ", i);
+      Serial.print(str);
+    }
+
+    /* print hex data */
+    if (i < l_len) {
+      sprintf(str, "%02x ", 0xFF & ((char*) p_buf)[i]);
+      Serial.print(str);
+    } else /* end of block, just aligning for ASCII dump */
+    {
+      sprintf(str, "   ");
+      Serial.print(str);
+    }
+
+    /* print ASCII dump */
+    if (i % HEXDUMP_COLS == ( HEXDUMP_COLS - 1)) {
+      for (j = i - ( HEXDUMP_COLS - 1); j <= i; j++) {
+        if (j >= l_len) /* end of block, not really printing */
+        {
+          Serial.print(' ');
+        } else if (isprint((int) ((char*) p_buf)[j])) /* printable char */
+        {
+          Serial.print(((char*) p_buf)[j]);
+        } else /* other char */
+        {
+          Serial.print('.');
+        }
+      }
+      Serial.print('\r');
+      Serial.print('\n');
+    }
+  }
+}
+
 int32_t IFX_OPTIGA_TrustX::checkChip(void)
 {
 	int32_t err = CMD_LIB_ERROR;
@@ -99,8 +143,8 @@ int32_t IFX_OPTIGA_TrustX::checkChip(void)
 	uint8_t p_cert[512];
 	uint16_t clen = 0;
 	uint8_t p_pubkey[68];
-	uint8_t p_sign[69];
-	uint8_t p_unformSign[64];
+	uint8_t p_sign[70];
+	uint8_t p_unformSign[66];
 	uint16_t slen = 0;
 	
 	do {
@@ -112,34 +156,63 @@ int32_t IFX_OPTIGA_TrustX::checkChip(void)
 		}
 		
 		err = getCertificate(p_cert, clen);
+
 		if (err)
 			break;
 		
 		getPublicKey(p_pubkey);
 		
+		Serial.println("Calling calculate Signature:");
 		err = calculateSignature(p_rnd, rlen, p_sign, slen);
+		__hexdump__(p_sign, slen);
+		Serial.println(slen, DEC);
+
 		if (err)
 			break;
 		
-		if (p_sign[1] == 0x21) {
+		Serial.println("Processing Signature");
+
+		if (p_sign[1] == 0x21)
+		{
 		  memcpy(p_unformSign, &p_sign[3], LENGTH_RS_VECTOR/2);
-		  if (p_sign[(LENGTH_RS_VECTOR/2) + 5] == 0x21) {
+		  if (p_sign[(LENGTH_RS_VECTOR/2) + 4] == 0x21) {
 			memcpy(&p_unformSign[LENGTH_RS_VECTOR/2], &p_sign[(LENGTH_RS_VECTOR/2) + 6], LENGTH_RS_VECTOR/2);
 		  } else {
 			memcpy(&p_unformSign[LENGTH_RS_VECTOR/2], &p_sign[(LENGTH_RS_VECTOR/2) + 5], LENGTH_RS_VECTOR/2);
 		  }
-		} else {
+		}
+		else
+		{
 		  memcpy(p_unformSign, &p_sign[2], LENGTH_RS_VECTOR/2);
-		  if (p_sign[(LENGTH_RS_VECTOR/2) + 3] == 0x21) {
-			memcpy(&p_unformSign[LENGTH_RS_VECTOR/2], &p_sign[(LENGTH_RS_VECTOR/2) + 5], LENGTH_RS_VECTOR/2);
-		  } else {
+		  if (p_sign[(LENGTH_RS_VECTOR/2) + 3] == 0x21)
+		  {
+			memcpy(&p_unformSign[LENGTH_RS_VECTOR/2], &p_sign[(LENGTH_RS_VECTOR/2) + 5], (LENGTH_RS_VECTOR/2));
+		  }
+		  else
+		  {
 			memcpy(&p_unformSign[LENGTH_RS_VECTOR/2], &p_sign[(LENGTH_RS_VECTOR/2) + 4], LENGTH_RS_VECTOR/2);
 		  }
 		}
 		
+		Serial.println("Calling uECC_verify");
+		//Serial.println("Trust X Public Key:");
+		//__hexdump__(p_pubkey, 65);
+		//Serial.println("Random Number:");
+		//__hexdump__(p_rnd, 32);
+		Serial.println("Signature:");
+		__hexdump__(p_unformSign, 65);
+
+
 		if (uECC_verify(p_pubkey+4, p_rnd, rlen, p_unformSign, uECC_secp256r1())) {
 			err = 0;
+			Serial.println("uECC_verify Ok");
+
 		}
+		else
+		{
+			Serial.println("uECC_verify failed");
+		}
+		Serial.println("uECC_verify completed");
 	} while(0);
 	
 	return err;
