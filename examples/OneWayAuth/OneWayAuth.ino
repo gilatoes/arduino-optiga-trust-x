@@ -251,7 +251,7 @@ uint8_t reset()
    * Speedup the board (from 6 mA to 15 mA)
    */
   printGreen("Limiting Current consumption (15mA - means no limitation) ... ");
-  ret = trustX.setCurrentLimit(15);
+  ret = trustX.setCurrentLimit(6);
   if (ret) {
     printlnRed("Failed");
     return -1;
