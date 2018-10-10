@@ -40,10 +40,9 @@ uint8_t *rawSign = new uint8_t[SIGN_LENGTH];
 uint8_t *formSign = new uint8_t[SIGN_LENGTH ];
 uint8_t *pubKey = new uint8_t[PUBKEY_LENGTH];
 
+uint8_t sys_init =0;
 void setup() 
 {
-  uint32_t ret = 0;
-  
   /*
    * Initialise a serial port for debug output
    */
@@ -51,27 +50,18 @@ void setup()
   delay(1000);
   Serial.println("Initializing ... ");
 
-  /*
+ /*
    * Initialise an OPTIGA™ Trust X Board
    */
-  printGreen("Begin to trust ... ");
-  ret = trustX.begin();
-  if (ret) {
-    printlnRed("Failed");
-    while (true);
+  if(reset()==0){
+    sys_init=1;
+  }else{
+    sys_init=0;
   }
-  printlnGreen("OK");
-
-  /*
-   * Speedup the board (from 6 mA to 15 mA)
-   */
-  ret = trustX.setCurrentLimit(15);
-  if (ret) {
-    printlnRed("Failed");
-    while (true);
-  }
-  printlnGreen("OK");
-
+#if( UC_FAMILY == XMC1 )
+  led1On();
+  led2On();
+#endif  
 }
 
 static void output_result(char* tag, uint32_t tstamp, uint8_t* in, uint16_t in_len)
@@ -87,7 +77,7 @@ static void output_result(char* tag, uint32_t tstamp, uint8_t* in, uint16_t in_l
   HEXDUMP(in, in_len);
 }
 
-void calculateSignVerifySign_ownkey()
+uint8_t  calculateSignVerifySign_ownkey()
 {
   uint32_t ret = 0;
   uint8_t  data[DATA_LENGTH] = {'T', 'R', 'U', 'S', 'T', 'X', 'T', 'E', 'S', 'T'};
@@ -115,7 +105,7 @@ void calculateSignVerifySign_ownkey()
   hashLen = HASH_LENGTH;
   if (ret) {
     printlnRed("Failed");
-    while (true);
+    return 0;
   }
 
   output_result("Hash", ts, hash, hashLen);
@@ -129,7 +119,7 @@ void calculateSignVerifySign_ownkey()
   ts = millis() - ts;
   if (ret) {
     printlnRed("Failed");
-    while (true);
+    return 0;
   }
 
   output_result("Signature #1", ts, formSign, signLen);
@@ -143,15 +133,16 @@ void calculateSignVerifySign_ownkey()
   ts = millis() - ts;
   if (ret) {
     printlnRed("Failed");
-    while (true);
+    return 0;
   }
   
   printGreen("[OK] | Command executed in "); 
   Serial.print(ts); 
   Serial.println(" ms");
+  return 1;
 }
 
-void calculateSignVerifySign_newkey()
+uint8_t calculateSignVerifySign_newkey()
 {
   uint32_t ret = 0;
   uint8_t  data[DATA_LENGTH] = {'T', 'R', 'U', 'S', 'T', 'X', 'T', 'E', 'S', 'T'};
@@ -172,7 +163,7 @@ void calculateSignVerifySign_newkey()
   hashLen = HASH_LENGTH;
   if (ret) {
     printlnRed("Failed");
-    while (true);
+    return 0;
   }
 
   output_result("Hash", ts, hash, hashLen);
@@ -186,7 +177,7 @@ void calculateSignVerifySign_newkey()
   ts = millis() - ts;
   if (ret) {
     printlnRed("Failed");
-    while (true);
+    return 0;
   }
   output_result("Public key", ts, pubKey, pubKeyLen);
 
@@ -199,7 +190,7 @@ void calculateSignVerifySign_newkey()
   ts = millis() - ts;
   if (ret) {
     printlnRed("Failed");
-    while (true);
+    return 0;
   }
 
   output_result("Signature #2", ts, formSign, signLen);
@@ -213,31 +204,85 @@ void calculateSignVerifySign_newkey()
   ts = millis() - ts;
   if (ret) {
     printlnRed("Failed");
-    while (true);
+    return 0;
   }
 
   printGreen("[OK] | Command executed in "); 
   Serial.print(ts); 
   Serial.println(" ms");
+  return 1;
 }
 
 void loop()
 {
-  uint8_t  cntr = 10;
+uint8_t ret=0;
 
-  /* Sign data and verify a signature with the embedded certificate */
-  calculateSignVerifySign_ownkey();
+  if(sys_init)
+  { 
+    /* Sign data and verify a signature with the embedded certificate */
+    ret = calculateSignVerifySign_ownkey();
+    if(ret==1)
+    {
+      Serial.println("Sign own key failed");
+    }
+    else
+    {    
+      /* Sign data and verify a signature with a newly generated keypair */
+      ret = calculateSignVerifySign_newkey();
 
-  /* Sign data and verify a signature with a newly generated keypair */
-  calculateSignVerifySign_newkey();
+      if(ret==1)
+      {
+         Serial.println("Sign a new key failed");      
+      }      
+    }
+  }
+  
+  printlnGreen("\r\nPress i to re-initialize.. other key to loop...");   
+  while (Serial.available()==0){} //Wait for user input  
+  String input = Serial.readString();  //Reading the Input string from Serial port.
+  input.trim();
+  if(input=="i") 
+  {
+    if(reset()!=0)
+    {
+      //Do not execute
+      sys_init=0;
+      //close the connection
+      trustX.end();
+    }else
+    {
+      sys_init=1;
+      }
+  }
 
-  /*
-   * Count down 10 seconds and restart the application
-   */
-  while(cntr) {
-    Serial.print(cntr);
-    Serial.println(" seconds untill restart.");
-    delay(1000);
-    cntr--;
-  }  
 }
+
+uint8_t reset()
+{
+  uint32_t ret = 0;   
+  printGreen("Begin to trust ... ");
+  ret = trustX.begin();
+  if (ret) {
+    printlnRed("Failed");
+    return -1;   
+  }
+  printlnGreen("OK");
+  
+   /*
+   * Speedup the board (from 6 mA to 15 mA)
+   */
+  printGreen("Limiting Current consumption (15mA - means no limitation) ... ");
+  ret = trustX.setCurrentLimit(15);
+  if (ret) {
+    printlnRed("Failed");
+    return -1;
+  }
+  printlnGreen("OK");
+
+#if( UC_FAMILY == XMC1 )
+  led1Off();
+  led2Off();
+#endif
+  return 0;
+}
+
