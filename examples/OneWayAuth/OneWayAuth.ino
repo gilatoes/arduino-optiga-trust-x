@@ -26,7 +26,12 @@
  */
 
 #include "OPTIGATrustX.h"
+
+#define SOFTWARE_VERIFY      1
+
+#if SOFTWARE_VERIFY
 #include "third_crypto/uECC.h"
+#endif
 
 #define MAXCMD_LEN    255
 #define CERT_LENGTH   512
@@ -39,7 +44,7 @@
 #include "fprint.h"
 
 #define ASSERT(err)   if (ret) { printlnRed("Failed"); while (true); }
-#define SOFTWARE_VERIFY      1
+
 /*
  * Allocating buffers for further use in loop()
  */
@@ -132,6 +137,7 @@ void loop()
     trustX.getPublicKey(ifxPublicKey);    
     output_result("Public Key", ifxPublicKey, 64 + TLV_PADDING);
 
+#if SOFTWARE_VERIFY
    //Drop off public key TLV
    ret = uECC_valid_public_key(ifxPublicKey + TLV_OFFSET, uECC_secp256r1());
    if(ret==1)
@@ -139,7 +145,7 @@ void loop()
    else
    {Serial.println("Error: Invalid Public key.");}
    
-#if SOFTWARE_VERIFY      
+  
     //ECC signature pair (r,s) is encoded as two DER "Integer"   
     Serial.println("Processing Signature...");
     uint8_t signature[SIGNATURE_LENGTH];
