@@ -32,37 +32,29 @@
 #define SUPPRESSCOLLORS
 #include "fprint.h"
 
+uint8_t sys_init =0;
+
 void setup() 
 {
-  uint32_t ret = 0;
-  
-  /*
+/*
    * Initialise a serial port for debug output
    */
   Serial.begin(38400);
   delay(1000);
   Serial.println("Initializing ... ");
 
-  /*
+ /*
    * Initialise an OPTIGA™ Trust X Board
    */
-  printGreen("Begin to trust ... ");
-  ret = trustX.begin();
-  if (ret) {
-    printlnRed("Failed");
-    while (true);
+  if(reset()==0){
+    sys_init=1;
+  }else{
+    sys_init=0;
   }
-  printlnGreen("OK");
-
-  /*
-   * Speedup the board (from 6 mA to 15 mA)
-   */
-  ret = trustX.setCurrentLimit(15);
-  if (ret) {
-    printlnRed("Failed");
-    while (true);
-  }
-  printlnGreen("OK");
+#if( UC_FAMILY == XMC1 )
+  led1On();
+  led2On();
+#endif  
 
 }
 
@@ -82,74 +74,86 @@ static void output_result(char* tag, uint32_t tstamp, uint8_t* in, uint16_t in_l
 void loop()
 {
   uint32_t ret = 0;
-  uint8_t  cntr = 10;
   uint8_t  *rnd = new uint8_t[RND_MAXLENGTH];
   uint32_t ts = 0;
   
   /* Initialise Memmory Area */
   memset(rnd, 0, RND_MAXLENGTH);
+
+  if(sys_init)
+  {
+    
+    /*
+     * Generate Random values of different sizes
+     */
+    printGreen("\r\nGet 16 bytes random number");
+    ts = millis();
+    ret = trustX.getRandom(16, rnd);
+    ts = millis() - ts;
+    if (ret) {
+      printlnRed("Failed");
+      while (true);
+    }
+    output_result("Random", ts, rnd, 16);
   
-  /*
-   * Generate Random values of different sizes
-   */
-  printGreen("\r\nGet 16 bytes random number");
-  ts = millis();
-  ret = trustX.getRandom(16, rnd);
-  ts = millis() - ts;
-  if (ret) {
-    printlnRed("Failed");
-    while (true);
-  }
-  output_result("Random", ts, rnd, 16);
-
-  printGreen("\r\nGet 32 bytes random number");
-  ts = millis();
-  ret = trustX.getRandom(32, rnd);
-  ts = millis() - ts;
-  if (ret) {
-    printlnRed("Failed");
-    while (true);
-  }
-  output_result("Random", ts, rnd, 32);
-
-  printGreen("\r\nGet 64 bytes random number");
-  ts = millis();
-  ret = trustX.getRandom(64, rnd);
-  ts = millis() - ts;
-  if (ret) {
-    printlnRed("Failed");
-    while (true);
-  }
-  output_result("Random", ts, rnd, 64);
-
-  printGreen("\r\nGet 128 bytes random number");
-  ts = millis();
-  ret = trustX.getRandom(128, rnd);
-  ts = millis() - ts;
-  if (ret) {
-    printlnRed("Failed");
-    while (true);
-  }
-  output_result("Random", ts, rnd, 128);
-
-  printGreen("\r\nGet 256 bytes random number");
-  ts = millis();
-  ret = trustX.getRandom(256, rnd);
-  ts = millis() - ts;
-  if (ret) {
-    printlnRed("Failed");
-    while (true);
-  }
-  output_result("Random", ts, rnd, 256);
+    printGreen("\r\nGet 32 bytes random number");
+    ts = millis();
+    ret = trustX.getRandom(32, rnd);
+    ts = millis() - ts;
+    if (ret) {
+      printlnRed("Failed");
+      while (true);
+    }
+    output_result("Random", ts, rnd, 32);
   
-  /*
-   * Count down 10 seconds and restart the application
-   */
-  while(cntr) {
-    Serial.print(cntr);
-    Serial.println(" seconds untill restart.");
-    delay(1000);
-    cntr--;
+    printGreen("\r\nGet 64 bytes random number");
+    ts = millis();
+    ret = trustX.getRandom(64, rnd);
+    ts = millis() - ts;
+    if (ret) {
+      printlnRed("Failed");
+      while (true);
+    }
+    output_result("Random", ts, rnd, 64);
+  
+    printGreen("\r\nGet 128 bytes random number");
+    ts = millis();
+    ret = trustX.getRandom(128, rnd);
+    ts = millis() - ts;
+    if (ret) {
+      printlnRed("Failed");
+      while (true);
+    }
+    output_result("Random", ts, rnd, 128);
+  
+    printGreen("\r\nGet 256 bytes random number");
+    ts = millis();
+    ret = trustX.getRandom(256, rnd);
+    ts = millis() - ts;
+    if (ret) {
+      printlnRed("Failed");
+      while (true);
+    }
+    output_result("Random", ts, rnd, 256);
+
+      printlnGreen("\r\nPress i to re-initialize.. other key to loop...");   
+      while (Serial.available()==0){} //Wait for user input  
+      String input = Serial.readString();  //Reading the Input string from Serial port.
+      input.trim();
+      if(input=="i") 
+      {
+        if(reset()!=0)
+        {
+          //Do not execute
+          sys_init=0;
+          //close the connection
+          trustX.end();
+        }else
+        {
+          sys_init=1;
+          }
+      }
+  
   }
 
   /*
@@ -157,3 +161,34 @@ void loop()
    */
   delete rnd;
 }
+
+
+uint8_t reset()
+{
+  uint32_t ret = 0;   
+  printGreen("Begin to trust ... ");
+  ret = trustX.begin();
+  if (ret) {
+    printlnRed("Failed");
+    return -1;   
+  }
+  printlnGreen("OK");
+  
+   /*
+   * Speedup the board (from 6 mA to 15 mA)
+   */
+  printGreen("Limiting Current consumption (15mA - means no limitation) ... ");
+  ret = trustX.setCurrentLimit(15);
+  if (ret) {
+    printlnRed("Failed");
+    return -1;
+  }
+  printlnGreen("OK");
+
+#if( UC_FAMILY == XMC1 )
+  led1Off();
+  led2Off();
+#endif
+  return 0;
+}
+
