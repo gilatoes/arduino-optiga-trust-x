@@ -221,7 +221,7 @@ uint8_t ret=0;
   { 
     /* Sign data and verify a signature with the embedded certificate */
     ret = calculateSignVerifySign_ownkey();
-    if(ret==1)
+    if(ret==0)
     {
       Serial.println("Sign own key failed");
     }
@@ -230,7 +230,7 @@ uint8_t ret=0;
       /* Sign data and verify a signature with a newly generated keypair */
       ret = calculateSignVerifySign_newkey();
 
-      if(ret==1)
+      if(ret==0)
       {
          Serial.println("Sign a new key failed");      
       }      
