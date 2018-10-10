@@ -41,9 +41,6 @@ void setup()
   delay(1000);
   Serial.println("Initializing XMC... ");
  
- /*
-   * Initialise an OPTIGA™ Trust X Board
-   */
   if(reset()==0){
     sys_init=1;
   }else{
@@ -94,4 +91,3 @@ uint8_t reset()
 #endif
   return ret;
 }
-
