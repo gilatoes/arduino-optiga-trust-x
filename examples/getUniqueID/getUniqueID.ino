@@ -57,6 +57,26 @@ void setup()
 #endif  
 }
 
+
+uint8_t reset()
+{
+  uint32_t ret = 0;   
+  printGreen("Begin to trust ... ");
+  ret = trustX.begin();
+  if (ret) {
+    printlnRed("Failed");
+    return -1;   
+  }
+  printlnGreen("OK");
+
+#if( UC_FAMILY == XMC1 )
+  led1Off();
+  led2Off();
+#endif
+  return 0;
+}
+
+
 void loop()
 {
   uint32_t ret = 0;
@@ -100,33 +120,4 @@ void loop()
       }
   }
 
-}
-
-uint8_t reset()
-{
-  uint32_t ret = 0;   
-  printGreen("Begin to trust ... ");
-  ret = trustX.begin();
-  if (ret) {
-    printlnRed("Failed");
-    return -1;   
-  }
-  printlnGreen("OK");
-  
-   /*
-   * Speedup the board (from 6 mA to 15 mA)
-   */
-  printGreen("Limiting Current consumption (15mA - means no limitation) ... ");
-  ret = trustX.setCurrentLimit(15);
-  if (ret) {
-    printlnRed("Failed");
-    return -1;
-  }
-  printlnGreen("OK");
-
-#if( UC_FAMILY == XMC1 )
-  led1Off();
-  led2Off();
-#endif
-  return 0;
 }
