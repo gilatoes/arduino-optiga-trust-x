@@ -1,11 +1,10 @@
-﻿# OPTIGA&trade; Trust X Arduino library
+﻿# OPTIGA&trade; Trust X Boot Camp <Mission Arduino>
 ![TrustXPackage](https://github.com/Infineon/Assets/raw/master/Pictures/OPTIGA-Trust-X.png)
 
-Infineon's [OPTIGA&trade; Trust X] Boot Camp (https://www.infineon.com/cms/en/product/security-smart-card-solutions/optiga-embedded-security-solutions/optiga-trust/optiga-trust-x-sls-32aia/) security solution library for Arduino
+Infineon's [OPTIGA&trade; Trust X] Boot Camp (https://www.infineon.com/cms/en/product/security-smart-card-solutions/optiga-embedded-security-solutions/optiga-trust/optiga-trust-x-sls-32aia/) security solution library for Arduino platform
 
-## Summary
-[OPTIGA&trade; Trust X](https://www.infineon.com/dgdl/Infineon-OPTIGA%20TRUST%20X%20SLS%2032AIA-DS-v02_18-EN.pdf) is a security solution based on a secure micrcontroller.
-Each device is shipped with a unique elliptic-curve keypair and a corresponding X.509 certificate. OPTIGA&trade; Trust X enables easy integration into existing PKI infrastructure.
+## Purpose of the Boot Camp
+The Boot Camp aims to instil confidence and product knowledge of Infineon OPTIGA&trade; Trust X. The sample codes allow you to hands on with the integration library and perform some useful tasks. At the end of this Boot Camp session, you will be able to understand the capabilities of the Library and appreciate hardware security that can protects your system.
 
 
 ## Key Features and Benefits
@@ -25,10 +24,12 @@ Each device is shipped with a unique elliptic-curve keypair and a corresponding 
 * Cryptographic Tool Box based on ECC NIST P256, P384 and SHA256 (sign, verify, key generation, ECDH, session key derivation)      
 
 ## Hardware
+In this training, XMC1100 2Go (Infineon Technologies, XMC1100, Cortex M0), unless otherwise stated, will be used as the security host controller.
+
 The wiring to your arduino board depends on the [evaluation board](https://www.infineon.com/cms/en/product/evaluation-boards/optiga-trust-x-eval-kit/) or the
 Shield2GO (link pending) you are using.
 
-[Mission 1 XMC2Go with Shield2Go]
+[Mission Arduino - XMC2Go with Shield2Go]
 (https://easyeda.com/gilatoes/mission-1-xmc2go)
 
 ## Installation
@@ -42,12 +43,8 @@ To install the OPTIGA&trade; Trust X library in the Arduino IDE several options 
 
 ![Install Library](https://raw.githubusercontent.com/infineon/assets/master/Pictures/Library_Install_ZIP.png)
 
-## Supported Devices
-In general, the library should be compatible with any Arduino board, however it has been tested for the following platforms:
-* XMC1100 2Go (Infineon Technologies, XMC1100, Cortex M0)
-
 ## Usage
-The library is equiped with eight groups of examples which can be found on the following path: File->Examples>OPTIGATrustX
+The library is equipped with eight groups of examples which can be found on the following path: File->Examples>OPTIGATrustX
 The following sections describe all the examples in more detail.
 
 ### selfTest
