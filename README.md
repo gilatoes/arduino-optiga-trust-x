@@ -4,24 +4,7 @@
 Infineon's [OPTIGA&trade; Trust X] Boot Camp (https://www.infineon.com/cms/en/product/security-smart-card-solutions/optiga-embedded-security-solutions/optiga-trust/optiga-trust-x-sls-32aia/) security solution library for Arduino platform
 
 ## Purpose of the Boot Camp
-The Boot Camp aims to instil confidence and product knowledge of Infineon OPTIGA&trade; Trust X. The sample codes allow you to hands on with the integration library and perform some useful tasks. At the end of this Boot Camp session, you will be able to understand the capabilities of the Library and appreciate hardware security that can protects your system.
-
-
-## Key Features and Benefits
-* High-end security controller
-* Turnkey solution
-* One-way authentication using ECDSA
-* Mutual authentication using DTLS client (IETF standard RFC 6347)
-* Secure communication using DTLS
-* Compliant with the USB Type-C™ Authentication standard
-* I2C interface
-* Up to 10 KB user memory
-* Cryptographic support: ECC256, AES128, SHA-256, TRNG, DRNG
-* PG-USON-10-2 package (3 x 3 mm)
-* Standard & extended temperature ranges
-* Full system integration support
-* Common Criteria Certified EAL6+ (high) hardware
-* Cryptographic Tool Box based on ECC NIST P256, P384 and SHA256 (sign, verify, key generation, ECDH, session key derivation)      
+The Boot Camp aims to instil confidence and product knowledge of Infineon OPTIGA&trade; Trust X. The sample codes allow you to hands on with the integration library and perform some useful tasks. At the end of this Boot Camp session, you will be able to understand the capabilities of the Library and appreciate hardware security that can protects your system.    
 
 ## Hardware
 In this training, XMC1100 2Go (Infineon Technologies, XMC1100, Cortex M0), unless otherwise stated, will be used as the security host controller.
@@ -32,16 +15,24 @@ Shield2GO (link pending) you are using.
 [Mission Arduino - XMC2Go with Shield2Go]
 (https://easyeda.com/gilatoes/mission-1-xmc2go)
 
-## Installation
+## Getting Started
+Install Arduino IDE 1.8.1.
+[Arduino V1.8.1]https://www.arduino.cc/download_handler.php?f=/arduino-1.8.1-windows.zip
+
+
+## Library Installation
 
 ### Integration of Library
 Please download this repository from GitHub either from the latest [release](https://github.com/Infineon/arduino-optiga-trust-x/releases) of directly [here](https://github.com/Infineon/arduino-optiga-trust-x/archive/v1.0.3.zip).
+## Mission Arduino Installation
+Clone or download this github.
 
 To install the OPTIGA&trade; Trust X library in the Arduino IDE several options can be taken:
 1. via [Library Manager](https://www.arduino.cc/en/Guide/Libraries#toc3) you can find and control this library. Simply type in the Search Field **OPTIGATrustX**
 1. **Sketch** > **Include Library** > **Add .ZIP Library...** in the Arduino IDE and navigate to the downloaded .ZIP file of this repository. The library will be installed in your Arduino sketch folder in libraries and you can select as well as include this one to your project under **Sketch** > **Include Library** > **OPTIGATrustX**.
 
 ![Install Library](https://raw.githubusercontent.com/infineon/assets/master/Pictures/Library_Install_ZIP.png)
+
 
 ## Usage
 The library is equipped with eight groups of examples which can be found on the following path: File->Examples>OPTIGATrustX
