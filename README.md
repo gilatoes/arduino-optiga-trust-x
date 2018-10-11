@@ -1,7 +1,7 @@
 ﻿# OPTIGA&trade; Trust X Arduino library
 ![TrustXPackage](https://github.com/Infineon/Assets/raw/master/Pictures/OPTIGA-Trust-X.png)
 
-Infineon's [OPTIGA&trade; Trust X](https://www.infineon.com/cms/en/product/security-smart-card-solutions/optiga-embedded-security-solutions/optiga-trust/optiga-trust-x-sls-32aia/) security solution library for Arduino
+Infineon's [OPTIGA&trade; Trust X] Boot Camp (https://www.infineon.com/cms/en/product/security-smart-card-solutions/optiga-embedded-security-solutions/optiga-trust/optiga-trust-x-sls-32aia/) security solution library for Arduino
 
 ## Summary
 [OPTIGA&trade; Trust X](https://www.infineon.com/dgdl/Infineon-OPTIGA%20TRUST%20X%20SLS%2032AIA-DS-v02_18-EN.pdf) is a security solution based on a secure micrcontroller.
