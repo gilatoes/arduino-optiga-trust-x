@@ -28,6 +28,9 @@ Each device is shipped with a unique elliptic-curve keypair and a corresponding 
 The wiring to your arduino board depends on the [evaluation board](https://www.infineon.com/cms/en/product/evaluation-boards/optiga-trust-x-eval-kit/) or the
 Shield2GO (link pending) you are using.
 
+[Mission 1 XMC2Go with Shield2Go]
+(https://easyeda.com/gilatoes/mission-1-xmc2go)
+
 ## Installation
 
 ### Integration of Library
