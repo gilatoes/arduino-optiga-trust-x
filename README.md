@@ -1,4 +1,4 @@
-﻿# OPTIGA&trade; Trust X Boot Camp <Mission Arduino>
+﻿# Infineon OPTIGA&trade; Trust X Boot Camp <Mission Arduino>
 ![TrustXPackage](https://github.com/Infineon/Assets/raw/master/Pictures/OPTIGA-Trust-X.png)
 
 Infineon's [OPTIGA&trade; Trust X] Boot Camp (https://www.infineon.com/cms/en/product/security-smart-card-solutions/optiga-embedded-security-solutions/optiga-trust/optiga-trust-x-sls-32aia/) security solution library for Arduino platform
