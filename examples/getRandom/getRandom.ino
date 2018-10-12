@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE
  *
- * Demonstrates use of the 
+ * Demonstrates use of the
  * Infineon Technologies AG OPTIGA™ Trust X Arduino library
  */
 
@@ -34,12 +34,12 @@
 
 uint8_t sys_init =0;
 
-void setup() 
+void setup()
 {
 /*
    * Initialise a serial port for debug output
    */
-  Serial.begin(38400);
+  Serial.begin(115200, SERIAL_8N1);
   delay(1000);
   Serial.println("Initializing ... ");
 
@@ -54,19 +54,19 @@ void setup()
 #if( UC_FAMILY == XMC1 )
   led1On();
   led2On();
-#endif  
+#endif
 
 }
 
 static void output_result(char* tag, uint32_t tstamp, uint8_t* in, uint16_t in_len)
 {
-  printGreen("[OK] | Command executed in "); 
-  Serial.print(tstamp); 
+  printGreen("[OK] | Command executed in ");
+  Serial.print(tstamp);
   Serial.println(" ms");
-  printMagenta(tag); 
+  printMagenta(tag);
   printMagenta(" Length: ");
   Serial.println(in_len);
-  printMagenta(tag); 
+  printMagenta(tag);
   printlnMagenta(":");
   HEXDUMP(in, in_len);
 }
@@ -76,13 +76,13 @@ void loop()
   uint32_t ret = 0;
   uint8_t  *rnd = new uint8_t[RND_MAXLENGTH];
   uint32_t ts = 0;
-  
+
   /* Initialise Memmory Area */
   memset(rnd, 0, RND_MAXLENGTH);
 
   if(sys_init)
   {
-    
+
     /*
      * Generate Random values of different sizes
      */
@@ -95,7 +95,7 @@ void loop()
       while (true);
     }
     output_result("Random", ts, rnd, 16);
-  
+
     printGreen("\r\nGet 32 bytes random number");
     ts = millis();
     ret = trustX.getRandom(32, rnd);
@@ -105,7 +105,7 @@ void loop()
       while (true);
     }
     output_result("Random", ts, rnd, 32);
-  
+
     printGreen("\r\nGet 64 bytes random number");
     ts = millis();
     ret = trustX.getRandom(64, rnd);
@@ -115,7 +115,7 @@ void loop()
       while (true);
     }
     output_result("Random", ts, rnd, 64);
-  
+
     printGreen("\r\nGet 128 bytes random number");
     ts = millis();
     ret = trustX.getRandom(128, rnd);
@@ -125,7 +125,7 @@ void loop()
       while (true);
     }
     output_result("Random", ts, rnd, 128);
-  
+
     printGreen("\r\nGet 256 bytes random number");
     ts = millis();
     ret = trustX.getRandom(256, rnd);
@@ -136,11 +136,11 @@ void loop()
     }
     output_result("Random", ts, rnd, 256);
 
-      printlnGreen("\r\nPress i to re-initialize.. other key to loop...");   
-      while (Serial.available()==0){} //Wait for user input  
+      printlnGreen("\r\nPress i to re-initialize.. other key to loop...");
+      while (Serial.available()==0){} //Wait for user input
       String input = Serial.readString();  //Reading the Input string from Serial port.
       input.trim();
-      if(input=="i") 
+      if(input=="i")
       {
         if(reset()!=0)
         {
@@ -153,7 +153,7 @@ void loop()
           sys_init=1;
           }
       }
-  
+
   }
 
   /*
@@ -165,15 +165,15 @@ void loop()
 
 uint8_t reset()
 {
-  uint32_t ret = 0;   
+  uint32_t ret = 0;
   printGreen("Begin to trust ... ");
   ret = trustX.begin();
   if (ret) {
     printlnRed("Failed");
-    return -1;   
+    return -1;
   }
   printlnGreen("OK");
-  
+
    /*
    * Speedup the board (from 6 mA to 15 mA)
    */
@@ -191,4 +191,3 @@ uint8_t reset()
 #endif
   return 0;
 }
-

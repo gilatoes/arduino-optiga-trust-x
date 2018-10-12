@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE
  *
- * Demonstrates use of the 
+ * Demonstrates use of the
  * Infineon Technologies AG OPTIGA™ Trust X Arduino library
  */
 
@@ -41,12 +41,12 @@ uint8_t *formSign = new uint8_t[SIGN_LENGTH ];
 uint8_t *pubKey = new uint8_t[PUBKEY_LENGTH];
 
 uint8_t sys_init =0;
-void setup() 
+void setup()
 {
   /*
    * Initialise a serial port for debug output
    */
-  Serial.begin(38400);
+  Serial.begin(115200, SERIAL_8N1);
   delay(1000);
   Serial.println("Initializing ... ");
 
@@ -61,18 +61,18 @@ void setup()
 #if( UC_FAMILY == XMC1 )
   led1On();
   led2On();
-#endif  
+#endif
 }
 
 static void output_result(char* tag, uint32_t tstamp, uint8_t* in, uint16_t in_len)
 {
-  printGreen("[OK] | Command executed in "); 
-  Serial.print(tstamp); 
+  printGreen("[OK] | Command executed in ");
+  Serial.print(tstamp);
   Serial.println(" ms");
-  printMagenta(tag); 
+  printMagenta(tag);
   printMagenta(" Length: ");
   Serial.println(in_len);
-  printMagenta(tag); 
+  printMagenta(tag);
   printlnMagenta(":");
   HEXDUMP(in, in_len);
 }
@@ -83,7 +83,7 @@ uint8_t  calculateSignVerifySign_ownkey()
   uint8_t  data[DATA_LENGTH] = {'T', 'R', 'U', 'S', 'T', 'X', 'T', 'E', 'S', 'T'};
   uint8_t  ifxPublicKey[68];
   uint32_t ts = 0;
-  
+
   uint16_t hashLen = HASH_LENGTH;
   uint16_t signLen = SIGN_LENGTH;
   uint16_t pubKeyLen = PUBKEY_LENGTH;
@@ -92,7 +92,7 @@ uint8_t  calculateSignVerifySign_ownkey()
    * Extract public key of the device certificate
    */
   trustX.getPublicKey(ifxPublicKey);
-   
+
   output_result("My Public Key", ts, ifxPublicKey, sizeof(ifxPublicKey));
 
   /*
@@ -135,9 +135,9 @@ uint8_t  calculateSignVerifySign_ownkey()
     printlnRed("Failed");
     return 0;
   }
-  
-  printGreen("[OK] | Command executed in "); 
-  Serial.print(ts); 
+
+  printGreen("[OK] | Command executed in ");
+  Serial.print(ts);
   Serial.println(" ms");
   return 1;
 }
@@ -148,7 +148,7 @@ uint8_t calculateSignVerifySign_newkey()
   uint8_t  data[DATA_LENGTH] = {'T', 'R', 'U', 'S', 'T', 'X', 'T', 'E', 'S', 'T'};
   uint8_t  ifxPublicKey[68];
   uint32_t ts = 0;
-  
+
   uint16_t hashLen = HASH_LENGTH;
   uint16_t signLen = SIGN_LENGTH;
   uint16_t pubKeyLen = PUBKEY_LENGTH;
@@ -207,8 +207,8 @@ uint8_t calculateSignVerifySign_newkey()
     return 0;
   }
 
-  printGreen("[OK] | Command executed in "); 
-  Serial.print(ts); 
+  printGreen("[OK] | Command executed in ");
+  Serial.print(ts);
   Serial.println(" ms");
   return 1;
 }
@@ -218,7 +218,7 @@ void loop()
 uint8_t ret=0;
 
   if(sys_init)
-  { 
+  {
     /* Sign data and verify a signature with the embedded certificate */
     ret = calculateSignVerifySign_ownkey();
     if(ret==0)
@@ -226,22 +226,22 @@ uint8_t ret=0;
       Serial.println("Sign own key failed");
     }
     else
-    {    
+    {
       /* Sign data and verify a signature with a newly generated keypair */
       ret = calculateSignVerifySign_newkey();
 
       if(ret==0)
       {
-         Serial.println("Sign a new key failed");      
-      }      
+         Serial.println("Sign a new key failed");
+      }
     }
   }
-  
-  printlnGreen("\r\nPress i to re-initialize.. other key to loop...");   
-  while (Serial.available()==0){} //Wait for user input  
+
+  printlnGreen("\r\nPress i to re-initialize.. other key to loop...");
+  while (Serial.available()==0){} //Wait for user input
   String input = Serial.readString();  //Reading the Input string from Serial port.
   input.trim();
-  if(input=="i") 
+  if(input=="i")
   {
     if(reset()!=0)
     {
@@ -259,15 +259,15 @@ uint8_t ret=0;
 
 uint8_t reset()
 {
-  uint32_t ret = 0;   
+  uint32_t ret = 0;
   printGreen("Begin to trust ... ");
   ret = trustX.begin();
   if (ret) {
     printlnRed("Failed");
-    return -1;   
+    return -1;
   }
   printlnGreen("OK");
-  
+
    /*
    * Speedup the board (from 6 mA to 15 mA)
    */
@@ -285,4 +285,3 @@ uint8_t reset()
 #endif
   return 0;
 }
-

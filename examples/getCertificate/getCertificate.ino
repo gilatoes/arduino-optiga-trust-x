@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE
  *
- * Demonstrates use of the 
+ * Demonstrates use of the
  * Infineon Technologies AG OPTIGA™ Trust X Arduino library
  */
 
@@ -35,17 +35,17 @@
 uint8_t *cert = new uint8_t[CERT_MAXLENGTH];
 
 uint8_t sys_init =0;
-void setup() 
+void setup()
 {
   uint32_t ret = 0;
-  
+
   /*
    * Initialise a serial port for debug output
    */
-  Serial.begin(38400);
+  Serial.begin(115200, SERIAL_8N1);
   delay(1000);
   Serial.println("Initializing ... ");
- 
+
  /*
    * Initialise an OPTIGA™ Trust X Board
    */
@@ -57,7 +57,7 @@ void setup()
 #if( UC_FAMILY == XMC1 )
   led1On();
   led2On();
-#endif  
+#endif
 
 }
 
@@ -74,24 +74,24 @@ void loop()
      */
     printlnGreen("\r\nGetting Certificate ... ");
     ret = trustX.getCertificate(cert, certLen);
-    if (ret) 
+    if (ret)
     {
-      printlnRed("Failed");      
+      printlnRed("Failed");
     }
-  
-    printlnGreen("[OK]"); 
+
+    printlnGreen("[OK]");
     printMagenta("Certificate Length: ");
-    Serial.println(certLen); 
+    Serial.println(certLen);
     printlnMagenta("Certificate:");
-    
+
     HEXDUMP(cert, certLen);
   }
 
-  printlnGreen("\r\nPress i to re-initialize.. other key to loop...");   
-  while (Serial.available()==0){} //Wait for user input  
+  printlnGreen("\r\nPress i to re-initialize.. other key to loop...");
+  while (Serial.available()==0){} //Wait for user input
   String input = Serial.readString();  //Reading the Input string from Serial port.
   input.trim();
-  if(input=="i") 
+  if(input=="i")
   {
     if(reset()!=0)
     {
@@ -109,15 +109,15 @@ void loop()
 
 uint8_t reset()
 {
-  uint32_t ret = 0;   
+  uint32_t ret = 0;
   printGreen("Begin to trust ... ");
   ret = trustX.begin();
   if (ret) {
     printlnRed("Failed");
-    return -1;   
+    return -1;
   }
   printlnGreen("OK");
-  
+
    /*
    * Speedup the board (from 6 mA to 15 mA)
    */

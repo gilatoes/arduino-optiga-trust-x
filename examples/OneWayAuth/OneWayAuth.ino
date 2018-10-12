@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE
  *
- * Demonstrates use of the 
+ * Demonstrates use of the
  * Infineon Technologies AG OPTIGA™ Trust X Arduino library
  */
 
@@ -63,14 +63,14 @@ uint16_t pubKeyLen = PUBKEY_LENGTH;
 #define SIGNATURE_LENGTH  64
 #define TLV_PADDING    4
 #define TLV_OFFSET     4
-  
+
 uint8_t sys_init =0;
-void setup() 
+void setup()
 {
   /*
    * Initialise a serial port for debug output
    */
-  Serial.begin(38400);
+  Serial.begin(115200, SERIAL_8N1);
   delay(1000);
   Serial.println("Initializing ... ");
 
@@ -85,22 +85,22 @@ void setup()
 #if( UC_FAMILY == XMC1 )
   led1On();
   led2On();
-#endif  
+#endif
 }
 
 
 static void output_result(char* tag, uint8_t* in, uint16_t in_len)
 {
-  printlnGreen("OK"); 
-  printMagenta(tag); 
+  printlnGreen("OK");
+  printMagenta(tag);
   printMagenta(" Length: ");
   Serial.println(in_len);
-  printMagenta(tag); 
+  printMagenta(tag);
   printlnMagenta(":");
   HEXDUMP(in, in_len);
 }
 
-void loop() 
+void loop()
 {
   uint32_t ret = 0;
   uint8_t ifxPublicKey[64+TLV_PADDING];
@@ -108,33 +108,33 @@ void loop()
   uint32_t ts = 0;
 
   if(sys_init)
-  { 
-    /* 
+  {
+    /*
      * Get random value of RND_LENGTH length
      */
     Serial.println("Trust X generate random number...");
-    ret = trustX.getRandom(RND_LENGTH, rnd);    
+    ret = trustX.getRandom(RND_LENGTH, rnd);
     output_result("Random Message", rnd, RND_LENGTH);
-  
-    /* 
+
+    /*
      * Calculate SHA256 value
      */
     Serial.println("Calculate Hash on the message...");
     ret = trustX.sha256(rnd, RND_LENGTH, hash);
-    hashLen = 32;  
+    hashLen = 32;
     output_result("SHA256", hash, hashLen);
-  
-    /* 
+
+    /*
      * Generate a signature NIST-P256 on the message
      */
     Serial.println("Calculate signature from Trust X...");
-    ret = trustX.calculateSignature(hash, hashLen, formSign, signLen);   
+    ret = trustX.calculateSignature(hash, hashLen, formSign, signLen);
     output_result("Signature", formSign, signLen);
-  
-    /* 
+
+    /*
      * Use the Public key to check against the Signature
      */
-    trustX.getPublicKey(ifxPublicKey);    
+    trustX.getPublicKey(ifxPublicKey);
     output_result("Public Key", ifxPublicKey, 64 + TLV_PADDING);
 
 #if SOFTWARE_VERIFY
@@ -144,21 +144,21 @@ void loop()
    {Serial.println("Valid Public key.");}
    else
    {Serial.println("Error: Invalid Public key.");}
-   
-  
-    //ECC signature pair (r,s) is encoded as two DER "Integer"   
+
+
+    //ECC signature pair (r,s) is encoded as two DER "Integer"
     Serial.println("Processing Signature...");
     uint8_t signature[SIGNATURE_LENGTH];
 
     if (formSign[1] == 0x21)
     {
       memcpy(signature, formSign+3, 32);
-      
-      if (formSign[32 + 4] == 0x21) 
+
+      if (formSign[32 + 4] == 0x21)
       {
         memcpy(signature+32, formSign+ 32 + 6, 32);
-      } 
-      else 
+      }
+      else
       {
         memcpy(signature+32, formSign +32 + 5, 32);
       }
@@ -166,19 +166,19 @@ void loop()
     else
     {
       memcpy(signature, formSign+2, 32);
-      
-      if (formSign[32+3] == 0x21) 
+
+      if (formSign[32+3] == 0x21)
       {
         memcpy(signature+32, formSign+32 + 5, 32);
-      } 
-      else 
+      }
+      else
       {
         memcpy(signature+32, formSign+32 + 4, 32);
       }
     }
-    
-    output_result("Signature", signature, SIGNATURE_LENGTH); 
-    ts = millis();   
+
+    output_result("Signature", signature, SIGNATURE_LENGTH);
+    ts = millis();
     ret = uECC_verify(ifxPublicKey+TLV_OFFSET,
                       hash,
                       hashLen,
@@ -187,7 +187,7 @@ void loop()
     ts = millis() - ts;
     Serial.print(ts, DEC);
     Serial.println("ms");
-    
+
     if(ret==1){
     Serial.println("\r\nPassed Verification");
     }
@@ -196,19 +196,19 @@ void loop()
     }else{
       Serial.println("\r\nInvalid result");
       }
-#else      
+#else
     Serial.println("Verify Signature using Trust X");
-    ts = millis(); 
+    ts = millis();
     ret = trustX.verifySignature(hash, hashLen, formSign, signLen, ifxPublicKey,
     sizeof(ifxPublicKey) / sizeof(ifxPublicKey[0]));
     ts = millis() - ts;
     Serial.print(ts, DEC);
     Serial.println("ms");
-    
+
     if(ret==0){
     Serial.println("\r\nPassed Verification");
     }
-    else 
+    else
     {
       Serial.print("\r\nInvalid result, Error code: ");
       Serial.println(ret, HEX);
@@ -216,12 +216,12 @@ void loop()
 #endif
 
   }
-    
-  printlnGreen("\r\nPress i to re-initialize.. other key to loop...");   
-  while (Serial.available()==0){} //Wait for user input  
+
+  printlnGreen("\r\nPress i to re-initialize.. other key to loop...");
+  while (Serial.available()==0){} //Wait for user input
   String input = Serial.readString();  //Reading the Input string from Serial port.
   input.trim();
-  if(input=="i") 
+  if(input=="i")
   {
     if(reset()!=0)
     {
@@ -238,15 +238,15 @@ void loop()
 
 uint8_t reset()
 {
-  uint32_t ret = 0;   
+  uint32_t ret = 0;
   printGreen("Begin to trust ... ");
   ret = trustX.begin();
   if (ret) {
     printlnRed("Failed");
-    return -1;   
+    return -1;
   }
   printlnGreen("OK");
-  
+
    /*
    * Speedup the board (from 6 mA to 15 mA)
    */
@@ -264,4 +264,3 @@ uint8_t reset()
 #endif
   return 0;
 }
-

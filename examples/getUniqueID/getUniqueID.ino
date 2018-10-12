@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE
  *
- * Demonstrates use of the 
+ * Demonstrates use of the
  * Infineon Technologies AG OPTIGA™ Trust X Arduino library
  */
 
@@ -34,12 +34,12 @@
 #include "fprint.h"
 
 uint8_t sys_init =0;
-void setup() 
+void setup()
 {
   /*
    * Initialise a serial port for debug output
    */
-  Serial.begin(38400);
+  Serial.begin(115200, SERIAL_8N1);
   delay(1000);
   Serial.println("Initializing ... ");
 
@@ -54,18 +54,18 @@ void setup()
 #if( UC_FAMILY == XMC1 )
   led1On();
   led2On();
-#endif  
+#endif
 }
 
 
 uint8_t reset()
 {
-  uint32_t ret = 0;   
+  uint32_t ret = 0;
   printGreen("Begin to trust ... ");
   ret = trustX.begin();
   if (ret) {
     printlnRed("Failed");
-    return -1;   
+    return -1;
   }
   printlnGreen("OK");
 
@@ -91,22 +91,22 @@ void loop()
      */
     printlnGreen("\r\nGetting co-processor Unique ID...");
     ret = trustX.getUniqueID(uid, uidLength);
-    
+
     if (ret) {
       printlnRed("Failed");
-      Serial.println(ret,HEX);  
+      Serial.println(ret,HEX);
       //close the connection
-      trustX.end();         
-    }else{  
+      trustX.end();
+    }else{
     HEXDUMP(uid, uidLength);
     }
 
   }
-  printlnGreen("\r\nPress i to re-initialize.. other key to loop...");   
-  while (Serial.available()==0){} //Wait for user input  
+  printlnGreen("\r\nPress i to re-initialize.. other key to loop...");
+  while (Serial.available()==0){} //Wait for user input
   String input = Serial.readString();  //Reading the Input string from Serial port.
   input.trim();
-  if(input=="i") 
+  if(input=="i")
   {
     if(reset()!=0)
     {

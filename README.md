@@ -1,11 +1,9 @@
 <<<<<<< HEAD
-﻿# OPTIGA&trade; Trust X Arduino library for BootCamp
+﻿# Bootcamp for Infineon OPTIGA&trade; Trust X
 =======
-﻿# Infineon OPTIGA&trade; Trust X Boot Camp <Mission Arduino>
->>>>>>> 432b7a5016f7bef23a40852a328edda857c7766e
-![TrustXPackage](https://github.com/Infineon/Assets/raw/master/Pictures/OPTIGA-Trust-X.png)
+﻿# Infineon OPTIGA&trade; Trust X <Mission Arduino>
 
-Infineon's [OPTIGA&trade; Trust X] Boot Camp (https://www.infineon.com/cms/en/product/security-smart-card-solutions/optiga-embedded-security-solutions/optiga-trust/optiga-trust-x-sls-32aia/) security solution library for Arduino platform
+Infineon's [OPTIGA&trade; Trust X] is a security controller (https://www.infineon.com/cms/en/product/security-smart-card-solutions/optiga-embedded-security-solutions/optiga-trust/optiga-trust-x-sls-32aia/)
 
 ## Purpose of the Boot Camp
 The Boot Camp aims to instil confidence and product knowledge of Infineon OPTIGA&trade; Trust X. The sample codes allow you to hands on with the integration library and perform some useful tasks. At the end of this Boot Camp session, you will be able to understand the capabilities of the Library and appreciate hardware security that can protects your system.    
@@ -23,11 +21,11 @@ Shield2GO (link pending) you are using.
 Install Arduino IDE 1.8.1.
 [Arduino V1.8.1] https://www.arduino.cc/download_handler.php?f=/arduino-1.8.1-windows.zip
 
-## XMC Host Library
+## XMC Host Library for Arduino
 Infineon XMC support for Arduino platform.
 [XMC-for-Arduino] https://github.com/Infineon/XMC-for-Arduino
 
-## Library Installation
+## Trust X Library Installation
 
 ### Mission Arduino with Trust X Integration library
 Clone or download this github.
@@ -42,7 +40,7 @@ To install the OPTIGA&trade; Trust X library in the Arduino IDE several options 
 
 <<<<<<< HEAD
 ## Bootcamp hardware
-The following platform will be used for this Bootcamp.
+The following microcontroller will be used for this Bootcamp.
 * XMC1100 XMC2Go (Infineon Technologies, XMC1100, Cortex M0)
 [XMC2Go](https://www.infineon.com/cms/en/product/evaluation-boards/kit_xmc_2go_xmc1100_v1/).
 
@@ -56,11 +54,17 @@ The following sections describe all the examples in more detail.
 <<<<<<< HEAD
 ### helloBootCamp
 helloBootCamp example helps to verify the I2C host controller board is working by printing some information on the serial monitor and getting keyboard input.
-The default serial monitor is using 38400 baud, 8 bit None parity and 1 stop bit.
+The default serial monitor is using 115200 baud, 8 bit None parity and 1 stop bit.
 Using other serial terminal program such as Tera Term, the XMC1100 serial port will shows up as "JLink CDC UART Port".
+
+From the File->Preferences, it is useful to enable the "Show verbose output during compilation and upload." As the compilation and uploading can takes a few minutes enabling verbose output enables monitoring and debugging the software build process.
 
 ### getUniqueID
 getUniqueID example demonstrate reading of OPTIGA™ Trust X unique chip ID from data object 0xE0C2. The chip ID consists of 27 bytes and can be decoded using the Data structure Coprocessor UID table found in the solution reference manual.
+
+### getRandom
+getRandom example uses OPTIGA™ Trust X to generate true random numbers. This example output is configurable for various random numbers length (16, 32, 64, 128, 256).
+High quality random number is very important for cryptography application.
 
 ### getCertificate
 getCertificate example reads a digital certificate stored within OPTIGA™ Trust X Chip data Object 0xE0E0. The certificate is encoded in X.509 format and dump out as hex output.
@@ -75,10 +79,6 @@ Either use a local OpenSSL software or an online openssl tool to decode the cert
 OpenSSL command:
 openssl x509 -in certificate.pem -text -noout
 
-### getRandom
-getRandom example uses OPTIGA™ Trust X to generate true random numbers. This example output is configurable for various random numbers length (16, 32, 64, 128, 256).
-High quality random number is very important for cryptography application.
-
 =======
 >>>>>>> 432b7a5016f7bef23a40852a328edda857c7766e
 
@@ -89,7 +89,6 @@ which was limited by default down to 32 bytes (in case of 32 bytes the library w
 
 <<<<<<< HEAD
 =======
-
 
 >>>>>>> 432b7a5016f7bef23a40852a328edda857c7766e
 ### calculateSignVerifySign  

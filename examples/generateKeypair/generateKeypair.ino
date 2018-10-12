@@ -21,10 +21,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE
  *
- * Demonstrates use of the 
+ * Demonstrates use of the
  * Infineon Technologies AG OPTIGA™ Trust X Arduino library
  */
- 
+
 #include "OPTIGATrustX.h"
 
 #define KEY_MAXLENGTH    70
@@ -34,15 +34,15 @@
 
 uint8_t *pubKey = new uint8_t[KEY_MAXLENGTH];
 uint8_t *privKey = new uint8_t[KEY_MAXLENGTH];
-  
-void setup() 
+
+void setup()
 {
   uint32_t ret = 0;
-  
+
   /*
    * Initialise a serial port for debug output
    */
-  Serial.begin(38400);
+  Serial.begin(115200, SERIAL_8N1);
   delay(1000);
   Serial.println("Initializing ... ");
 
@@ -72,13 +72,13 @@ void setup()
 
 static void output_result(char* tag, uint32_t tstamp, uint8_t* in, uint16_t in_len)
 {
-  printGreen("[OK] | Command executed in "); 
-  Serial.print(tstamp); 
+  printGreen("[OK] | Command executed in ");
+  Serial.print(tstamp);
   Serial.println(" ms");
-  printMagenta(tag); 
+  printMagenta(tag);
   printMagenta(" Length: ");
   Serial.println(in_len);
-  printMagenta(tag); 
+  printMagenta(tag);
   printlnMagenta(":");
   HEXDUMP(in, in_len);
 }
@@ -122,7 +122,7 @@ void loop()
 
   output_result("Public Key ", ts, pubKey, pubKeyLen);
   output_result("Private Key ", ts, privKey, privKeyLen);
-  
+
   /*
    * Count down 10 seconds and restart the application
    */
