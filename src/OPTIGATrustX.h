@@ -182,9 +182,9 @@ public:
      */
     int32_t begin(TwoWire& CustomWire);
 
-	
+
 	int32_t checkChip(void);
-	
+
     /**
      *
      * This function resets the Infineon OPTIGA Trust X. This helps to recover the connection
@@ -220,7 +220,7 @@ public:
      * @retval  1 If the operation failed.
      */
     int32_t getCertificate(uint8_t certificate[], uint16_t& certificateLength);
-	
+
 	/**
 	 * @brief Get the Infineon OPTIGA Trust X device certificate public key.
 	 *
@@ -228,7 +228,7 @@ public:
 	 * Infineon OPTIGA Trust X device and extracts the public key from it.
 	 * Work for Certificates based on NIST P256 curve
 	 *
-	 * @param[out] publickey  	 Pointer to the buffer where the public key will be stored. 
+	 * @param[out] publickey  	 Pointer to the buffer where the public key will be stored.
 	 *                           Should 68 bytes long. 64 bytes for the key and 4 bytes for the encoding
 	 *                           BitString Format (0x03, 0x42, 0x00) + Compression format (0x04) + Public Key (64 bytes)
 	 *
@@ -236,7 +236,7 @@ public:
 	 * @retval  1 If the operation failed.
 	 */
     int32_t getPublicKey(uint8_t publickey[68]);
-    
+
 	/**
      * This function returns the Coprocessor UID value. Length is 27, where
      * First 25 bytes is the unique hardware identifier
@@ -250,7 +250,7 @@ public:
      */
     int32_t getUniqueID(uint8_t uniqueID[], uint16_t& uidLength) { return uidLength != 0?getGenericData(eCOPROCESSOR_UID, uniqueID, uidLength):1; }
      /**
-     * This function writes arbitary data object value in the oid. Length is defined by the user.     
+     * This function writes arbitary data object value in the oid. Length is defined by the user.
      *
      * @param[out] arbitary_data_object_buffer    Pointer where the arbitary data object value will be stored
      * @param[in]  arbitary_data_object_Length    Pointer where the length of the arbitary data object value is stored
@@ -260,8 +260,8 @@ public:
      */
     int32_t setArbitaryDataObject(uint16_t& oid, uint8_t arbitary_data_object_buffer[], uint16_t& arbitary_data_objectLength)
     { return arbitary_data_objectLength != 0?setGenericData(oid, arbitary_data_object_buffer, arbitary_data_objectLength):1; }
-	
-	
+
+
      /**
      * This function writes arbitary data object value in the oid. Length is defined by the user.
      *
@@ -273,7 +273,7 @@ public:
      */
     int32_t getArbitaryDataObject(uint16_t& oid, uint8_t arbitary_data_object_buffer[], uint16_t& arbitary_data_objectLength)
     { return arbitary_data_objectLength != 0?getGenericData(oid, arbitary_data_object_buffer, arbitary_data_objectLength):1; }
-	
+
     /**
      * @brief Get a random number.
      *
@@ -301,7 +301,7 @@ public:
      * @retval  1 If the operation failed.
      */
     int32_t getCurrentLimit(uint8_t& currentLim) { return getState(eCURRENT_LIMITATION, currentLim); }
-    
+
     /**
      * This function sets the sleep mode activation delay. Valid values are 0x06 - 0x0F or 6 mA - 15mA
      *
@@ -311,7 +311,7 @@ public:
      * @retval  1 If the operation failed.
      */
     int32_t setCurrentLimit(uint8_t currentLim) { return setGenericData(eCURRENT_LIMITATION, &currentLim, 1); }
-	
+
     /**
      * This function returns the last error code.
      *
@@ -334,7 +334,7 @@ public:
      * @retval  1 If the operation failed.
      */
     int32_t sha256(uint8_t dataToHash[], uint16_t dlen, uint8_t hash[32]);
-    
+
     /**
      * This function generates an ECDSA FIPS 186-3 w/o hash signature.
      *
@@ -343,9 +343,9 @@ public:
      * @param[in] privateKey_oid    [Optional] Object ID defines which private key slot will be used to generate the signature. Default is the first slot.
      *                              Use either one of:
      *                              @ref eFIRST_DEVICE_PRIKEY_1 (Default)
-     *                              @ref eFIRST_DEVICE_PRIKEY_2 
-     *                              @ref eFIRST_DEVICE_PRIKEY_3 
-     *                              @ref eFIRST_DEVICE_PRIKEY_4 
+     *                              @ref eFIRST_DEVICE_PRIKEY_2
+     *                              @ref eFIRST_DEVICE_PRIKEY_3
+     *                              @ref eFIRST_DEVICE_PRIKEY_4
      *                              slots define below or @ref eSessionCtxId_d session contexts
      * @param[out] result           Pointer to the data array where the final result should be stored.
      * @param[out] rlen             Length of the output data. Will be modified in case of success.
@@ -354,10 +354,10 @@ public:
      * @retval  1 If the operation failed.
      */
     int32_t calculateSignature(uint8_t dataToSign[], uint16_t dlen, uint16_t privateKey_oid, uint8_t result[], uint16_t& rlen);
-    int32_t calculateSignature(uint8_t dataToSign[], uint16_t dlen, uint8_t result[], uint16_t& rlen) { 
+    int32_t calculateSignature(uint8_t dataToSign[], uint16_t dlen, uint8_t result[], uint16_t& rlen) {
         return calculateSignature(dataToSign, dlen, eFIRST_DEVICE_PRIKEY_1, result, rlen);
 	}
-    
+
     /**
      * This function encodes generated signature in ASN.1 format
      *
@@ -370,7 +370,7 @@ public:
      * @retval  1 If the operation failed.
      */
     int32_t formatSignature(uint8_t signature[], uint16_t signatureLength, uint8_t result[], uint16_t& rlen);
-    
+
     /**
      * This function verifies an ECDSA FIPS 186-3 w/o hash signature.
      * This functions works in two modes, either use internal OID where a public key is stored
@@ -378,8 +378,8 @@ public:
      *
      * @param[in] hash              Pointer to the hash
      * @param[in] hashLength        Length of the input data
-     * @param[in] publicKey_oid     [Optional] Object ID defines which slot will be used to verify the signature. 
-     *                              The slot should contain a public key certificate starting with internat 0xC0 byte. 
+     * @param[in] publicKey_oid     [Optional] Object ID defines which slot will be used to verify the signature.
+     *                              The slot should contain a public key certificate starting with internat 0xC0 byte.
      *                              For more information please refere to the datasheet documents. Default is the first slot.
      *                              Possible values are:
      *                              @ref eDEVICE_PUBKEY_CERT_IFX (Default)
@@ -399,7 +399,7 @@ public:
 		verifySignature(hash, hashLength, signature, signatureLength, eDEVICE_PUBKEY_CERT_IFX);
 	}
     int32_t verifySignature(uint8_t hash[], uint16_t hashLength, uint8_t signature[], uint16_t signatureLength, uint8_t pubKey[], uint16_t plen);
-    
+
     /**
      * This function generates a shared secret based on Elliptic Curve Diffie-Hellman Key Exchange Algorithm
      * This functions works in several modes. In general for such functions you need to specify followng:
@@ -431,7 +431,7 @@ public:
      * @retval  0 If function was successful.
      * @retval  1 If the operation failed.
      */
-    int32_t sharedSecret(uint8_t publicKey[], uint16_t plen) { 
+    int32_t sharedSecret(uint8_t publicKey[], uint16_t plen) {
 		return calculateSharedSecretGeneric(0x03, eSESSION_ID_2, publicKey, plen, eSESSION_ID_2);
 	}
     int32_t sharedSecret(uint16_t oid, uint8_t publicKey[], uint16_t plen) {
@@ -440,7 +440,7 @@ public:
     int32_t sharedSecret(String curveName, uint8_t publicKey[], uint16_t plen) {
 		return calculateSharedSecretGeneric(str2cur(curveName),eSESSION_ID_2, publicKey, plen, eSESSION_ID_2);
 	}
-    int32_t sharedSecret(String curveName, uint16_t oid, uint8_t publicKey[], uint16_t plen) { 
+    int32_t sharedSecret(String curveName, uint16_t oid, uint8_t publicKey[], uint16_t plen) {
 		return calculateSharedSecretGeneric(str2cur(curveName),oid, publicKey, plen, oid);
 	}
     int32_t sharedSecretWithExport(uint8_t publicKey[], uint16_t plen, uint8_t sharedSecret[], uint16_t shlen) {
@@ -448,8 +448,8 @@ public:
 	}
     int32_t sharedSecretWithExport(String curveName, uint8_t publicKey[], uint16_t plen, uint8_t sharedSecret[], uint16_t shlen) {
 		return calculateSharedSecretGeneric(str2cur(curveName), eSESSION_ID_2, publicKey, plen, 0x0000, sharedSecret, shlen);
-	}  
-    
+	}
+
     /**
      * This function generates a public private keypair. You can store the private key internally or export it for your usage
      *
@@ -462,9 +462,9 @@ public:
      *                              @ref eSESSION_ID_3
      *                              @ref eSESSION_ID_4
      *                              @ref eFIRST_DEVICE_PRIKEY_1
-     *                              @ref eFIRST_DEVICE_PRIKEY_2 
-     *                              @ref eFIRST_DEVICE_PRIKEY_3 
-     *                              @ref eFIRST_DEVICE_PRIKEY_4      
+     *                              @ref eFIRST_DEVICE_PRIKEY_2
+     *                              @ref eFIRST_DEVICE_PRIKEY_3
+     *                              @ref eFIRST_DEVICE_PRIKEY_4
      * @param[out] privateKey       [Optional] Pointer to the data array where the result private key should be stored.
      * @param[out] prlen            [Optional] Length of the private key.
 
@@ -487,7 +487,7 @@ private:
     int32_t setGenericData(uint16_t oid, uint8_t* p_data, uint16_t hashLength);
     int32_t str2cur(String curve_name);
 	int32_t calculateSharedSecretGeneric( int32_t curveID, uint16_t priv_oid, uint8_t* p_pubkey, uint16_t plen, uint16_t out_oid) {
-		uint16_t dummy_len; 
+		uint16_t dummy_len;
 		return calculateSharedSecretGeneric(0x03, priv_oid, p_pubkey, plen, out_oid, NULL, dummy_len);
 	}
     int32_t calculateSharedSecretGeneric( int32_t curveID, uint16_t priv_oid, uint8_t* p_pubkey, uint16_t plen, uint16_t out_oid, uint8_t* p_out, uint16_t& olen);
@@ -503,9 +503,56 @@ extern IFX_OPTIGA_TrustX trustX;
 
 /*************************************************************************
 
- *  Inline functions 
+ *  Inline functions
 
  *************************************************************************/
-                         
+#if 1
+ inline void DEBUG_PRINT(const void* p_buf, uint32_t l_len) {
+ #define MAXCMD_LEN      255
+ #define HEXDUMP_COLS      16
+
+   unsigned int i, j;
+   static char str[MAXCMD_LEN];
+   for (i = 0; i < l_len + ((l_len % HEXDUMP_COLS) ?
+           ( HEXDUMP_COLS - l_len % HEXDUMP_COLS) : 0);
+       i++) {
+     /* print offset */
+     if (i % HEXDUMP_COLS == 0) {
+       sprintf(str, "0x%06x: ", i);
+       Serial.print(str);
+     }
+
+     /* print hex data */
+     if (i < l_len) {
+       sprintf(str, "%02x ", 0xFF & ((char*) p_buf)[i]);
+       Serial.print(str);
+     } else /* end of block, just aligning for ASCII dump */
+     {
+       sprintf(str, "   ");
+       Serial.print(str);
+     }
+
+     /* print ASCII dump */
+     if (i % HEXDUMP_COLS == ( HEXDUMP_COLS - 1)) {
+       for (j = i - ( HEXDUMP_COLS - 1); j <= i; j++) {
+         if (j >= l_len) /* end of block, not really printing */
+         {
+           Serial.print(' ');
+         } else if (isprint((int) ((char*) p_buf)[j])) /* printable char */
+         {
+           Serial.print(((char*) p_buf)[j]);
+         } else /* other char */
+         {
+           Serial.print('.');
+         }
+       }
+       Serial.print('\r');
+       Serial.print('\n');
+     }
+   }
+
+ }
+ #endif
+
 
 #endif /* IFXOPTIGATRUST_H_ */

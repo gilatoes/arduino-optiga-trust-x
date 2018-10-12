@@ -89,52 +89,6 @@ int32_t IFX_OPTIGA_TrustX::begin(void)
     return begin(Wire);
 }
 
-
-inline void __hexdump__(const void* p_buf, uint32_t l_len) {
-#define MAXCMD_LEN      255
-#define HEXDUMP_COLS      16
-
-  unsigned int i, j;
-  static char str[MAXCMD_LEN];
-  for (i = 0; i < l_len + ((l_len % HEXDUMP_COLS) ?
-          ( HEXDUMP_COLS - l_len % HEXDUMP_COLS) : 0);
-      i++) {
-    /* print offset */
-    if (i % HEXDUMP_COLS == 0) {
-      sprintf(str, "0x%06x: ", i);
-      Serial.print(str);
-    }
-
-    /* print hex data */
-    if (i < l_len) {
-      sprintf(str, "%02x ", 0xFF & ((char*) p_buf)[i]);
-      Serial.print(str);
-    } else /* end of block, just aligning for ASCII dump */
-    {
-      sprintf(str, "   ");
-      Serial.print(str);
-    }
-
-    /* print ASCII dump */
-    if (i % HEXDUMP_COLS == ( HEXDUMP_COLS - 1)) {
-      for (j = i - ( HEXDUMP_COLS - 1); j <= i; j++) {
-        if (j >= l_len) /* end of block, not really printing */
-        {
-          Serial.print(' ');
-        } else if (isprint((int) ((char*) p_buf)[j])) /* printable char */
-        {
-          Serial.print(((char*) p_buf)[j]);
-        } else /* other char */
-        {
-          Serial.print('.');
-        }
-      }
-      Serial.print('\r');
-      Serial.print('\n');
-    }
-  }
-}
-
 int32_t IFX_OPTIGA_TrustX::checkChip(void)
 {
 	int32_t err = CMD_LIB_ERROR;
@@ -146,30 +100,30 @@ int32_t IFX_OPTIGA_TrustX::checkChip(void)
 	uint8_t p_sign[70];
 	uint8_t p_unformSign[66];
 	uint16_t slen = 0;
-	
+
 	do {
 		randomSeed(analogRead(0));
-		
+
 		for (uint8_t i = 0; i < rlen; i++) {
 			p_rnd[i] = random(0xff);
 			randomSeed(analogRead(0));
 		}
-		
+
 		err = getCertificate(p_cert, clen);
 
 		if (err)
 			break;
-		
+
 		getPublicKey(p_pubkey);
-		
+
 		Serial.println("Calling calculate Signature:");
 		err = calculateSignature(p_rnd, rlen, p_sign, slen);
-		__hexdump__(p_sign, slen);
+		DEBUG_PRINT(p_sign, slen);
 		Serial.println(slen, DEC);
 
 		if (err)
 			break;
-		
+
 		Serial.println("Processing Signature");
 
 		if (p_sign[1] == 0x21)
@@ -193,14 +147,14 @@ int32_t IFX_OPTIGA_TrustX::checkChip(void)
 			memcpy(&p_unformSign[LENGTH_RS_VECTOR/2], &p_sign[(LENGTH_RS_VECTOR/2) + 4], LENGTH_RS_VECTOR/2);
 		  }
 		}
-		
+
 		Serial.println("Calling uECC_verify");
 		//Serial.println("Trust X Public Key:");
-		//__hexdump__(p_pubkey, 65);
+		//DEBUG_PRINT(p_pubkey, 65);
 		//Serial.println("Random Number:");
 		//__hexdump__(p_rnd, 32);
 		Serial.println("Signature:");
-		__hexdump__(p_unformSign, 65);
+		//DEBUG_PRINT(p_unformSign, 65);
 
 
 		if (uECC_verify(p_pubkey+4, p_rnd, rlen, p_unformSign, uECC_secp256r1())) {
@@ -214,7 +168,7 @@ int32_t IFX_OPTIGA_TrustX::checkChip(void)
 		}
 		Serial.println("uECC_verify completed");
 	} while(0);
-	
+
 	return err;
 }
 
@@ -261,7 +215,7 @@ int32_t IFX_OPTIGA_TrustX::begin(TwoWire& CustomWire)
         }else {
 			Serial.print(ret, HEX);
 		}
-        
+
     } while (0);
 
     return ret;
@@ -287,13 +241,13 @@ int32_t IFX_OPTIGA_TrustX::getGenericData(uint16_t oid, uint8_t* p_data, uint16_
     int32_t ret = (int32_t)INT_LIB_ERROR;
     sReadGPData_d   data_opt;
     sbBlob_d        blob;
-    
+
     do
     {
         if ((p_data == NULL) || (active == false)) {
             break;
         }
-        
+
         //Read complete data structure
         data_opt.wOffset = 0x00;
         data_opt.wLength = hashLength;
@@ -308,7 +262,7 @@ int32_t IFX_OPTIGA_TrustX::getGenericData(uint16_t oid, uint8_t* p_data, uint16_
             hashLength = blob.wLen;
             break;
         }
-    
+
     }while(FALSE);
 
     return ret;
@@ -321,12 +275,12 @@ int32_t IFX_OPTIGA_TrustX::getState(uint16_t oid, uint8_t& byte)
 	uint8_t  bt = 0;
 	sGetData_d sGDVector;
     sCmdResponse_d sCmdResponse;
-	
+
 	sGDVector.wOID = oid;
 	sGDVector.wLength = 1;
 	sGDVector.wOffset = 0;
 	sGDVector.eDataOrMdata = eDATA;
-	
+
 	sCmdResponse.prgbBuffer = &bt;
 	sCmdResponse.wBufferLength = 1;
 	sCmdResponse.wRespLength = 0;
@@ -345,7 +299,7 @@ int32_t IFX_OPTIGA_TrustX::setGenericData(uint16_t oid, uint8_t* p_data, uint16_
 {
     int32_t ret = (int32_t)CMD_LIB_ERROR;
     sSetData_d setdata_opt;
-    
+
     //Set Auth scheme
     //If access condition satisfied, set the data
     setdata_opt.wOID = oid;
@@ -366,7 +320,7 @@ int32_t IFX_OPTIGA_TrustX::setGenericData(uint16_t oid, uint8_t* p_data, uint16_
 /*************************************************************************************
  *                              COMMANDS API TRUST E COMPATIBLE
  **************************************************************************************/
- 
+
 int32_t IFX_OPTIGA_TrustX::getCertificate(uint8_t* p_cert, uint16_t& clen)
 {
     int32_t ret  = CMD_LIB_ERROR;
@@ -436,12 +390,12 @@ int32_t IFX_OPTIGA_TrustX::getPublicKey(uint8_t p_pubkey[64])
 	int32_t ret = CMD_LIB_ERROR;
 	uint8_t p_cert[512];
 	uint16_t clen = 0;
-	
+
 	do{
 		ret = getCertificate(p_cert, clen);
 		if (ret)
 			break;
-	
+
 		if ((p_cert != NULL) || (p_pubkey != NULL)) {
 			  for (uint16_t i=0; i < clen; i++) {
 				if (p_cert[i] != 0x03)
@@ -452,14 +406,14 @@ int32_t IFX_OPTIGA_TrustX::getPublicKey(uint8_t p_pubkey[64])
 				  continue;
 				if (p_cert[i+3] != 0x04)
 				  continue;
-			  
+
 				memcpy(p_pubkey, &p_cert[i], 68);
 			  }
 		}
-		
+
 		ret = 0;
 	} while (FALSE);
-	
+
 	return ret;
 }
 
@@ -468,7 +422,7 @@ int32_t IFX_OPTIGA_TrustX::getRandom(uint16_t length, uint8_t* p_random)
     int32_t ret = (int32_t)CMD_LIB_ERROR;
     sRngOptions_d rng_opt;
     sCmdResponse_d cmd_resp;
-    
+
     rng_opt.eRngType = eTRNG;
     rng_opt.wRandomDataLen = length;
 
@@ -824,7 +778,7 @@ int32_t IFX_OPTIGA_TrustX::verifySignature( uint8_t* digest, uint16_t hashLength
     return ret;
 }
 
-int32_t IFX_OPTIGA_TrustX::verifySignature( uint8_t* digest, uint16_t hashLength, 
+int32_t IFX_OPTIGA_TrustX::verifySignature( uint8_t* digest, uint16_t hashLength,
 											uint8_t* sign, uint16_t signatureLength,
 											uint16_t publicKey_oid )
 {
@@ -907,7 +861,7 @@ int32_t IFX_OPTIGA_TrustX::calculateSharedSecretGeneric(int32_t curveID, uint16_
 int32_t IFX_OPTIGA_TrustX::str2cur(String curve_name)
 {
     int32_t ret;
-    
+
     if (curve_name == "secp256r1") {
         ret = eECC_NIST_P256;
     } else if (curve_name == "secp384r1") {
@@ -915,7 +869,7 @@ int32_t IFX_OPTIGA_TrustX::str2cur(String curve_name)
     } else {
         ret = eECC_NIST_P256;
     }
-    
+
     return ret;
 }
 
@@ -1054,7 +1008,7 @@ int32_t IFX_OPTIGA_TrustX::generateKeypair(uint8_t* p_pubkey, uint16_t& plen, ui
             ret = 0;
             break;
         }
-    
+
     }while(FALSE);
 
     return ret;
