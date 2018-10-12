@@ -60,20 +60,29 @@ The default serial monitor is using 38400 baud, 8 bit None parity and 1 stop bit
 Using other serial terminal program such as Tera Term, the XMC1100 serial port will shows up as "JLink CDC UART Port".
 
 ### getUniqueID
-getUniqueID example demonstrate simple reading of OPTIGA™ Trust X unique chip ID. The chip ID consists of 27 bytes and can be decoded using the Data structure Coprocessor UID table found in the solution reference manual.
+getUniqueID example demonstrate reading of OPTIGA™ Trust X unique chip ID from data object 0xE0C2. The chip ID consists of 27 bytes and can be decoded using the Data structure Coprocessor UID table found in the solution reference manual.
 
 ### getCertificate
-getCertificate example reads a digital certificate stored within OPTIGA™ Trust X Chip Object ID location 0xE0E0. This certificate is encoded in X.509 format. A X.509 certificate contains a public key and an identity and is signed by Infineon Certificate Authority (CA).
+getCertificate example reads a digital certificate stored within OPTIGA™ Trust X Chip data Object 0xE0E0. The certificate is encoded in X.509 format and dump out as hex output.
+A X.509 certificate contains a public key and an identity that is signed by Infineon Certificate Authority (CA). The certificate can be copy-and-paste into a Hex to Base64 convertor.
+Once the certificate is encoded into Base64 format, it should be enclosed with "-----BEGIN CERTIFICATE----- " and end with "-----END CERTIFICATE----- ". and saved as PEM format.
+
+Either use a local OpenSSL software or an online openssl tool to decode the certificate.
+[Certificate Decoder] https://www.sslshopper.com/certificate-decoder.html
+
+OpenSSL command:
+openssl x509 -in certificate.pem -text -noout
 
 ### getRandom
-getRandom example uses OPTIGA™ Trust X to generate true random numbers. This example output is configurable for various random numbers length (16, 32, 64, 128, 256). High quality random number is very important for cryptography application.
+getRandom example uses OPTIGA™ Trust X to generate true random numbers. This example output is configurable for various random numbers length (16, 32, 64, 128, 256).
+High quality random number is very important for cryptography application.
 
 =======
 >>>>>>> 432b7a5016f7bef23a40852a328edda857c7766e
 
 ### calculateHash
 calculateHash demonstrates example usage of the SHA256 hash, as well as a simple benchmarking for your microcontroller.
-The performance of this benchmark test greatly depends on I2C  bus frame size (it affects mainly big blocks of data transmitted to the OPTIGA™ Trust X chip for hashing),
+The performance of this benchmark test greatly depends on I2C bus frame size (it affects mainly big blocks of data transmitted to the OPTIGA™ Trust X chip for hashing),
 which was limited by default down to 32 bytes (in case of 32 bytes the library will perform fragmentation).
 
 <<<<<<< HEAD
@@ -94,8 +103,9 @@ For the verification three methods are available:
 3) if neither Object ID nor raw public key were specified, the function will use a default Object ID with manufacturer public key certificate.
 
 ### generateKeypair
-calculateSignVerifySign demonstrates methods for keypair generation, either with a private key export, or without.
-In the latter case the developer should specify the Object ID of the private key.
+generateKeypair example is a OPTIGA™ Trust X toolbox feature that demonstrates ECC256 keypair generation. The private key can either be exported in plaintext or held within the security controller.
+If the private key is to be stored in the security controller, the example should be modified to specify the destination Object ID.
+The generated key pair can be used for cryptographic operations.
 
 ### One-Way Authentication
 one-way authentication example is used to verify the authenticity of OPTIGA™ Trust X chip. It makes use of OPTIGA™ Trust X chip crypto functions to implement the authentication function.
