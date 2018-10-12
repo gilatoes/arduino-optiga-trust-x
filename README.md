@@ -67,6 +67,8 @@ getCertificate example reads a digital certificate stored within OPTIGA™ Trust
 A X.509 certificate contains a public key and an identity that is signed by Infineon Certificate Authority (CA). The certificate can be copy-and-paste into a Hex to Base64 convertor.
 Once the certificate is encoded into Base64 format, it should be enclosed with "-----BEGIN CERTIFICATE----- " and end with "-----END CERTIFICATE----- ". and saved as PEM format.
 
+[Hex and PEM (Base64) Converter] https://holtstrom.com/michael/tools/hextopem.php
+
 Either use a local OpenSSL software or an online openssl tool to decode the certificate.
 [Certificate Decoder] https://www.sslshopper.com/certificate-decoder.html
 
@@ -95,7 +97,7 @@ calculateSignVerifySign demonstrates signature generation and signature verifica
 This example shows two modes of operation:
 1) Calculate a signature using manufacturer private key, the result value is then verified  against the public key
 2) Generate a public-private keypair and store the latter inside one of Object IDs of the OPTIGA™ Trust X,
-then sign the digest giving only the latter  Object ID, the result value is then verified  against the public key.  
+then sign the digest giving only the latter Object ID, the result value is then verified  against the public key.  
 
 For the verification three methods are available:
 1) with a given raw public key
@@ -109,7 +111,6 @@ The generated key pair can be used for cryptographic operations.
 
 ### One-Way Authentication
 one-way authentication example is used to verify the authenticity of OPTIGA™ Trust X chip. It makes use of OPTIGA™ Trust X chip crypto functions to implement the authentication function.
-
 
 ## Contributing
 
