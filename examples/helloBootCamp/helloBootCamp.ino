@@ -52,7 +52,6 @@ void setup()
    * Initialise a serial port for debug output
    */
   Serial.begin(115200, SERIAL_8N1);
-  delay(1000);
   Serial.println("Initializing XMC... ");
 
   if(reset()==0){
