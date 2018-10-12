@@ -1,4 +1,4 @@
-﻿# OPTIGA&trade; Trust X Arduino library
+﻿# OPTIGA&trade; Trust X Arduino library for BootCamp
 ![TrustXPackage](https://github.com/Infineon/Assets/raw/master/Pictures/OPTIGA-Trust-X.png)
 
 Infineon's [OPTIGA&trade; Trust X](https://www.infineon.com/cms/en/product/security-smart-card-solutions/optiga-embedded-security-solutions/optiga-trust/optiga-trust-x-sls-32aia/) security solution library for Arduino
@@ -42,19 +42,19 @@ To install the OPTIGA&trade; Trust X library in the Arduino IDE several options 
 ## Supported Devices
 In general, the library should be compatible with any Arduino board, however it has been tested for the following platforms:
 * XMC1100 2Go (Infineon Technologies, XMC1100, Cortex M0)
-* Sparkfun ESP32 Thing (Espressif Systems, ESP32, Xtensa)
-* Adafruit Feather M0 (Atmel, SAMD21, Cortex M0)
-* STM32 Nucleo (ST Microelectronics, STM32F0, Cortex M0)
-* XMC4700 Relax Kit (Infineon Technologies, XMC4700, Cortex M4)
-* WEMOS D1 mini (Espressif Systems, ESP8266, Xtensa)
 
 ## Usage
 The library is equiped with eight groups of examples which can be found on the following path: File->Examples>OPTIGATrustX 
 The following sections describe all the examples in more detail.
 
-### selfTest
-selfTest example demonstrates a trustX.checkChip() method usage, which authenticates the OPTIGA™ Trust X on the host MCU. 
-This method implements a simple challenge-response authentication scheme, in which the host side authenticates the OPTIGA™ Trust X security chip.  
+### helloBootCamp
+helloBootCamp example helps to verify the host controller board is working by printing some information on the serial monitor and getting keyboard input. 
+The default serial monitor is using 38400 baud, 8 bit None parity and 1 stop bit.
+Using other serial terminal program such as Tera Term, the XMC1100 serial port will shows up as "JLink CDC UART Port".
+
+### getUniqueID 
+getUniqueID example demonstrate retrievieng of OPTIGA™ Trust X unique chip ID. The chip ID consists of 27 bytes and  can be decoded using the Data structure Coprocessor UID table found in the solution reference manual. 
+
 
 ### calculateHash 
 calculateHash demonstrates example usage of the SHA256 hash, as well as a simple benchamarking for your microcontroller. 
@@ -62,11 +62,6 @@ The performance of this benchmark test greatly depends on I2C  bus frame size (i
 which was limited by default down to 32 bytes (in case of 32 bytes the library will perfrom fragmentation). 
 
 Please check settings for your specific platform, if you want to improve the performance of the hashing function. 
-
-### getCertificate, getUniqueID 
-getCertificate and getUniqueID demonstrate examples of retrievieng various properties of the OPTIGA™ Trust X Chip. 
-As well as these examples the developer can also call getCurrentLimit/setCurrentLimit in order to get or modify the
-current limitation of the chip (varies from 5mA by default to maximum 15mA) 
 
 ### calculateSignVerifySign  
 calculateSignVerifySign demonstrates signature generation and signature verification methods of the library. 
@@ -86,6 +81,10 @@ In the latter case the developer should specify the Object ID of the private key
 
 ### getRandom
 getRandom demonstrates random number generator capabilities. This example outputs random numbers of various sizes (16, 32, 64, 128, 256)
+
+### selfTest
+selfTest example demonstrates a trustX.checkChip() method usage, which authenticates the OPTIGA™ Trust X on the host MCU. 
+This method implements a simple challenge-response authentication scheme, in which the host side authenticates the OPTIGA™ Trust X security chip.  
 
 ### testFullAPI
 testFullAPI is used to briefly test major API calls to the library. The expected output of this function can be found in Figure below. 
