@@ -11,7 +11,7 @@ Infineon's [OPTIGA&trade; Trust X] Boot Camp (https://www.infineon.com/cms/en/pr
 The Boot Camp aims to instil confidence and product knowledge of Infineon OPTIGA&trade; Trust X. The sample codes allow you to hands on with the integration library and perform some useful tasks. At the end of this Boot Camp session, you will be able to understand the capabilities of the Library and appreciate hardware security that can protects your system.    
 
 ## Hardware
-In this training, XMC1100 2Go (Infineon Technologies, XMC1100, Cortex M0), unless otherwise stated, will be used as the security host controller.
+In this training, XMC2Go (Infineon Technologies, XMC1100, Cortex M0), unless otherwise stated, will be used as the security host controller.
 
 The wiring to your arduino board depends on the [evaluation board](https://www.infineon.com/cms/en/product/evaluation-boards/optiga-trust-x-eval-kit/) or the
 Shield2GO (link pending) you are using.
@@ -21,15 +21,18 @@ Shield2GO (link pending) you are using.
 
 ## Getting Started
 Install Arduino IDE 1.8.1.
-[Arduino V1.8.1]https://www.arduino.cc/download_handler.php?f=/arduino-1.8.1-windows.zip
+[Arduino V1.8.1] https://www.arduino.cc/download_handler.php?f=/arduino-1.8.1-windows.zip
 
+## XMC Host Library
+Infineon XMC support for Arduino platform.
+[XMC-for-Arduino] https://github.com/Infineon/XMC-for-Arduino
 
 ## Library Installation
 
-### Integration of Library
-Please download this repository from GitHub either from the latest [release](https://github.com/Infineon/arduino-optiga-trust-x/releases) of directly [here](https://github.com/Infineon/arduino-optiga-trust-x/archive/v1.0.3.zip).
-## Mission Arduino Installation
+### Mission Arduino with Trust X Integration library
 Clone or download this github.
+
+Please download this repository from GitHub either from the latest [release](https://github.com/Infineon/arduino-optiga-trust-x/releases) of directly [here](https://github.com/Infineon/arduino-optiga-trust-x/archive/v1.0.3.zip).
 
 To install the OPTIGA&trade; Trust X library in the Arduino IDE several options can be taken:
 1. via [Library Manager](https://www.arduino.cc/en/Guide/Libraries#toc3) you can find and control this library. Simply type in the Search Field **OPTIGATrustX**
@@ -38,13 +41,15 @@ To install the OPTIGA&trade; Trust X library in the Arduino IDE several options 
 ![Install Library](https://raw.githubusercontent.com/infineon/assets/master/Pictures/Library_Install_ZIP.png)
 
 <<<<<<< HEAD
-## Supported Devices
-In general, the library should be compatible with any Arduino board, however it has been tested for the following platforms:
-* XMC1100 2Go (Infineon Technologies, XMC1100, Cortex M0)
+## Bootcamp hardware
+The following platform will be used for this Bootcamp.
+* XMC1100 XMC2Go (Infineon Technologies, XMC1100, Cortex M0)
+[XMC2Go](https://www.infineon.com/cms/en/product/evaluation-boards/kit_xmc_2go_xmc1100_v1/).
+
 =======
 >>>>>>> 432b7a5016f7bef23a40852a328edda857c7766e
 
-## Usage
+## Examples and Exercises
 The library is equipped with eight groups of examples which can be found on the following path: File->Examples>OPTIGATrustX
 The following sections describe all the examples in more detail.
 
@@ -67,7 +72,7 @@ getRandom example uses OPTIGA™ Trust X to generate true random numbers. This e
 >>>>>>> 432b7a5016f7bef23a40852a328edda857c7766e
 
 ### calculateHash
-calculateHash demonstrates example usage of the SHA256 hash, as well as a simple benchamarking for your microcontroller.
+calculateHash demonstrates example usage of the SHA256 hash, as well as a simple benchmarking for your microcontroller.
 The performance of this benchmark test greatly depends on I2C  bus frame size (it affects mainly big blocks of data transmitted to the OPTIGA™ Trust X chip for hashing),
 which was limited by default down to 32 bytes (in case of 32 bytes the library will perform fragmentation).
 
@@ -92,14 +97,9 @@ For the verification three methods are available:
 calculateSignVerifySign demonstrates methods for keypair generation, either with a private key export, or without.
 In the latter case the developer should specify the Object ID of the private key.
 
-### testFullAPI
-testFullAPI is used to briefly test major API calls to the library. The expected output of this function can be found in Figure below.
-*Certificate output might be different
+### One-Way Authentication
+one-way authentication example is used to verify the authenticity of OPTIGA™ Trust X chip. It makes use of OPTIGA™ Trust X chip crypto functions to implement the authentication function.
 
-![testFullAPI expected result](https://github.com/Infineon/Assets/raw/master/Pictures/OPTIGA%20Trust%20X%20testFullAPI.png)
-
-## Available functions
-Available API is discribed in Wiki of the repository
 
 ## Contributing
 
