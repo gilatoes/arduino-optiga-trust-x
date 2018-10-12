@@ -50,32 +50,30 @@ The following sections describe all the examples in more detail.
 
 <<<<<<< HEAD
 ### helloBootCamp
-helloBootCamp example helps to verify the host controller board is working by printing some information on the serial monitor and getting keyboard input. 
+helloBootCamp example helps to verify the I2C host controller board is working by printing some information on the serial monitor and getting keyboard input.
 The default serial monitor is using 38400 baud, 8 bit None parity and 1 stop bit.
 Using other serial terminal program such as Tera Term, the XMC1100 serial port will shows up as "JLink CDC UART Port".
 
-### getUniqueID 
-getUniqueID example demonstrate retrievieng of OPTIGA™ Trust X unique chip ID. The chip ID consists of 27 bytes and  can be decoded using the Data structure Coprocessor UID table found in the solution reference manual. 
+### getUniqueID
+getUniqueID example demonstrate simple reading of OPTIGA™ Trust X unique chip ID. The chip ID consists of 27 bytes and can be decoded using the Data structure Coprocessor UID table found in the solution reference manual.
+
+### getCertificate
+getCertificate example reads a digital certificate stored within OPTIGA™ Trust X Chip Object ID location 0xE0E0. This certificate is encoded in X.509 format. A X.509 certificate contains a public key and an identity and is signed by Infineon Certificate Authority (CA).
+
+### getRandom
+getRandom example uses OPTIGA™ Trust X to generate true random numbers. This example output is configurable for various random numbers length (16, 32, 64, 128, 256). High quality random number is very important for cryptography application.
 
 =======
-### selfTest
-selfTest example demonstrates a trustX.checkChip() method usage, which authenticates the OPTIGA™ Trust X on the host MCU.
-This method implements a simple challenge-response authentication scheme, in which the host side authenticates the OPTIGA™ Trust X security chip.  
 >>>>>>> 432b7a5016f7bef23a40852a328edda857c7766e
 
 ### calculateHash
 calculateHash demonstrates example usage of the SHA256 hash, as well as a simple benchamarking for your microcontroller.
 The performance of this benchmark test greatly depends on I2C  bus frame size (it affects mainly big blocks of data transmitted to the OPTIGA™ Trust X chip for hashing),
-which was limited by default down to 32 bytes (in case of 32 bytes the library will perfrom fragmentation).
-
-Please check settings for your specific platform, if you want to improve the performance of the hashing function.
+which was limited by default down to 32 bytes (in case of 32 bytes the library will perform fragmentation).
 
 <<<<<<< HEAD
 =======
-### getCertificate, getUniqueID
-getCertificate and getUniqueID demonstrate examples of retrievieng various properties of the OPTIGA™ Trust X Chip.
-As well as these examples the developer can also call getCurrentLimit/setCurrentLimit in order to get or modify the
-current limitation of the chip (varies from 5mA by default to maximum 15mA)
+
 
 >>>>>>> 432b7a5016f7bef23a40852a328edda857c7766e
 ### calculateSignVerifySign  
@@ -93,13 +91,6 @@ For the verification three methods are available:
 ### generateKeypair
 calculateSignVerifySign demonstrates methods for keypair generation, either with a private key export, or without.
 In the latter case the developer should specify the Object ID of the private key.
-
-### getRandom
-getRandom demonstrates random number generator capabilities. This example outputs random numbers of various sizes (16, 32, 64, 128, 256)
-
-### selfTest
-selfTest example demonstrates a trustX.checkChip() method usage, which authenticates the OPTIGA™ Trust X on the host MCU. 
-This method implements a simple challenge-response authentication scheme, in which the host side authenticates the OPTIGA™ Trust X security chip.  
 
 ### testFullAPI
 testFullAPI is used to briefly test major API calls to the library. The expected output of this function can be found in Figure below.
