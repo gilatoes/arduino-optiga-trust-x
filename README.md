@@ -111,6 +111,11 @@ The generated key pair can be used for cryptographic operations.
 ### One-Way Authentication
 one-way authentication example is used to verify the authenticity of OPTIGA™ Trust X chip. It makes use of OPTIGA™ Trust X chip crypto functions to implement the authentication function.
 
+## Troubleshooting
+1. There are many ways of getting the Arduino platform to work. However, it is advisable to counter check with the original Arduino IDE to duplicate the issue.
+2. Ensure that you can execute the helloBootCamp example before moving to the crypto examples.
+3. Some serial terminals might have different setup. When in doubt, fall back to Arduino serial monitor.  
+
 ## Contributing
 
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process of submitting pull requests to us.
