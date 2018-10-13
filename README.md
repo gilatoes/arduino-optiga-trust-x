@@ -1,6 +1,6 @@
 ﻿# Bootcamp for Infineon OPTIGA&trade; Trust X
-
-﻿## Infineon OPTIGA&trade; Trust X <Mission Arduino>
+======
+Infineon OPTIGA&trade; Trust X <Mission Arduino>
 
 Infineon's [OPTIGA&trade; Trust X] is a security controller (https://www.infineon.com/cms/en/product/security-smart-card-solutions/optiga-embedded-security-solutions/optiga-trust/optiga-trust-x-sls-32aia/)
 
