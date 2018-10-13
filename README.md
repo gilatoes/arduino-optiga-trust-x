@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ﻿# Bootcamp for Infineon OPTIGA&trade; Trust X
 =======
 ﻿# Infineon OPTIGA&trade; Trust X <Mission Arduino>
