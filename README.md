@@ -8,13 +8,14 @@ Infineon's [OPTIGA&trade; Trust X] is a security controller (https://www.infineo
 The section of the Boot Camp aims to instil confidence and basic product knowledge of Infineon OPTIGA&trade; Trust X (hereafter called Trust X). The sample codes a.k.a sketches in Arduino allows you to work on the OPTIGA&trade; Trust X integration library (hereafter called Library) and perform some useful tasks using the library API. At the end of this Boot Camp session, you will be able to understand the capabilities of the Library and exercise Trust X hardware.
 
 ## Getting Started
+
 You should have the administrator right for installing software.
 Download and install Arduino IDE version 1.8.1.
 [Arduino V1.8.1] https://www.arduino.cc/download_handler.php?f=/arduino-1.8.1-windows.zip
 
 Note: XMC library is tested with this version of Arduino IDE.
 
-## XMC Host Library for Arduino
+## XMC Host Library for Arduino IDE
 Install Infineon XMC library support for Arduino platform.
 [XMC-for-Arduino] https://github.com/Infineon/XMC-for-Arduino
 
@@ -36,6 +37,8 @@ For the ease of use, you will be issued with a Boot Camp Edition of XMC2Go with 
 
 For manual wire jumping of XMC2Go board with a Trust X Shield2Go board, please refer to schematic and PCB information [Mission Arduino - XMC2Go with Shield2Go]
 (https://easyeda.com/gilatoes/mission-1-xmc2go)
+
+Once the XMC and Trust X Library has been installed on the PC, you can try to open the helloBootCamp example. Perform the **Verify** and **Upload** to flash the MCU firmware to make sure that the environment has been properly setup. 
 
 ## Examples and Exercises
 The Library is equipped with eight examples which can be found on the following path: **File**->**Examples**>**OPTIGATrustX**.
