@@ -13,11 +13,21 @@ You should have the administrator right for installing software.
 Download and install Arduino IDE version 1.8.1.
 [Arduino V1.8.1] https://www.arduino.cc/download_handler.php?f=/arduino-1.8.1-windows.zip
 
+Alternate Arduino V1.8.1 download link (Valid on during the Boot Camp training only):
+https://drive.google.com/file/d/1eSpAln25QQmbwW9p4nzzpp_RQshdnkqo/view?usp=sharing
+
 Note: XMC library is tested with this version of Arduino IDE.
 
 ## XMC Host Library for Arduino IDE
 Install Infineon XMC library support for Arduino platform.
+Follow the instruction on the offical XMC-for-Arduino Github.
 [XMC-for-Arduino] https://github.com/Infineon/XMC-for-Arduino
+
+DAVE 4.4.2 download link:
+https://infineoncommunity.com/dave-download_ID645
+
+Alternate DAVE 4.4.2 download link (Valid on during the Boot Camp training only):
+https://drive.google.com/file/d/1l_TAdm1e6Q3ZJnSK5oMYVVpKxm5e4ZUW/view?usp=sharing
 
 ### Mission Arduino with Trust X and Library
 Clone or download this github to get the Trust X integration library and examples.
@@ -38,7 +48,7 @@ For the ease of use, you will be issued with a Boot Camp Edition of XMC2Go with 
 For manual wire jumping of XMC2Go board with a Trust X Shield2Go board, please refer to schematic and PCB information [Mission Arduino - XMC2Go with Shield2Go]
 (https://easyeda.com/gilatoes/mission-1-xmc2go)
 
-Once the XMC and Trust X Library has been installed on the PC, you can try to open the helloBootCamp example. Perform the **Verify** and **Upload** to flash the MCU firmware to make sure that the environment has been properly setup. 
+Once the XMC and Trust X Library has been installed on the PC, you can try to open the helloBootCamp example. Perform the **Verify** and **Upload** to flash the MCU firmware to make sure that the environment has been properly setup.
 
 ## Examples and Exercises
 The Library is equipped with eight examples which can be found on the following path: **File**->**Examples**>**OPTIGATrustX**.
