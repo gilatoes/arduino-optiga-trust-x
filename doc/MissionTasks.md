@@ -1,10 +1,10 @@
 # Mission Tasks:
 ## Task 1: Trust X Object IDs
-- [x] Read the UID Object.
+- [ ] Read the UID Object.
   * Decode the UID to determine the hardware token identity.
-- [x] Program a short message into any of the "Arbitrary data object Type 2".
-- [x] Read Meta data of the Device Public Key certificate issued by Infineon data object.
-- [x] Determine the Public key issued by Infineon PKI from your token.
+- [ ] Program a short message into any of the "Arbitrary data object Type 2".
+- [ ] Read Meta data of the Device Public Key certificate issued by Infineon data object.
+- [ ] Determine the Public key issued by Infineon PKI from your token.
 
 ## Task 2: Accessories Authentication
 * Using Example of One-Way Authentication
@@ -15,7 +15,7 @@
   - Reduces the host memory foot print to the minimum
   - Increase the speed of the 1-way Authentication
 
-## Task 3: Firmware Update data integrity
+## Task 3: Firmware Update
 ### Server
 - [x] Generate Public and Private Key Pair
 - [x] Private Key is stored in the key storage.
@@ -44,7 +44,7 @@
 - [x] Verify Signature.
 - [x] Read NVM contents.
 
-## Task 5: Certificate Create and Verify (Non-repudiation)
+## Task 5: Certificate Create and Verify
 ### Self-signed CA (Raspberry Pi)
 
 ## Producer (Secure environment)
