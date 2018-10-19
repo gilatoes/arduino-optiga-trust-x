@@ -944,9 +944,27 @@ int32_t IFX_OPTIGA_TrustX::generateKeypair(uint8_t* p_pubkey, uint16_t& plen, ui
         keypair_opt.eAlgId = eECC_NIST_P256;
         keypair_opt.eKeyExport = eStorePrivKeyOnly;
         if (privkey_oid == 0)
+        {
             keypair_opt.wOIDPrivKey= (uint16_t)eSESSION_ID_2;
+          }
         else
+        {
+
+          if((privkey_oid == eSESSION_ID_1) ||
+             (privkey_oid == eSESSION_ID_2) ||
+             (privkey_oid == eSESSION_ID_3) ||
+             (privkey_oid == eSESSION_ID_4) ||
+             (privkey_oid == eFIRST_DEVICE_PRIKEY_2) ||
+             (privkey_oid == eFIRST_DEVICE_PRIKEY_3) ||
+             (privkey_oid == eFIRST_DEVICE_PRIKEY_4))
+          {
             keypair_opt.wOIDPrivKey= (uint16_t)privkey_oid;
+          }
+          else
+          {
+              return ret;
+          }
+        }
 
         // Select the key usage identifier for authentication, signing and key agreement (shared secret) use cases.
         keypair_opt.eKeyUsage = (eKeyUsage_d)(eKeyAgreement | eAuthentication | eSign);
