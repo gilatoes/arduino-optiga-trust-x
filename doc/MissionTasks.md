@@ -22,7 +22,7 @@
   - [ ] Compete the speed of the 1-way Authentication. Least time wins!
 
 ## Task 3: Firmware Update
-* Using One-Way Authentication example as a starting point...
+* Using One-Way Authentication example as a starting point.
 
 Firmware Image
 https://drive.google.com/file/d/1LNF6uueKFEQ-COgkzWL7grB5JSRCuRxY/view?usp=sharing
