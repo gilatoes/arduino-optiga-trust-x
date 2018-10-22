@@ -23,6 +23,13 @@
 
 ## Task 3: Firmware Update
 * Using One-Way Authentication example as a starting point...
+
+Firmware Image
+https://drive.google.com/file/d/1LNF6uueKFEQ-COgkzWL7grB5JSRCuRxY/view?usp=sharing
+
+Firmware SHA-256 Checksum
+https://drive.google.com/file/d/1hqXIJn_757Nmou5aTbD__R2GEoqOUQpn/view?usp=sharing
+
 ### Server
 - [ ] Use Infineon Public Key Pair.
 - [ ] Read the firmware hash value from Task 1 from "Arbitrary data object Type 1" 0xF1D0.
