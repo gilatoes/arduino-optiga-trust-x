@@ -10,23 +10,31 @@ The section of the Boot Camp aims to instil confidence and basic product knowled
 ## Getting Started
 
 You should have administrator right for installing software.
-Download and install Arduino IDE version 1.8.1.<br/>
-[Arduino V1.8.1] https://www.arduino.cc/download_handler.php?f=/arduino-1.8.1-windows.zip
+Download and install Arduino IDE version 1.8.1.
 
-Alternate Arduino V1.8.1 download link (Valid on during the Boot Camp training only):\
+[Arduino V1.8.1]
+https://www.arduino.cc/download_handler.php?f=/arduino-1.8.1-windows.zip
+
+Alternate Arduino V1.8.1 download link (Valid on during the Boot Camp training only):
+
 https://drive.google.com/file/d/1eSpAln25QQmbwW9p4nzzpp_RQshdnkqo/view?usp=sharing
 
 Note: XMC library is tested with this version of Arduino IDE.
 
 ## XMC Host Library for Arduino IDE
 Install Infineon XMC library support for Arduino platform.
-Follow the instruction on the offical XMC-for-Arduino Github.\
-[XMC-for-Arduino] https://github.com/Infineon/XMC-for-Arduino
+Follow the instruction on the offical XMC-for-Arduino Github.
 
-DAVE 4.4.2 download link:<br/>
+[XMC-for-Arduino]
+
+https://github.com/Infineon/XMC-for-Arduino
+
+DAVE 4.4.2 download link:
+
 https://infineoncommunity.com/dave-download_ID645
 
-Alternate DAVE 4.4.2 download link (Valid on during the Boot Camp training only):<br/>
+Alternate DAVE 4.4.2 download link (Valid on during the Boot Camp training only):
+
 https://drive.google.com/file/d/1l_TAdm1e6Q3ZJnSK5oMYVVpKxm5e4ZUW/view?usp=sharing
 
 ### Mission Arduino with Trust X and Library
