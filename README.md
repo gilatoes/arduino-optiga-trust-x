@@ -9,7 +9,7 @@ The section of the Boot Camp aims to instil confidence and basic product knowled
 
 ## Getting Started
 
-You should have the administrator right for installing software.
+You should have administrator right for installing software.
 Download and install Arduino IDE version 1.8.1.<br/>
 [Arduino V1.8.1] https://www.arduino.cc/download_handler.php?f=/arduino-1.8.1-windows.zip
 
