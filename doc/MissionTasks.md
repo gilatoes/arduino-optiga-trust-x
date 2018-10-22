@@ -24,7 +24,7 @@
 ## Task 3: Firmware Update
 * Using One-Way Authentication example as a starting point.
 
-Firmware Image
+Firmware Image<br/>
 https://drive.google.com/file/d/1LNF6uueKFEQ-COgkzWL7grB5JSRCuRxY/view?usp=sharing
 AWS S3 link
 https://s3-us-west-2.amazonaws.com/trustxbootcamp/XMC2Go_FWUpdate_1.hex
