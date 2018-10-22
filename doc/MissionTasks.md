@@ -24,16 +24,6 @@
 ## Task 3: Firmware Update
 * Using One-Way Authentication example as a starting point...
 
-Firmware Image<br/>
-https://drive.google.com/file/d/1LNF6uueKFEQ-COgkzWL7grB5JSRCuRxY/view?usp=sharing
-AWS S3 link
-https://s3-us-west-2.amazonaws.com/trustxbootcamp/XMC2Go_FWUpdate_1.hex
-
-Firmware SHA-256 Checksum
-https://drive.google.com/file/d/1hqXIJn_757Nmou5aTbD__R2GEoqOUQpn/view?usp=sharing
-AWS S3 link
-https://s3-us-west-2.amazonaws.com/trustxbootcamp/XMC2Go_FWUpdate_1_Checksum.txt
-
 ### Server
 - [ ] Use Infineon Public Key Pair.
 - [ ] Read the firmware hash value from Task 1 from "Arbitrary data object Type 1" 0xF1D0.
@@ -47,6 +37,18 @@ https://s3-us-west-2.amazonaws.com/trustxbootcamp/XMC2Go_FWUpdate_1_Checksum.txt
 - [ ] Verify the Signature.
 - [ ] Perform firmware update.
 
+**Firmware Image on Google Drive:**<br/>
+https://drive.google.com/file/d/1LNF6uueKFEQ-COgkzWL7grB5JSRCuRxY/view?usp=sharing<br/>
+
+**Firmware Image on AWS S3 link:**<br/>
+https://s3-us-west-2.amazonaws.com/trustxbootcamp/XMC2Go_FWUpdate_1.hex<br/>
+
+**Firmware SHA-256 Checksum:**<br/>
+https://drive.google.com/file/d/1hqXIJn_757Nmou5aTbD__R2GEoqOUQpn/view?usp=sharing<br/>
+
+**AWS S3 link:**<br/>
+https://s3-us-west-2.amazonaws.com/trustxbootcamp/XMC2Go_FWUpdate_1_Checksum.txt<br/>
+
 ## Task 4: Certificate Create and Verify
 Digital certificate is most commonly used to verify a identity in a Public Key Infrastructure (PKI). Certificates use public key cryptography to address the problem of impersonation.
 
@@ -58,7 +60,8 @@ https://drive.google.com/file/d/1yDZC_0CJx1NVSi9sECObcaDUTMwQP7tg/view?usp=shari
 
 Configuration file openssl.cnf for OpenSSL CA
 https://drive.google.com/file/d/1__tOEmDe2zYQSM0RnPZWcExGYKfS0Pef/view?usp=sharing
-
+AWS S3
+https://s3-us-west-2.amazonaws.com/trustxbootcamp/openssl.cnf
 - [ ]  Create Boot Camp Certificate Authority.
 
 ## Producer (Secure environment on the Raspberry Pi)
