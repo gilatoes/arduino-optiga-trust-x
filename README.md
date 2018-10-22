@@ -12,11 +12,10 @@ The section of the Boot Camp aims to instil confidence and basic product knowled
 You should have administrator right for installing software.
 Download and install Arduino IDE version 1.8.1.
 
-[Arduino V1.8.1]
+[Arduino V1.8.1]<br/>
 https://www.arduino.cc/download_handler.php?f=/arduino-1.8.1-windows.zip
 
-Alternate Arduino V1.8.1 download link (Valid on during the Boot Camp training only):
-
+Alternate Arduino V1.8.1 download link (Valid on during the Boot Camp training only):<br/>
 https://drive.google.com/file/d/1eSpAln25QQmbwW9p4nzzpp_RQshdnkqo/view?usp=sharing
 
 Note: XMC library is tested with this version of Arduino IDE.
@@ -25,16 +24,13 @@ Note: XMC library is tested with this version of Arduino IDE.
 Install Infineon XMC library support for Arduino platform.
 Follow the instruction on the offical XMC-for-Arduino Github.
 
-[XMC-for-Arduino]
-
+[XMC-for-Arduino]<br/>
 https://github.com/Infineon/XMC-for-Arduino
 
-DAVE 4.4.2 download link:
-
+DAVE 4.4.2 download link:<br/>
 https://infineoncommunity.com/dave-download_ID645
 
-Alternate DAVE 4.4.2 download link (Valid on during the Boot Camp training only):
-
+Alternate DAVE 4.4.2 download link (Valid on during the Boot Camp training only):<br/>
 https://drive.google.com/file/d/1l_TAdm1e6Q3ZJnSK5oMYVVpKxm5e4ZUW/view?usp=sharing
 
 ### Mission Arduino with Trust X and Library
@@ -49,11 +45,12 @@ To install Trust X Library in the Arduino IDE several options can be taken:
 For this part of training, a XMC2Go board will be used as the MCU I2C host controller for Trust X. The MCU board comes with a JTAG programmer needs to be connected to a Windows based PC for flashing the firmware.
 
 * XMC2Go (Infineon Technologies, XMC1100, Cortex M0)
-[XMC2Go](https://www.infineon.com/cms/en/product/evaluation-boards/kit_xmc_2go_xmc1100_v1/).
+[XMC2Go]<br/>
+(https://www.infineon.com/cms/en/product/evaluation-boards/kit_xmc_2go_xmc1100_v1/).
 
 For the ease of use, you will be issued with a Boot Camp Edition of XMC2Go with Sheidl2Go token. All the exercises should be accomplished using this mission board.
 
-For manual wire jumping of XMC2Go board with a Trust X Shield2Go board, please refer to schematic and PCB information [Mission Arduino - XMC2Go with Shield2Go]
+For manual wire jumping of XMC2Go board with a Trust X Shield2Go board, please refer to schematic and PCB information [Mission Arduino - XMC2Go with Shield2Go]<br/>
 (https://easyeda.com/gilatoes/mission-1-xmc2go)
 
 Once the XMC and Trust X Library has been installed on the PC, you can try to open the helloBootCamp example. Perform the **Verify** and **Upload** to flash the MCU firmware to make sure that the environment has been properly setup.
