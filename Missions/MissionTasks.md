@@ -37,17 +37,11 @@
 - [ ] Verify the Signature.
 - [ ] Perform firmware update.
 
-**Firmware Image on Google Drive:**<br/>
-https://drive.google.com/file/d/1LNF6uueKFEQ-COgkzWL7grB5JSRCuRxY/view?usp=sharing<br/>
-
-**Firmware Image on AWS S3 link:**<br/>
-https://s3-us-west-2.amazonaws.com/trustxbootcamp/XMC2Go_FWUpdate_1.hex<br/>
+**Firmware Image:**<br/>
+https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Missions/Mission_files/XMC2Go_FWUpdate_1.hex
 
 **Firmware SHA-256 Checksum:**<br/>
-https://drive.google.com/file/d/1hqXIJn_757Nmou5aTbD__R2GEoqOUQpn/view?usp=sharing<br/>
-
-**AWS S3 link:**<br/>
-https://s3-us-west-2.amazonaws.com/trustxbootcamp/XMC2Go_FWUpdate_1_Checksum.txt<br/>
+https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Missions/Mission_files/XMC2Go_FWUpdate_1_Checksum.txt
 
 ## Task 4: Certificate Create and Verify
 Digital certificate is most commonly used to verify a identity in a Public Key Infrastructure (PKI). Certificates use public key cryptography to address the problem of impersonation.
@@ -55,13 +49,12 @@ Digital certificate is most commonly used to verify a identity in a Public Key I
 Certificate Authority issues the certificate which binds a public key to it. Certificate helps to prevents fake public keys for impersonation. Only public key that is certified by the CA will work with the corresponding private key that is owned by the certificate owner.
 
 ### Setup for OpenSSL
-Download Windows OpenSSL x64
+Download Windows OpenSSL x64<br/>
 https://drive.google.com/file/d/1yDZC_0CJx1NVSi9sECObcaDUTMwQP7tg/view?usp=sharing
 
-Configuration file openssl.cnf for OpenSSL CA
-https://drive.google.com/file/d/1__tOEmDe2zYQSM0RnPZWcExGYKfS0Pef/view?usp=sharing
-AWS S3
-https://s3-us-west-2.amazonaws.com/trustxbootcamp/openssl.cnf
+**Configuration file openssl.cnf for OpenSSL CA**<br/>
+https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Missions/Mission_files/openssl.cnf
+
 - [ ]  Create Boot Camp Certificate Authority.
 
 ## Producer (Secure environment on the Raspberry Pi)
