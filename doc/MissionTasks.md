@@ -77,6 +77,7 @@ https://s3-us-west-2.amazonaws.com/trustxbootcamp/openssl.cnf
 ### Consumer
 - [ ]  Verify the device CA against the root CA
 
-## Task 5: I2C
+## Task 5: I2C and GPIO
 - [ ]  Changes the Trust X library.
+- [ ]  Configure GPIO to enable warm reset.
 - [ ]  Modify the I2C address of Trust X
