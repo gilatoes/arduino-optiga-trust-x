@@ -80,4 +80,5 @@ https://s3-us-west-2.amazonaws.com/trustxbootcamp/openssl.cnf
 ## Task 5: I2C and GPIO
 - [ ]  Changes the Trust X library.
 - [ ]  Configure GPIO to enable warm reset.
+- [ ]  Modify the I2C bus frequency. Monitor the update on analyzer.
 - [ ]  Modify the I2C address of Trust X
