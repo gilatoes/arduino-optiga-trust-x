@@ -61,7 +61,9 @@ pal_i2c_t optiga_pal_i2c_context_0 =
  * PAL GPIO configurations
  *********************************************************************************************************************/
 
-static uint8_t gpio_pin_reset = 9; //XMC1100 XMC2Go P0.0
+//Looks like you found me!!!
+static uint8_t gpio_pin_reset = NULL;
+//static uint8_t gpio_pin_reset = 9; //XMC1100 XMC2Go P0.0
 
 /**
  *  \brief PAL vdd pin configuration for OPTIGA.
