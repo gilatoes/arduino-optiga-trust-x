@@ -21,12 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE
  *
- * Demonstrates use of the
+ * Demonstrates use of the 
  * Infineon Technologies AG OPTIGA™ Trust X Arduino library
  */
 
-#define SUPPRESSCOLLORS
-#include "fprint.h"
+#include "OPTIGATrustX.h"
+#include <Arduino.h>
 
 // Linker symbols to get falsh/RAM usage
 #if( UC_FAMILY == XMC1 )
@@ -44,31 +44,28 @@ uint32_t temp, code_size;
 
 uint8_t sys_init =0;
 
-void setup()
+void setup() 
 {
   uint32_t ret = 0;
-
+  
   /*
    * Initialise a serial port for debug output
    */
   Serial.begin(115200, SERIAL_8N1);
+  delay(1000);
   Serial.println("Initializing XMC... ");
-
+ 
   if(reset()==0){
     sys_init=1;
   }else{
     sys_init=0;
   }
-#if( UC_FAMILY == XMC1 )
-  led1On();
-  led2On();
-#endif
 
 }
 
 void sys_test()
 {
-  delay( 60 );
+  delay( 60 );  
   Serial.println( "PC Services - XMC-for-Arduino useful defines example" );
   #ifdef XMC_BOARD_NAME
   Serial.read();
@@ -108,14 +105,14 @@ void sys_test()
   str2( ARDUINO_ARCH_ARM );
   Serial.write( ' ' );
   str1( ARDUINO_ARCH_ARM );
-
+  
   Serial.print( "Library Version\t" );
   Serial.print( XMC_LIB_MAJOR_VERSION );
   Serial.print( '.' );
   Serial.print( XMC_LIB_MINOR_VERSION );
   Serial.write( '.' );
   Serial.println( XMC_LIB_PATCH_VERSION );
-
+  
   Serial.println( "\nMemory usage-" );
   Serial.print( "Code Size:\t" );
   #if( UC_FAMILY == XMC1 )
@@ -124,7 +121,7 @@ void sys_test()
   code_size = &__data_end - &sText;
   #endif
   Serial.println( code_size );
-
+  
   #if( UC_FAMILY == XMC1 )
   Serial.print( "Veneer:\t\t" );
   temp = &VeneerEnd - &VeneerStart;
@@ -148,10 +145,10 @@ void sys_test()
   Serial.print( "Heap or unused\t" );
   temp =  &Heap_Bank1_End - &Heap_Bank1_Start;
   Serial.println( temp );
-
+  
   Serial.print( "\nTotal Flash\t" );
   Serial.println( code_size );
-
+  
   Serial.print( "Ram less Stack\t" );
   temp = &Heap_Bank1_Start - &__data_start;
   Serial.println( temp );
@@ -162,18 +159,23 @@ void loop()
   uint32_t ret = 0;
 
   String message = "\r\nWelcome to Trust X Bootcamp!";
+uint8_t *version = new uint8_t[10];
 
   if(sys_init)
   {
     sys_test();
-    Serial.println(message);
+    version = (uint8_t* )trustX.version();
+    char tmp [100];
+    sprintf(tmp, "Trust X Host Library: %s",version);
+    Serial.println(tmp);  
+    Serial.println(message);   
   }
-
-  printlnGreen("\r\nPress i to re-initialize.. other key to loop...");
-  while (Serial.available()==0){} //Wait for user input
+  
+  Serial.println("\r\nPress i to re-initialize.. other key to loop...");   
+  while (Serial.available()==0){} //Wait for user input  
   String input = Serial.readString();  //Reading the Input string from Serial port.
   input.trim();
-  if(input=="i")
+  if(input=="i") 
   {
     if(reset()!=0)
     {
@@ -188,11 +190,15 @@ void loop()
 
 uint8_t reset()
 {
-  uint32_t ret = 0;
-
-#if( UC_FAMILY == XMC1 )
-  led1Off();
-  led2Off();
-#endif
-  return ret;
+  uint32_t ret = 0;   
+  Serial.print("Begin to trust ... ");
+  ret = trustX.begin();
+  if (ret) {
+    Serial.print("Failed");
+    return -1;   
+  }
+  Serial.println("Done");
+  
+  return 0;
 }
+
