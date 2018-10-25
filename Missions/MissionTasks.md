@@ -1,5 +1,16 @@
 # Mission Tasks:
-## Task 1: Trust X Object IDs
+## Task 0: Minimal
+- [ ]  Setup with software
+
+## Task 1: helloBootCamp
+- [ ]  Execute the helloBootcamp example and checks the XMC and Trust X library version.
+
+## Task 2: I2C and GPIO Debug and Analysis Exercise
+- [ ]  Changes the Trust X library.
+- [ ]  Configure GPIO to enable warm reset.
+- [ ]  Modify the I2C bus frequency. Monitor the update on analyzer.
+- [ ]  Modify the I2C address of Trust X
+## Task 3: Trust X Object IDs
 - [ ] Read the UID Object.
   * Decode the UID to determine the hardware token identity.
 - [ ] Program the following data into the "Arbitrary data object Type 1" 0xF1D0.
@@ -9,7 +20,7 @@
 - [ ] Read Meta data of the Device Public Key certificate issued by Infineon data object.
 - [ ] Determine the Public key issued by Infineon PKI from your token.
 
-## Task 2: Accessories Authentication
+## Task 4: Accessories Authentication
 * Using One-Way Authentication example as a starting point
 - In the scenario, implement your own Asymmetric Key 1-way Authentication.
 ### Condition:
@@ -21,7 +32,7 @@
   - [ ] Compete with your camp mates for the least XMC2Go memory foot print. Least memory wins!
   - [ ] Compete the speed of the 1-way Authentication. Least time wins!
 
-## Task 3: Firmware Update
+## Task 5: Firmware Update
 * Using One-Way Authentication example as a starting point...
 
 ### Server
@@ -43,7 +54,7 @@ https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Mission
 **Firmware SHA-256 Checksum:**<br/>
 https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Missions/Mission_files/XMC2Go_FWUpdate_1_Checksum.txt
 
-## Task 4: Certificate Create and Verify
+## Task 6: Certificate Create and Verify
 Digital certificate is most commonly used to verify a identity in a Public Key Infrastructure (PKI). Certificates use public key cryptography to address the problem of impersonation.
 
 Certificate Authority issues the certificate which binds a public key to it. Certificate helps to prevents fake public keys for impersonation. Only public key that is certified by the CA will work with the corresponding private key that is owned by the certificate owner.
@@ -57,7 +68,7 @@ https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Mission
 
 - [ ]  Create Boot Camp Certificate Authority.
 
-## Producer (Secure environment on the Raspberry Pi)
+## Certificate Authority
 * Using generateKeypair example as a starting point
 - [ ]  Create and export Public Key and private key.
 - [ ]  Format the Public key and Secret key to PEM format.
@@ -69,9 +80,3 @@ https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Mission
 
 ### Consumer
 - [ ]  Verify the device CA against the root CA
-
-## Task 5: I2C and GPIO
-- [ ]  Changes the Trust X library.
-- [ ]  Configure GPIO to enable warm reset.
-- [ ]  Modify the I2C bus frequency. Monitor the update on analyzer.
-- [ ]  Modify the I2C address of Trust X
