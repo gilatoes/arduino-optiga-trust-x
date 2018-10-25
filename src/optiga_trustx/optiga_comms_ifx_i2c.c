@@ -33,8 +33,11 @@
 /**********************************************************************************************************************
  * HEADER FILES
  *********************************************************************************************************************/
+#include <Arduino.h>
+#include "debug.h"
 #include "optiga_comms.h"
 #include "ifx_i2c.h"
+
 /// @cond hidden
 /**********************************************************************************************************************
  * MACROS
@@ -89,6 +92,9 @@ static void ifx_i2c_event_handler(void* upper_layer_ctx, host_lib_status_t event
 host_lib_status_t optiga_comms_open(optiga_comms_t *p_ctx)
 {
     host_lib_status_t status = OPTIGA_COMMS_ERROR;
+
+    //print_debug(">optiga_comms_open");
+
     if (OPTIGA_COMMS_SUCCESS == check_optiga_comms_state(p_ctx))
     {
         ((ifx_i2c_context_t*)(p_ctx->comms_ctx))->p_upper_layer_ctx = (void*)p_ctx;
@@ -98,8 +104,87 @@ host_lib_status_t optiga_comms_open(optiga_comms_t *p_ctx)
         {
             p_ctx->state = OPTIGA_COMMS_FREE;
         }
+
     }
-    return status; 
+
+#if 0
+    char tmp[200];
+	sprintf(tmp, "i2c frequency: %d", ((ifx_i2c_context_t*)(p_ctx->comms_ctx))->frequency);
+	print_debug(tmp);
+#endif
+    //print_debug("<optiga_comms_open");
+    return status;
+}
+
+/**
+ * Update the I2C address of OPTIGA Trust X.<br>
+ *
+ *<b>Pre Conditions:</b>
+ * - None<br>
+ *
+ *<b>API Details:</b>
+ * - If persistent mode is selected, the ifx i2c context slave address will be over-written with the new slave address.
+ *   Even after ifx i2c open/reset, all future executions will use the new slave address.<br>
+ * - If volatile mode is selected, the pal_i2c_context slave address will be over-written with the new slave address.
+ *   This persists only till the next ifx_i2c open/reset is called.
+ *<br>
+ *
+ *<b>User Input:</b><br>
+ * - The input #optiga_comms_t p_ctx must not be NULL.<br>
+ * - The following parameters in #optiga_comms_t must be initialized with appropriate values.<br>
+ *      - The <b>comms_ctx</b> must be initialized with a valid #ifx_i2c_context.<br>
+ *      - The <b>upper_layer_event_handler</b> parameter must be properly initialized.
+ *          This is invoked when #optiga_comms_open is asynchronously completed.<br>
+ *      - The <b>upper_layer_ctx</b> must be properly initialized.<br>
+ *
+ *<b>Notes:</b>
+ * - None<br>
+ *
+ *<br>
+ * \param[in,out] p_ctx   Pointer to optiga comms context
+ * \param[in,out] new_address   new I2C address
+ *
+ * \retval  #OPTIGA_COMMS_SUCCESS
+ * \retval  #OPTIGA_COMMS_ERROR
+ */
+host_lib_status_t optiga_comms_set_address(optiga_comms_t *p_ctx, uint8_t new_address)
+{
+    host_lib_status_t status = OPTIGA_COMMS_ERROR;
+    char tmp[200];
+#define NON_PERSISTENT 0x0
+
+    //print_debug(">optiga_comms_set_address");
+
+    //Trust X uses 7-bit addressing
+	if(new_address>0x7f)
+	{
+		print_debug("Error: Invalid I2C address\r\n");
+		return status;
+	}
+	//print_debug("-calling set address");
+	status = ifx_i2c_set_slave_address((ifx_i2c_context_t*)(p_ctx->comms_ctx), new_address, NON_PERSISTENT);
+
+	if(status==IFX_I2C_STACK_SUCCESS)
+	{
+
+		//Update I2C stack to use the new address
+		((ifx_i2c_context_t*)(p_ctx->comms_ctx))->slave_address=new_address;
+		((ifx_i2c_context_t*)(p_ctx->comms_ctx))->p_pal_i2c_ctx->slave_address=new_address;
+
+		//sprintf(tmp, "current slave address: 0x%x", ((ifx_i2c_context_t*)(p_ctx->comms_ctx))->slave_address);
+		//print_debug(tmp);
+
+		//sprintf(tmp, "current slave address: 0x%x\r\n", ((ifx_i2c_context_t*)(p_ctx->comms_ctx))->p_pal_i2c_ctx->slave_address);
+		//print_debug(tmp);
+
+	}else
+	{
+		sprintf(tmp, "Error status: 0x%x\r\n", status);
+		print_debug(tmp);
+	}
+
+    //print_debug("<optiga_comms_set_address");
+    return status;
 }
 
 /**
@@ -132,6 +217,8 @@ host_lib_status_t optiga_comms_open(optiga_comms_t *p_ctx)
 host_lib_status_t optiga_comms_reset(optiga_comms_t *p_ctx,uint8_t reset_type)
 {
     host_lib_status_t status = OPTIGA_COMMS_ERROR;
+    print_debug(">optiga_comms_reset");
+
     if (OPTIGA_COMMS_SUCCESS == check_optiga_comms_state(p_ctx))
     {
         ((ifx_i2c_context_t*)(p_ctx->comms_ctx))->p_upper_layer_ctx = (void*)p_ctx;
@@ -142,6 +229,7 @@ host_lib_status_t optiga_comms_reset(optiga_comms_t *p_ctx,uint8_t reset_type)
             p_ctx->state = OPTIGA_COMMS_FREE;
         }
     }
+    print_debug("<optiga_comms_reset");
     return status;
 }
 
@@ -224,6 +312,7 @@ host_lib_status_t optiga_comms_transceive(optiga_comms_t *p_ctx,const uint8_t* p
 host_lib_status_t optiga_comms_close(optiga_comms_t *p_ctx)
 {
     host_lib_status_t status = OPTIGA_COMMS_ERROR;
+    print_debug(">optiga_comms_close");
     if (OPTIGA_COMMS_SUCCESS == check_optiga_comms_state(p_ctx))
     {      
         ((ifx_i2c_context_t*)(p_ctx->comms_ctx))->p_upper_layer_ctx = (void*)p_ctx;
@@ -234,6 +323,7 @@ host_lib_status_t optiga_comms_close(optiga_comms_t *p_ctx)
             p_ctx->state = OPTIGA_COMMS_FREE;
         } 
     }
+    print_debug("<optiga_comms_close");
     return status;
 }
 

@@ -160,6 +160,7 @@ pal_status_t pal_i2c_deinit(const pal_i2c_t* p_i2c_context)
 pal_status_t pal_i2c_write(pal_i2c_t* p_i2c_context,uint8_t* p_data , uint16_t length)
 {
 	app_event_handler_t upper_layer_handler;
+	//Serial.println(">pal_i2c_write");
 	upper_layer_handler = (app_event_handler_t)p_i2c_context->upper_layer_event_handler;
     pal_status_t status = PAL_STATUS_FAILURE;
     TwoWire * i2c = NULL;
@@ -182,7 +183,7 @@ pal_status_t pal_i2c_write(pal_i2c_t* p_i2c_context,uint8_t* p_data , uint16_t l
 		if (ack == 0) {
 			upper_layer_handler(p_i2c_context->upper_layer_ctx, PAL_I2C_EVENT_SUCCESS);
 			status = PAL_STATUS_SUCCESS;
-			/*
+/*
 			Serial.print("->  ");
 			for(int i = 0; i < length; i++)
 			{
@@ -191,7 +192,7 @@ pal_status_t pal_i2c_write(pal_i2c_t* p_i2c_context,uint8_t* p_data , uint16_t l
 				Serial.print(" ");
 			}
 			Serial.print("\n");
-			*/
+*/
 		} else {
 			upper_layer_handler(p_i2c_context->upper_layer_ctx, PAL_I2C_EVENT_ERROR);
 			//Serial.print("~->\n");
@@ -199,6 +200,7 @@ pal_status_t pal_i2c_write(pal_i2c_t* p_i2c_context,uint8_t* p_data , uint16_t l
     }while(0);
 
 
+    //Serial.println("<pal_i2c_write");
     return status;
 }
 

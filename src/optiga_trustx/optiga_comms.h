@@ -82,6 +82,11 @@ extern optiga_comms_t optiga_comms;
 LIBRARY_EXPORTS host_lib_status_t optiga_comms_open(optiga_comms_t *p_ctx);
 
 /**
+ * \brief   Update I2C address of OPTIGA.
+ */
+LIBRARY_EXPORTS host_lib_status_t optiga_comms_set_address(optiga_comms_t *p_ctx, uint8_t new_address);
+
+/**
  * \brief   Resets the OPTIGA.
  */
 LIBRARY_EXPORTS host_lib_status_t optiga_comms_reset(optiga_comms_t *p_ctx,uint8_t reset_type);

@@ -50,7 +50,7 @@ extern "C" {
 **********************************************************************************************************************/
 
 /** @brief I2C slave address of the Infineon device */
-#define IFX_I2C_BASE_ADDR           (0x30)
+//#define IFX_I2C_BASE_ADDR           (0x30)
 
 /** @brief Physical Layer: polling interval in microseconds */
 #define PL_POLLING_INVERVAL_US      (1000)

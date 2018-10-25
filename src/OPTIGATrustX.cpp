@@ -89,6 +89,7 @@ int32_t IFX_OPTIGA_TrustX::begin(void)
     return begin(Wire);
 }
 
+
 int32_t IFX_OPTIGA_TrustX::checkChip(void)
 {
 	int32_t err = CMD_LIB_ERROR;
@@ -189,8 +190,11 @@ int32_t IFX_OPTIGA_TrustX::begin(TwoWire& CustomWire)
         optiga_comms_status = OPTIGA_COMMS_BUSY;
         optiga_comms.upper_layer_handler = optiga_comms_event_handler;
 
+        //Serial.println("calling optiga_comms_open()");
+
         if(E_COMMS_SUCCESS != optiga_comms_open(&optiga_comms))
         {
+        	Serial.println("Error: optiga_comms_open() failed.");
             break;
         }
 
@@ -199,12 +203,20 @@ int32_t IFX_OPTIGA_TrustX::begin(TwoWire& CustomWire)
             // Push forward timer dependent actions.
             pal_os_event_process();
         }
-
+#if 0
+        if(E_COMMS_SUCCESS != optiga_comms_set_address(&optiga_comms, 0x30))
+        {
+        	Serial.println("Error: optiga_comms_set_address() failed.");
+            break;
+        }
+#endif
         //Set OPTIGA comms context in Command library before invoking the use case APIs or command library APIs
-        //This context will be used by command libary to communicate with OPTIGA using IFX I2C Protocol.
+        //This context will be used by command library to communicate with OPTIGA using IFX I2C Protocol.
         CmdLib_SetOptigaCommsContext(&optiga_comms);
 
         openapp_opt.eOpenType = eInit;
+
+        //Serial.println("Open Trust X application");
 
         //Open the application in security chip
         ret = CmdLib_OpenApplication(&openapp_opt);
@@ -218,6 +230,40 @@ int32_t IFX_OPTIGA_TrustX::begin(TwoWire& CustomWire)
 
     } while (0);
 
+    return ret;
+}
+
+//set I2C address
+int32_t IFX_OPTIGA_TrustX::set_i2c_address(uint8_t address)
+{
+	int32_t ret = CMD_LIB_ERROR;
+
+	//Serial.println(">IFX_OPTIGA_TrustX::set_i2c_address");
+
+    if(E_COMMS_SUCCESS != optiga_comms_set_address(&optiga_comms, address))
+    {
+    	Serial.println("Error: optiga_comms_set_address() failed.");
+    	return ret;
+    }
+    ret = 0;
+    //Serial.println("<IFX_OPTIGA_TrustX::set_i2c_address");
+    return ret;
+}
+
+//Restore the default I2C address
+int32_t IFX_OPTIGA_TrustX::restore(void)
+{
+	int32_t ret = CMD_LIB_ERROR;
+
+	//Serial.println(">IFX_OPTIGA_TrustX::restore");
+    if(E_COMMS_SUCCESS != optiga_comms_set_address(&optiga_comms, 0x30))
+    {
+    	Serial.println("Error: optiga_comms_set_address() failed.");
+    	return ret;
+    }
+
+    ret = 0;
+    //Serial.println("<IFX_OPTIGA_TrustX::restore");
     return ret;
 }
 
@@ -320,6 +366,10 @@ int32_t IFX_OPTIGA_TrustX::setGenericData(uint16_t oid, uint8_t* p_data, uint16_
 /*************************************************************************************
  *                              COMMANDS API TRUST E COMPATIBLE
  **************************************************************************************/
+char * IFX_OPTIGA_TrustX::version(void)
+{
+    return VERSION_HOST_LIBRARY;
+}
 
 int32_t IFX_OPTIGA_TrustX::getCertificate(uint8_t* p_cert, uint16_t& clen)
 {

@@ -197,12 +197,34 @@ public:
 
     /**
      *
+     * This function restore the Infineon OPTIGA Trust X default I2C address.
+     *
+     * @retval  0  If function was successful.
+     * @retval  1  If the operation failed.
+     */
+    int32_t restore(void);
+
+    /**
+     *
+     * This function updates the Infineon OPTIGA Trust X I2C address.
+     *
+     * @retval  0  If function was successful.
+     * @retval  1  If the operation failed.
+     */
+    int32_t set_i2c_address(uint8_t);
+
+    /**
+     *
      * @brief  Ends communication with the Optiga Trust X.
      *
      * @retval  0  If function was successful.
      * @retval  1  If the operation failed.
      */
     void end(void);
+
+
+    /*Returns the host version*/
+    char * version(void);
 
     /**
      * @brief Get the Infineon OPTIGA Trust X device certificate.

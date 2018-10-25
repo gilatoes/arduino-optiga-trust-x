@@ -36,6 +36,8 @@
 #include "ifx_i2c_physical_layer.h"
 #include "pal_os_event.h"
 
+#include "debug.h"
+
 /// @cond hidden
 /***********************************************************************************************************************
 * MACROS
@@ -227,6 +229,8 @@ host_lib_status_t ifx_i2c_pl_write_slave_address(ifx_i2c_context_t *p_ctx, uint8
     host_lib_status_t status = IFX_I2C_STACK_ERROR;
     app_event_handler_t * temp_upper_layer_event_handler;
 
+    //print_debug(">ifx_i2c_pl_write_slave_address");
+
     /// @cond hidden
     #define PAL_WRITE_INIT_STATUS      (0x00FF)
     #define ADDRESS_OFFSET              (0x02)
@@ -257,11 +261,14 @@ host_lib_status_t ifx_i2c_pl_write_slave_address(ifx_i2c_context_t *p_ctx, uint8
     {
         pal_event_status = PAL_WRITE_INIT_STATUS;
 
+        //print_debug("-call pal_i2c_write");
         //lint --e{534} suppress "Return value is not required to be checked"
-        pal_i2c_write(p_ctx->p_pal_i2c_ctx,p_ctx->pl.buffer, p_ctx->pl.buffer_tx_len);
+        pal_i2c_write(p_ctx->p_pal_i2c_ctx, p_ctx->pl.buffer, p_ctx->pl.buffer_tx_len);
+
         while(PAL_WRITE_INIT_STATUS == pal_event_status){};
         if(PAL_I2C_EVENT_SUCCESS == pal_event_status)
         {
+        	//print_debug("-call pal_i2c_write success");
             break;
         }
         p_ctx->pl.retry_counter--;
@@ -287,6 +294,8 @@ host_lib_status_t ifx_i2c_pl_write_slave_address(ifx_i2c_context_t *p_ctx, uint8
     #undef MODE_OFFSET
     /// @endcond
     
+    //print_debug("<ifx_i2c_pl_write_slave_address");
+
     return status;
 }
 

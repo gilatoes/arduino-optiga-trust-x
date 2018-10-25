@@ -37,6 +37,8 @@
 #include "ifx_i2c_transport_layer.h"
 #include "pal_os_event.h"
 
+#include "debug.h"
+
 /// @cond hidden
 /***********************************************************************************************************************
 * MACROS
@@ -134,6 +136,8 @@ host_lib_status_t ifx_i2c_open(ifx_i2c_context_t *p_ctx)
 {	
     host_lib_status_t api_status = (int32_t)IFX_I2C_STACK_ERROR;
     
+    //print_debug(">ifx_i2c_open");
+
     //If api status is not busy, proceed
     if ((IFX_I2C_STATUS_BUSY != p_ctx->status))
     {
@@ -143,13 +147,16 @@ host_lib_status_t ifx_i2c_open(ifx_i2c_context_t *p_ctx)
         p_ctx->do_pal_init = TRUE;
         p_ctx->state = IFX_I2C_STATE_UNINIT;
 
+        //print_debug("-call ifx_i2c_init()");
         api_status = ifx_i2c_init(p_ctx);
         if(IFX_I2C_STACK_SUCCESS == api_status)
         {
             p_ctx->status = IFX_I2C_STATUS_BUSY;
         }
+
     }
 
+    //print_debug("<ifx_i2c_open");
     return api_status;
 }
 
@@ -337,12 +344,17 @@ host_lib_status_t ifx_i2c_set_slave_address(ifx_i2c_context_t *p_ctx, uint8_t sl
 {
     host_lib_status_t api_status = (int32_t)IFX_I2C_STACK_ERROR;
 
+    //print_debug(">ifx_i2c_set_slave_address");
+
     if ((IFX_I2C_STATE_IDLE == p_ctx->state))
     {
+    	//print_debug("-setting address");
         p_ctx->p_pal_i2c_ctx->upper_layer_ctx = p_ctx;
         
         api_status = ifx_i2c_pl_write_slave_address(p_ctx, slave_address, persistent);
+        //print_debug("-address set");
     }
+    //print_debug("<ifx_i2c_set_slave_address");
     
     return api_status;
 }
@@ -394,7 +406,9 @@ static host_lib_status_t ifx_i2c_init(ifx_i2c_context_t* p_ifx_i2c_context)
 				break;
             
 			case IFX_I2C_STATE_RESET_PIN_HIGH:
-				// Setting the Vdd & Reset pin to high 
+				// Setting the Vdd & Reset pin to high
+				//Serial.print("Setting VDD & Reset to high");
+
 				if (p_ifx_i2c_context->reset_type == (uint8_t)IFX_I2C_COLD_RESET)
 				{
 					pal_gpio_set_high(p_ifx_i2c_context->p_slave_vdd_pin);
