@@ -10,15 +10,7 @@ The section of the Boot Camp aims to instil confidence and basic product knowled
 ## Getting Started
 
 You should have administrator right for installing software.
-Download and install Arduino IDE version 1.8.1.
-
-[Arduino V1.8.1]<br/>
-https://www.arduino.cc/download_handler.php?f=/arduino-1.8.1-windows.zip
-
-Alternate Arduino V1.8.1 download link (Valid on during the Boot Camp training only):<br/>
-https://drive.google.com/file/d/1eSpAln25QQmbwW9p4nzzpp_RQshdnkqo/view?usp=sharing
-
-Note: XMC library is tested with this version of Arduino IDE.
+Download and install the latest Arduino IDE version.
 
 ## XMC Host Library for Arduino IDE
 Install Infineon XMC library support for Arduino platform.
@@ -59,7 +51,7 @@ Once the XMC and Trust X Library has been installed on the PC, you can try to op
 The Library is equipped with eight examples which can be found on the following path: **File**->**Examples**>**OPTIGATrustX**.
 
 The following section describe all the examples in detail.
-### 00.Minimal
+### E00Minimal
 The minimal example contains less than 10 lines of codes needed for a sketch to compile in the Arduino Software (IDE). There are only setup() and loop() methods.
 
 This is a good time for you to setup the environment.
@@ -80,20 +72,20 @@ Click on the Upload button to download the compiled binary to XMC2Go.
 
 Click on the Serial Monitor button to show the serial output from XMC2Go. If there is no output, make sure that the baud rate is set to 115200 at the bottom of the serial monitor.
 
-### 01.helloBootCamp
+### E01helloBootCamp
 helloBootCamp example helps to verify that the XMC and Trust X library are compiled correctly. Compiling and uploading the code should display both version number of the libraries indicating that the library has been executed correctly.
 
-### 02.configI2C
-configI2C example is a skeleton program which calls the Trust X I2C library. As the I2C is already working on the platform, you will be task to perform certain modification such that you will need to explore the underlying library and its APIs.
+### E02configI2C
+configI2C example is a skeleton example program which calls the Trust X I2C library. As the I2C is already working on the platform, you will be task to perform certain modification such that you will need to explore the underlying library and its APIs.
 
-### 03.getUniqueID
+### E03getUniqueID
 getUniqueID example demonstrate reading of Trust X unique chip ID from data object 0xE0C2. The chip ID consists of 27 bytes and can be decoded using the Data structure Coprocessor UID table found in the solution reference manual.
 
-### 04.getRandom
+### E04getRandom
 getRandom example uses Trust X to generate true random numbers. This example output is configurable for various random numbers length (**16**, **32**, **64**, **128**, **256**).
 High quality random number is very important for cryptography application.
 
-### 05.getCertificate
+### E05getCertificate
 getCertificate example reads a digital certificate stored within Trust X data Object 0xE0E0. The certificate is encoded in X.509 format and dump out as hex output.
 A X.509 certificate contains a public key and an identity that is signed by Infineon Certificate Authority (CA). The certificate can be copy-and-paste into a Hex to Base64 convertor.
 Once the certificate is encoded into Base64 format, it should be enclosed with the following text.
@@ -115,12 +107,12 @@ OpenSSL command:
 openssl x509 -in certificate.pem -text -noout
 ```
 
-### 06.calculateHash
+### E06calculateHash
 calculateHash demonstrates example usage of the SHA256 hash, as well as a simple benchmarking for your microcontroller.
 The performance of this benchmark test greatly depends on I2C bus frame size (it affects mainly big blocks of data transmitted to the Trust X chip for hashing),
 which was limited by default down to 32 bytes (in case of 32 bytes the library will perform fragmentation).
 
-### 07.calculateSignVerifySign  
+### E07calculateSignVerifySign  
 calculateSignVerifySign demonstrates signature generation and signature verification methods of the library.
 This example shows two modes of operation:
 1) Calculate a signature using manufacturer private key, the result value is then verified  against the public key
@@ -132,13 +124,13 @@ For the verification three methods are available:
 2) with Object ID pointing to the memory slot where the public key is located,
 3) if neither Object ID nor raw public key were specified, the function will use a default Object ID with manufacturer public key certificate.
 
-### 08.OneWayAuth
+### E08OneWayAuth
 one-way authentication example is used to verify the authenticity of Trust X chip. It makes use of Trust X chip crypto functions to implement the authentication function.
 
-### 09.firmwareUpdate
+### E09firmwareUpdate
 firmwareupdate example is a basic example that verify the hash result.
 
-### 10.generateKeypair
+### E10generateKeypair
 generateKeypair example is a Trust X toolbox feature that demonstrates ECC256 keypair generation. The private key can either be exported in plaintext or held within the security controller.
 If the private key is to be stored in the security controller, the example should be modified to specify the destination Object ID.
 The generated key pair can be used for cryptographic operations.
@@ -149,7 +141,7 @@ The generated key pair can be used for cryptographic operations.
 3. Some serial terminals might have different setup. When in doubt, fall back to Arduino serial monitor.  
 
 
-## Contributing
+## Contribution
 
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process of submitting pull requests to us.
 
