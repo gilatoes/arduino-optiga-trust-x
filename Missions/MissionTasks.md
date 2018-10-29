@@ -20,13 +20,14 @@
 - [ ] Read Meta data of the Device Public Key certificate issued by Infineon data object.
 - [ ] Determine the Public key issued by Infineon PKI from your token.
 
-## Task 4: Concepts of Asymmetric key (ECC)
+## Task 4: Concepts Digital Signature using ECC Asymmetric keys
 Find a partner and each play a role of Alice and Bob.
 
 Alice sends a PM (Private Message) to Bob. "I am joining Infineon Trust X Boot Camp."
 Bob receive the PM and needs to verify its integrity.
 
 **Alice message**<br/>
+https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Missions/Mission_files/task4/Alice-Message.txt
 
   - [ ] Alice generates a set of keypair using ECC NIST P384 curve.
   ```KeyGen
@@ -42,7 +43,6 @@ Bob receive the PM and needs to verify its integrity.
   - [ ] This approach seems to work? What is the weakness using this approach?
   - [ ] After verifying the message, can Bob really trust its contents?
 
-Using openssl generate a ECC key pair.
 ## Task 5: Accessories Authentication
 * Using One-Way Authentication example as a starting point
 - In the scenario, implement your own Asymmetric Key 1-way Authentication.
