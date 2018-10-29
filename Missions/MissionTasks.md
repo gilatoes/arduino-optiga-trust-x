@@ -21,6 +21,8 @@
 - [ ] Determine the Public key issued by Infineon PKI from your token.
 
 ## Task 4: Concepts Digital Signature using ECC Asymmetric keys
+Digital signature is a mathematical scheme for presenting the authenticity of digital messages or documents. A valid digital signature gives a recipient reason to believe that the message was created by a known sender (authentication), that the sender cannot deny having sent the message (non-repudiation), and that the message was not altered in transit (integrity).
+
 Find a partner and each play a role of Alice and Bob.
 
 Alice sends a PM (Private Message) to Bob. "I am joining Infineon Trust X Boot Camp."
