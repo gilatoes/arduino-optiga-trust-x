@@ -20,7 +20,32 @@
 - [ ] Read Meta data of the Device Public Key certificate issued by Infineon data object.
 - [ ] Determine the Public key issued by Infineon PKI from your token.
 
-## Task 4: Accessories Authentication
+## Task 4: Concepts Digital Signature using ECC Asymmetric keys
+Digital signature is a mathematical scheme for presenting the authenticity of digital messages or documents. A valid digital signature gives a recipient reason to believe that the message was created by a known sender (authentication), that the sender cannot deny having sent the message (non-repudiation), and that the message was not altered in transit (integrity).
+
+Find a partner and each play a role of Alice and Bob.
+
+Alice sends a PM (Private Message) to Bob. "I am joining Infineon Trust X Boot Camp."
+Bob receive the PM and needs to verify its integrity.
+
+**Alice message**<br/>
+https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Missions/Mission_files/task4/Alice-Message.txt
+
+  - [ ] Alice generates a set of keypair using ECC NIST P384 curve.
+  ```KeyGen
+  openssl ecparam -name secp384r1 -genkey -noout -out private.key.pem
+
+  openssl ec -in private.key.pem -outform PEM -pubout -out public.key.pem
+  ```
+  - [ ] Using Openssl, Alice will sign the message using her private key.
+  - [ ] Keeping her secret undisclosed, Alice will email Bob her public key, signature, and message hash.
+  - [ ] Bob verifies the signature against her public key.
+  - [ ] Alice send another message to Bob with modified content. "I am not joining Infineon Trust X Boot Camp."
+  - [ ] Bob verify the new message again using the previous signature and public key.
+  - [ ] This approach seems to work? What is the weakness using this approach?
+  - [ ] After verifying the message, can Bob really trust its contents?
+
+## Task 5: Accessories Authentication
 * Using One-Way Authentication example as a starting point
 - In the scenario, implement your own Asymmetric Key 1-way Authentication.
 ### Condition:
@@ -32,7 +57,8 @@
   - [ ] Compete with your camp mates for the least XMC2Go memory foot print. Least memory wins!
   - [ ] Compete the speed of the 1-way Authentication. Least time wins!
 
-## Task 5: Firmware Update
+
+## Task 6: Simple Firmware Update
 * Using One-Way Authentication example as a starting point...
 
 ### Server
@@ -54,14 +80,10 @@ https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Mission
 **Firmware SHA-256 Checksum:**<br/>
 https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Missions/Mission_files/XMC2Go_FWUpdate_1_Checksum.txt
 
-## Task 6: Certificate Create and Verify
+## Task 7: Certificate Create and Verify
 Digital certificate is most commonly used to verify a identity in a Public Key Infrastructure (PKI). Certificates use public key cryptography to address the problem of impersonation.
 
 Certificate Authority issues the certificate which binds a public key to it. Certificate helps to prevents fake public keys for impersonation. Only public key that is certified by the CA will work with the corresponding private key that is owned by the certificate owner.
-
-### Setup for OpenSSL
-Download Windows OpenSSL x64<br/>
-https://drive.google.com/file/d/1yDZC_0CJx1NVSi9sECObcaDUTMwQP7tg/view?usp=sharing
 
 **Configuration file openssl.cnf for OpenSSL CA**<br/>
 https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Missions/Mission_files/openssl.cnf
