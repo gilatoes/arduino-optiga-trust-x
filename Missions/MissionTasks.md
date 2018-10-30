@@ -21,27 +21,34 @@
 - [ ] Determine the Public key issued by Infineon PKI from your token.
 
 ## Task 4: Concepts Digital Signature using ECC Asymmetric keys
-Digital signature is a mathematical scheme for presenting the authenticity of digital messages or documents. A valid digital signature gives a recipient reason to believe that the message was created by a known sender (authentication), that the sender cannot deny having sent the message (non-repudiation), and that the message was not altered in transit (integrity).
+Digital signature is a mathematical scheme for presenting the authenticity of digital messages or documents.
+A valid digital signature gives a recipient reason to believe that the message was created by a known sender
+(authentication), that the sender cannot deny having sent the message (non-repudiation), and that the message
+was not altered in transit (integrity).
 
-Find a partner and each play a role of Alice and Bob.
+Find a partner and role play Alice (She has dual roles) and Bob in this task.
 
-Alice sends a PM (Private Message) to Bob. "I am joining Infineon Trust X Boot Camp."
-Bob receive the PM and needs to verify its integrity.
+Alice wants to sends Bob a Private Message (PM). "I am joining Infineon Trust X Boot Camp."
+Bob received the PM and wonders about its integrity.
+
+Note: In this Mission, only OpenSSL is used.
 
 **Alice message**<br/>
 https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Missions/Mission_files/task4/Alice-Message.txt
 
-  - [ ] Alice generates a set of keypair using ECC NIST P384 curve.
+  - [ ] Alice generates a set of ECC keypair using ECC NIST P384 curve.
   ```KeyGen
   openssl ecparam -name secp384r1 -genkey -noout -out private.key.pem
 
   openssl ec -in private.key.pem -outform PEM -pubout -out public.key.pem
   ```
-  - [ ] Using Openssl, Alice will sign the message using her private key.
-  - [ ] Keeping her secret undisclosed, Alice will email Bob her public key, signature, and message hash.
-  - [ ] Bob verifies the signature against her public key.
-  - [ ] Alice send another message to Bob with modified content. "I am not joining Infineon Trust X Boot Camp."
-  - [ ] Bob verify the new message again using the previous signature and public key.
+  - [ ] Alice signs the message using her private key.
+  - [ ] Keeping her secret key private, Alice will email/transmit her public key, signature, and message hash to Bob.
+  - [ ] Bob verifies the message using the received package.
+  - [ ] Eve (Evil twin of Alice) hacked into Alice email account and resend a new message to Bob.
+        Without Alice's Secret Key, Eve just send a new message "I am not joining Infineon Trust X Boot Camp."
+  - [ ] Bob is confused when he received the second message. He verifies the new message again using the previous signature and public key.
+  - [ ] If time permits, Alice and Bob should switch roles.
   - [ ] This approach seems to work? What is the weakness using this approach?
   - [ ] After verifying the message, can Bob really trust its contents?
 
