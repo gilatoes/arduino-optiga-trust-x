@@ -45,7 +45,30 @@ https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Mission
   - [ ] This approach seems to work? What is the weakness using this approach?
   - [ ] After verifying the message, can Bob really trust its contents?
 
-## Task 5: Accessories Authentication
+## Task 5: Certificate Create and Verify (Server verification)
+  Digital certificate is most commonly used to verify a identity in a Public Key Infrastructure (PKI). Certificates use public key cryptography to address the problem of impersonation.
+
+  Certificate Authority issues the certificate which binds a public key to it. Certificate helps to prevents fake public keys for impersonation. Only public key that is certified by the CA will work with the corresponding private key that is owned by the certificate owner.
+
+  **Configuration file openssl.cnf for OpenSSL CA**<br/>
+  https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Missions/Mission_files/openssl.cnf
+
+  - [ ]  Create Boot Camp Certificate Authority.
+
+  ## Server Certificate Authority
+  - [ ]  Create and export Public Key and private key.
+  - [ ]  Format the Public key and Secret key to PEM format.
+  - [ ]  Create a CSR with the Public Key.
+  - [ ]  Sign the CSR with a self-sign CA.
+  - [ ]  Inject Root CA certificate to "remote" device
+  - [ ]  Store the Root CA Certificate into 0xE0EF. (Platform Trust Anchor)
+
+  ### Authenticate Server
+  - [ ]  Server sign a message and provide the message to device.
+  - [ ]  Verify the signature, message against the root CA.
+
+
+## Task 6: Accessories Authentication
 * Using One-Way Authentication example as a starting point
 - In the scenario, implement your own Asymmetric Key 1-way Authentication.
 ### Condition:
@@ -58,7 +81,7 @@ https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Mission
   - [ ] Compete the speed of the 1-way Authentication. Least time wins!
 
 
-## Task 6: Simple Firmware Update
+## Task 7: Simple Firmware Update
 * Using One-Way Authentication example as a starting point...
 
 ### Server
@@ -79,26 +102,3 @@ https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Mission
 
 **Firmware SHA-256 Checksum:**<br/>
 https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Missions/Mission_files/XMC2Go_FWUpdate_1_Checksum.txt
-
-## Task 7: Certificate Create and Verify
-Digital certificate is most commonly used to verify a identity in a Public Key Infrastructure (PKI). Certificates use public key cryptography to address the problem of impersonation.
-
-Certificate Authority issues the certificate which binds a public key to it. Certificate helps to prevents fake public keys for impersonation. Only public key that is certified by the CA will work with the corresponding private key that is owned by the certificate owner.
-
-**Configuration file openssl.cnf for OpenSSL CA**<br/>
-https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Missions/Mission_files/openssl.cnf
-
-- [ ]  Create Boot Camp Certificate Authority.
-
-## Certificate Authority
-* Using generateKeypair example as a starting point
-- [ ]  Create and export Public Key and private key.
-- [ ]  Format the Public key and Secret key to PEM format.
-- [ ]  Create a CSR with the Public Key.
-- [ ]  Sign the CSR with a self-sign CA. (On Raspberry Pi)
-- [ ]  Create the device certificate.
-- [ ]  Send device certificate and Boot Camp Root CA to Consumer
-- [ ]  Store the Root CA Public Key into 0xE0EF
-
-### Consumer
-- [ ]  Verify the device CA against the root CA
