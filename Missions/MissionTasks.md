@@ -31,8 +31,6 @@ Find a partner and role play Alice (She has dual roles) and Bob in this task.
 Alice wants to sends Bob a Private Message (PM). "I am joining Infineon Trust X Boot Camp."
 Bob received the PM and wonders about its integrity.
 
-Note: In this Mission, only OpenSSL is used.
-
 **Alice message**<br/>
 https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Missions/Mission_files/task4/Alice-Message.txt
 
@@ -42,6 +40,8 @@ https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Mission
 
   openssl ec -in private.key.pem -outform PEM -pubout -out public.key.pem
   ```
+**Note:** In this task, only OpenSSL is used.
+
   - [ ] Alice signs the message using her private key.
   - [ ] Keeping her secret key private, Alice will email/transmit her public key, signature, and message hash to Bob.
   - [ ] Bob verifies the message using the received package.
@@ -74,8 +74,7 @@ https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Mission
   - [ ]  Server sign a message and provide the message to device.
   - [ ]  Verify the signature, message against the root CA.
 
-
-## Task 6: Accessories Authentication
+## Task 6: Special accessory Authentication
 * Using One-Way Authentication example as a starting point
 - In the scenario, implement your own Asymmetric Key 1-way Authentication.
 ### Condition:
