@@ -127,13 +127,17 @@ For the verification three methods are available:
 ### E08OneWayAuth
 one-way authentication example is used to verify the authenticity of Trust X chip. It makes use of Trust X chip crypto functions to implement the authentication function.
 
-### E09firmwareUpdate
+### E09firmwareUpdate (TBD)
 firmwareupdate example is a basic example that verify the hash result.
 
 ### E10generateKeypair
 generateKeypair example is a Trust X toolbox feature that demonstrates ECC256 keypair generation. The private key can either be exported in plaintext or held within the security controller.
 If the private key is to be stored in the security controller, the example should be modified to specify the destination Object ID.
 The generated key pair can be used for cryptographic operations.
+
+### H01dumpObjects
+dumpObjects is a helper routine that displays all Trust X objects. These objects includes all data objects and status objects.
+This is especially useful for certificates locations.
 
 ## Troubleshooting
 1. There are many ways of getting the Arduino platform to work. However, it is advisable to counter check with the original Arduino IDE to duplicate the issue.
