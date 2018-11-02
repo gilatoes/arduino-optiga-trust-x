@@ -135,8 +135,8 @@ generateKeypair example is a Trust X toolbox feature that demonstrates ECC256 ke
 If the private key is to be stored in the security controller, the example should be modified to specify the destination Object ID.
 The generated key pair can be used for cryptographic operations.
 
-### H01dumpObjects
-dumpObjects is a helper routine that displays all Trust X objects. These objects includes all data objects and status objects.
+### H01objectDump
+objectDump is a helper routine that displays all Trust X objects. These objects including all data objects and status objects.
 This is especially useful for certificates locations.
 
 ## Troubleshooting
