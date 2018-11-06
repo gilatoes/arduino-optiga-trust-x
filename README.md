@@ -115,11 +115,11 @@ which was limited by default down to 32 bytes (in case of 32 bytes the library w
 ### E07calculateSignVerifySign  
 calculateSignVerifySign demonstrates signature generation and signature verification methods of the library.
 This example shows two modes of operation:
-1) Calculate a signature using manufacturer private key, the result value is then verified  against the public key
+1) Calculate a signature using manufacturer private key, the resulted value is verified against the public key.
 2) Generate a public-private keypair and store the latter inside one of Object IDs of the Trust X,
-then sign the digest giving only the latter Object ID, the result value is then verified  against the public key.  
+then sign the digest giving only the latter Object ID, the result value is verified against the public key.  
 
-For the verification three methods are available:
+For the verification, three methods are available:
 1) with a given raw public key
 2) with Object ID pointing to the memory slot where the public key is located,
 3) if neither Object ID nor raw public key were specified, the function will use a default Object ID with manufacturer public key certificate.
@@ -128,13 +128,14 @@ For the verification three methods are available:
 one-way authentication example is used to verify the authenticity of Trust X chip. It makes use of Trust X chip crypto functions to implement the authentication function.
 
 ### E09firmwareUpdate (TBD)
-firmwareupdate example is a basic example that verify the hash result.
+firmwareupdate example is a basic example of ECDH.
 
 ### E10generateKeypair
 generateKeypair example is a Trust X toolbox feature that demonstrates ECC256 keypair generation. The private key can either be exported in plaintext or held within the security controller.
 If the private key is to be stored in the security controller, the example should be modified to specify the destination Object ID.
 The generated key pair can be used for cryptographic operations.
 
+## Helper Routines
 ### H01objectDump
 objectDump is a helper routine that displays all Trust X objects. These objects including all data objects and status objects.
 This is especially useful for certificates locations.
