@@ -423,57 +423,7 @@ public:
     int32_t verifySignature(uint8_t hash[], uint16_t hashLength, uint8_t signature[], uint16_t signatureLength, uint8_t pubKey[], uint16_t plen);
 
     /**
-     * This function generates a shared secret based on Elliptic Curve Diffie-Hellman Key Exchange Algorithm
-     * This functions works in several modes. In general for such functions you need to specify followng:
-     * elliptic curve type, private key, public key, result shared secret. Different functions listed below
-     * assume you don't need various parts of this input as you use internally stored values
-     * #1 sharedSecret(p_pubkey) - Private Key is taken from the first private keys slot. NISTP256 Curve is used
-     * #2 sharedSecret(priv_oid, p_pubkey) - Works like #1, but you can specifiy which slot to use.
-     * #3 sharedSecret(curve_type, p_pubkey) - Works like #1, but you can define a curve type: "secp256r1" or "secp384r1"
-     * #4 sharedSecret(curve_type, priv_oid, p_pubkey) - Works like #2, but you can define a curve type: "secp256r1" or "secp384r1"
-     * #5 sharedSecretWithExport(p_pubkey, p_out) - Works like #1, but exports the result in p_out
-     * #6 sharedSecretWithExport(curve_type, p_pubkey, p_out) - Works like #5, but additionally you can define curve type of the publick key
-     *
-     * This Shared secret can be used until the Session Context will be flashed, either after an application restart or a reset
-     * @param[in] curveName         Curve name. The following are supported:
-     *                              "secp256r1" (Deafult)
-     *                              "secp384r1"
-     * @param[in] oid               Object ID defines which slot will be used as input and output
-     *                              Use one of the following slots:
-     *                              @ref eSESSION_ID_1
-     *                              @ref eSESSION_ID_2 (Default)
-     *                              @ref eSESSION_ID_3
-     *                              @ref eSESSION_ID_4
-     * @param[in] publicKey         A pointer to a public key
-     * @param[in] plen              Length of a public key
-     * @param[out]sharedSecret      Pointer to the data array where the final result should be stored.
-     * @param[in] shlen             Length of the output data. Will be modified in case of success.
-
-     *
-     * @retval  0 If function was successful.
-     * @retval  1 If the operation failed.
-     */
-    int32_t sharedSecret(uint8_t publicKey[], uint16_t plen) {
-		return calculateSharedSecretGeneric(0x03, eSESSION_ID_2, publicKey, plen, eSESSION_ID_2);
-	}
-    int32_t sharedSecret(uint16_t oid, uint8_t publicKey[], uint16_t plen) {
-		return calculateSharedSecretGeneric(0x03, oid, publicKey, plen, oid);
-	}
-    int32_t sharedSecret(String curveName, uint8_t publicKey[], uint16_t plen) {
-		return calculateSharedSecretGeneric(str2cur(curveName),eSESSION_ID_2, publicKey, plen, eSESSION_ID_2);
-	}
-    int32_t sharedSecret(String curveName, uint16_t oid, uint8_t publicKey[], uint16_t plen) {
-		return calculateSharedSecretGeneric(str2cur(curveName),oid, publicKey, plen, oid);
-	}
-    int32_t sharedSecretWithExport(uint8_t publicKey[], uint16_t plen, uint8_t sharedSecret[], uint16_t shlen) {
-		return calculateSharedSecretGeneric(0x03, eSESSION_ID_2, publicKey, plen, 0x0000, sharedSecret, shlen);
-	}
-    int32_t sharedSecretWithExport(String curveName, uint8_t publicKey[], uint16_t plen, uint8_t sharedSecret[], uint16_t shlen) {
-		return calculateSharedSecretGeneric(str2cur(curveName), eSESSION_ID_2, publicKey, plen, 0x0000, sharedSecret, shlen);
-	}
-
-    /**
-     * This function generates a public private keypair. You can store the private key internally or export it for your usage
+     * This function generates a public & private keypair. You can store the private key internally or export it for your usage
      *
      * @param[out] publicKey        Pointer to the data array where the result public key should be stored.
      * @param[out] plen             Length of the public key
@@ -498,6 +448,89 @@ public:
     int32_t generateKeypair(uint8_t publicKey[], uint16_t& plen, uint16_t privateKey_oid);
     int32_t generateKeypair(uint8_t publicKey[], uint16_t& plen, uint8_t privateKey[], uint16_t& prlen);
 
+    /**
+     * This function generates a shared secret based on Elliptic Curve Diffie-Hellman Key Exchange Algorithm
+     * This functions works in several modes. In general for such functions you need to specify followng:
+     * elliptic curve type, private key, public key, result shared secret. Different functions listed below
+     * assume you don't need various parts of this input as you use internally stored values
+     * #1 sharedSecret(p_pubkey) - Private Key is taken from the first private keys slot. NISTP256 Curve is used
+     * #2 sharedSecret(priv_oid, p_pubkey) - Works like #1, but you can specifiy which slot to use.
+     * #3 sharedSecret(curve_type, p_pubkey) - Works like #1, but you can define a curve type: "secp256r1" or "secp384r1"
+     * #4 sharedSecret(curve_type, priv_oid, p_pubkey) - Works like #2, but you can define a curve type: "secp256r1" or "secp384r1"
+     * #5 sharedSecretWithExport(p_pubkey, p_out) - Works like #1, but exports the result in p_out
+     * #6 sharedSecretWithExport(curve_type, p_pubkey, p_out) - Works like #5, but additionally you can define curve type of the publick key
+     *
+     *int32_t IFX_OPTIGA_TrustX::calculateSharedSecretGeneric(int32_t curveID,
+	 *	                                                uint16_t PrivateKey_OID,
+	 *													uint8_t* PublicKey,
+	 *													uint16_t PublicKey_Len,
+	 *													uint16_t SharedSecret_OID,
+	 *													uint8_t* ExportShareSecret,
+	 *													uint16_t& ExportShareSecret_Len)
+	 *
+     * This Shared secret can be used until the Session Context will be flashed, either after an application restart or a reset
+     * @param[in] curveName         Curve name. The following are supported:
+     *                              "secp256r1" (Deafult)
+     *                              "secp384r1"
+     * @param[in] oid               Object ID defines which slot will be used as input and output
+     *                              Use one of the following slots:
+     *                              @ref eSESSION_ID_1
+     *                              @ref eSESSION_ID_2 (Default)
+     *                              @ref eSESSION_ID_3
+     *                              @ref eSESSION_ID_4
+     * @param[in] publicKey         A pointer to a public key
+     * @param[in] plen              Length of a public key
+     * @param[out]sharedSecret      Pointer to the data array where the final result should be stored.
+     * @param[in] shlen             Length of the output data. Will be modified in case of success.
+
+     *
+     * @retval  0 If function was successful.
+     * @retval  1 If the operation failed.
+     */
+    int32_t sharedSecret(uint16_t PrivateKey_OID,
+    		             uint8_t PublicKey[],
+						 uint16_t PublicKey_Len,
+						 uint16_t SharedSecret_OID,
+						 uint8_t  ExportSharedSecret[],
+						 uint16_t ExportSharedSecret_Len) {
+		return calculateSharedSecretGeneric(0x03,
+				                            PrivateKey_OID,
+											PublicKey,
+											PublicKey_Len,
+											SharedSecret_OID,
+											ExportSharedSecret,
+											ExportSharedSecret_Len);
+	}
+
+    //int32_t sharedSecret(uint8_t publicKey[], uint16_t plen) {
+	//	return calculateSharedSecretGeneric(0x03, eSESSION_ID_2, publicKey, plen, eSESSION_ID_2);
+	//}
+    //int32_t sharedSecret(String curveName, uint8_t publicKey[], uint16_t plen) {
+	//	return calculateSharedSecretGeneric(str2cur(curveName),eSESSION_ID_2, publicKey, plen, eSESSION_ID_2);
+	//}
+    //int32_t sharedSecret(String curveName, uint16_t oid, uint8_t publicKey[], uint16_t plen) {
+	//	return calculateSharedSecretGeneric(str2cur(curveName),oid, publicKey, plen, oid);
+	//}
+    int32_t sharedSecretWithExport(uint16_t oid, uint8_t publicKey[], uint16_t plen, uint8_t sharedSecret[], uint16_t shlen) {
+		return calculateSharedSecretGeneric(0x03, oid, publicKey, plen, 0x0000, sharedSecret, shlen);
+	}
+    int32_t sharedSecretWithExport(uint8_t publicKey[], uint16_t plen, uint8_t sharedSecret[], uint16_t shlen) {
+		return calculateSharedSecretGeneric(0x03, eSESSION_ID_2, publicKey, plen, 0x0000, sharedSecret, shlen);
+	}
+    int32_t sharedSecretWithExport(String curveName, uint8_t publicKey[], uint16_t plen, uint8_t sharedSecret[], uint16_t shlen) {
+		return calculateSharedSecretGeneric(str2cur(curveName), eSESSION_ID_2, publicKey, plen, 0x0000, sharedSecret, shlen);
+	}
+
+    /*
+     * Derive key
+     */
+    int32_t IFX_OPTIGA_TrustX::deriveKey(uint16_t ShareSecret_OID,
+    									 uint16_t ShareSecret_OID_Len,
+    		                             uint16_t DeriveKey_OID,
+    									 int8_t* ExportDeriveKey,
+										 int8_t ExportDeriveKey_Len
+    									 );
+
 private:
 	bool active;
     int32_t getGlobalSecurityStatus(uint8_t& status);
@@ -514,7 +547,7 @@ private:
 	}
     int32_t calculateSharedSecretGeneric( int32_t curveID, uint16_t priv_oid, uint8_t* p_pubkey, uint16_t plen, uint16_t out_oid, uint8_t* p_out, uint16_t& olen);
     int32_t ecp_gen_keypair_generic(uint8_t* p_pubkey, uint16_t& plen, uint16_t& ctx, uint8_t* p_privkey, uint16_t& prlen);
-    int32_t deriveKey(uint8_t hash[], uint16_t hashLength, uint8_t publicKey[], uint16_t plen);
+
 };
 /**
  * @}

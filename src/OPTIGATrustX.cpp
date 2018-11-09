@@ -864,47 +864,72 @@ int32_t IFX_OPTIGA_TrustX::verifySignature( uint8_t* digest, uint16_t hashLength
     return ret;
 }
 
-int32_t IFX_OPTIGA_TrustX::calculateSharedSecretGeneric(int32_t curveID, uint16_t priv_oid, uint8_t* p_pubkey, uint16_t plen, uint16_t out_oid, uint8_t* p_out, uint16_t& olen)
+int32_t IFX_OPTIGA_TrustX::calculateSharedSecretGeneric(int32_t curveID,
+		                                                uint16_t PrivateKey_OID,
+														uint8_t* PublicKey,
+														uint16_t PublicKey_Len,
+														uint16_t SharedSecret_OID,
+														uint8_t* ExportShareSecret,
+														uint16_t& ExportShareSecret_Len)
 {
     int32_t             ret = IFX_I2C_STACK_ERROR;
     sCalcSSecOptions_d  shsec_opt;
     sbBlob_d            shsec;
-    uint8_t             out[32];
+    uint8_t             ShareSecret[32];
 
-    //
-    // Example to demonstrate the calculation of shared secret
-    //
+    Serial.println(">calculateSharedSecretGeneric");
 
     //Mention the Key Agreement protocol
     shsec_opt.eKeyAgreementType = eECDH_NISTSP80056A;
 
     //Provide the public key information
     shsec_opt.ePubKeyAlgId          = (eAlgId_d)curveID;
-    shsec_opt.sPubKey.prgbStream    = p_pubkey;
-    shsec_opt.sPubKey.wLen          = plen;
+    shsec_opt.sPubKey.prgbStream    = PublicKey;
+    shsec_opt.sPubKey.wLen          = PublicKey_Len;
 
     //Provide the ID of the private key to be used
     //Make sure the private key is present in the OID. Use CmdLib_GenerateKeyPair
-    shsec_opt.wOIDPrivKey = priv_oid;
+    shsec_opt.wOIDPrivKey = PrivateKey_OID;
 
     //Mentioned where should the generated shared secret be stored.
     //1.To store the shared secret in session oid,provide the session oid value
     //or
     //2.To export the shared secret, set the value to 0x0000
-    shsec_opt.wOIDSharedSecret = out_oid;
+    shsec_opt.wOIDSharedSecret = SharedSecret_OID;
 
     //Buffer to export the generated shared secret
     //Shared secret is returned if sCalcSSecOptions.wOIDSharedSecret is 0x0000.
-    shsec.prgbStream = out;
-    shsec.wLen = olen;
+    shsec.prgbStream = ShareSecret;
+    shsec.wLen = sizeof(ShareSecret);
 
     //Initiate CmdLib API for the Calculate shared secret
-    if(CMD_LIB_OK == CmdLib_CalculateSharedSecret(&shsec_opt, &shsec))
+    ret = CmdLib_CalculateSharedSecret(&shsec_opt, &shsec);
+    if(CMD_LIB_OK == ret)
     {
-        olen = shsec.wLen;
+    	Serial.println("calculateSharedSecretGeneric:Ok");
+
+		if(SharedSecret_OID==0x0000)
+		{
+			memcpy(ExportShareSecret, ShareSecret, ExportShareSecret_Len);
+			Serial.println("Export Share Secret:");
+			DEBUG_PRINT(ExportShareSecret, ExportShareSecret_Len);
+		}
+		else
+		{
+
+			Serial.print("Share Secret stored in OID: 0x");
+			Serial.println(SharedSecret_OID,HEX);
+		}
+		ExportShareSecret_Len = shsec.wLen;
         ret = 0;
+    }else
+    {
+    	Serial.println("calculateSharedSecretGeneric:Error");
+    	Serial.println(ret,HEX);
+
     }
 
+    Serial.println("<calculateSharedSecretGeneric");
     return ret;
 }
 
@@ -923,56 +948,82 @@ int32_t IFX_OPTIGA_TrustX::str2cur(String curve_name)
     return ret;
 }
 
-int32_t IFX_OPTIGA_TrustX::deriveKey(uint8_t* p_data, uint16_t hashLength, uint8_t* p_key, uint16_t klen)
+int32_t IFX_OPTIGA_TrustX::deriveKey(uint16_t ShareSecret_OID,
+		                             uint16_t ShareSecret_OID_Len,
+									 uint16_t DeriveKey_OID,
+									 int8_t* ExportDeriveKey,
+									 int8_t ExportDeriveKey_Len
+									 )
 {
     int32_t             ret = INT_LIB_ERROR;
     sDeriveKeyOptions_d key_opt;
     sbBlob_d            key;
+    //For now, hard code the seed and length of derive key
+    uint8_t rgbSeed [] = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A};
+
+    uint8_t DeriveKey[256];
 
     //
     // Example to demonstrate the derive key
     //
 
+    Serial.println(">deriveKey");
     //Mention the Key derivation method
     key_opt.eKDM = eTLS_PRF_SHA256;
 
-    //Provide the seed information
-    key_opt.sSeed.prgbStream = p_data;
-    key_opt.sSeed.wLen =  hashLength;
+    //Provide the seed information (min len 8 bytes, Max 1024 bytes)
+    key_opt.sSeed.prgbStream = rgbSeed;
+    key_opt.sSeed.wLen =  sizeof(rgbSeed);
 
     //Provide the ID of the share secret to be used
     //Make sure the shared secret is present in the OID. Use CmdLib_CalculateSharedSecret
     // OID Master Secret
-    key_opt.wOIDSharedSecret = 0xe100;
+    key_opt.wOIDSharedSecret = ShareSecret_OID;
 
-    if (p_key)
-    {
-        //Mentioned where should the generated derive key be stored.
-        //1.To export the derive key, set the value to 0x0000
-        key_opt.wOIDDerivedKey = 0x0000;
-    }
-    else
-    {
-        //or
-        //2.To store the shared secret in session oid,provide the session oid value
-        key_opt.wOIDDerivedKey = 0xe101;
-    }
+	Serial.print("Share Secret stored in OID: 0x");
+	Serial.println(ShareSecret_OID,HEX);
 
-    //Provide the expected length of the derive secret
-    key_opt.wDerivedKeyLen = klen;
+	key_opt.wOIDDerivedKey = DeriveKey_OID;
+    key_opt.wDerivedKeyLen = ShareSecret_OID_Len; //default
 
     //Buffer to export the generated derive key
     //Shared secret is returned if sDeriveKeyOptions.wOIDDerivedKey is 0x0000.
-    key.prgbStream = p_key;
-    key.wLen = klen;
+    key.prgbStream = DeriveKey;
+
+    //Provide the expected length of the derive secret
+	//min length is 16, max is 256 bytes
+	if(ExportDeriveKey_Len < 8 || ExportDeriveKey_Len > 256)
+    {
+		Serial.println("Error: Invalid length using default 16 bytes");
+		key.wLen = 16;
+    }
+	else
+	{
+		key_opt.wDerivedKeyLen =ExportDeriveKey_Len;
+		key.wLen =ExportDeriveKey_Len;
+	}
 
     //Initiate CmdLib API for the Calculate shared secret
     if(CMD_LIB_OK == CmdLib_DeriveKey(&key_opt, &key))
     {
-        klen = key.wLen;
+    	Serial.println("deriveKey:Ok");
+    	if(DeriveKey_OID==0x0000)
+    	{
+			memcpy(ExportDeriveKey, DeriveKey, ExportDeriveKey_Len);
+
+			//Serial.println("Exporting derive Secret:");
+			//DEBUG_PRINT(ExportDeriveKey, ExportDeriveKey_Len);
+    	}else
+    	{
+    		Serial.println("Derive Secret stored: 0x");
+    		Serial.println(DeriveKey_OID,HEX);
+    	}
+
+        //klen = key.wLen;
         ret = 0;
     }
 
+    Serial.println("<deriveKey");
     return ret;
 }
 
