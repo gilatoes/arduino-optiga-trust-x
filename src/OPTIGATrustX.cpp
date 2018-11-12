@@ -875,9 +875,15 @@ int32_t IFX_OPTIGA_TrustX::calculateSharedSecretGeneric(int32_t curveID,
     int32_t             ret = IFX_I2C_STACK_ERROR;
     sCalcSSecOptions_d  shsec_opt;
     sbBlob_d            shsec;
+<<<<<<< HEAD
     uint8_t             ShareSecret[ExportShareSecret_Len];
 
     //Serial.println(">calculateSharedSecretGeneric");
+=======
+    uint8_t             ShareSecret[32];
+
+    Serial.println(">calculateSharedSecretGeneric");
+>>>>>>> cebc87fb6d5bf5019899ec2464845bea46addd32
 
     //Mention the Key Agreement protocol
     shsec_opt.eKeyAgreementType = eECDH_NISTSP80056A;
@@ -906,19 +912,33 @@ int32_t IFX_OPTIGA_TrustX::calculateSharedSecretGeneric(int32_t curveID,
     ret = CmdLib_CalculateSharedSecret(&shsec_opt, &shsec);
     if(CMD_LIB_OK == ret)
     {
+<<<<<<< HEAD
     	//Serial.println("calculateSharedSecretGeneric:Ok");
+=======
+    	Serial.println("calculateSharedSecretGeneric:Ok");
+>>>>>>> cebc87fb6d5bf5019899ec2464845bea46addd32
 
 		if(SharedSecret_OID==0x0000)
 		{
 			memcpy(ExportShareSecret, ShareSecret, ExportShareSecret_Len);
+<<<<<<< HEAD
 			//Serial.println("Export Share Secret in Plaintext:");
 			//DEBUG_PRINT(ExportShareSecret, ExportShareSecret_Len);
+=======
+			Serial.println("Export Share Secret:");
+			DEBUG_PRINT(ExportShareSecret, ExportShareSecret_Len);
+>>>>>>> cebc87fb6d5bf5019899ec2464845bea46addd32
 		}
 		else
 		{
 
+<<<<<<< HEAD
 			//Serial.print("Share Secret stored in OID: 0x");
 			//Serial.println(SharedSecret_OID,HEX);
+=======
+			Serial.print("Share Secret stored in OID: 0x");
+			Serial.println(SharedSecret_OID,HEX);
+>>>>>>> cebc87fb6d5bf5019899ec2464845bea46addd32
 		}
 		ExportShareSecret_Len = shsec.wLen;
         ret = 0;
@@ -929,7 +949,11 @@ int32_t IFX_OPTIGA_TrustX::calculateSharedSecretGeneric(int32_t curveID,
 
     }
 
+<<<<<<< HEAD
     //Serial.println("<calculateSharedSecretGeneric");
+=======
+    Serial.println("<calculateSharedSecretGeneric");
+>>>>>>> cebc87fb6d5bf5019899ec2464845bea46addd32
     return ret;
 }
 
@@ -967,7 +991,11 @@ int32_t IFX_OPTIGA_TrustX::deriveKey(uint16_t ShareSecret_OID,
     // Example to demonstrate the derive key
     //
 
+<<<<<<< HEAD
     //Serial.println(">deriveKey");
+=======
+    Serial.println(">deriveKey");
+>>>>>>> cebc87fb6d5bf5019899ec2464845bea46addd32
     //Mention the Key derivation method
     key_opt.eKDM = eTLS_PRF_SHA256;
 
@@ -980,8 +1008,13 @@ int32_t IFX_OPTIGA_TrustX::deriveKey(uint16_t ShareSecret_OID,
     // OID Master Secret
     key_opt.wOIDSharedSecret = ShareSecret_OID;
 
+<<<<<<< HEAD
 	//Serial.print("Share Secret stored in OID: 0x");
 	//Serial.println(ShareSecret_OID,HEX);
+=======
+	Serial.print("Share Secret stored in OID: 0x");
+	Serial.println(ShareSecret_OID,HEX);
+>>>>>>> cebc87fb6d5bf5019899ec2464845bea46addd32
 
 	key_opt.wOIDDerivedKey = DeriveKey_OID;
     key_opt.wDerivedKeyLen = ShareSecret_OID_Len; //default
@@ -1006,7 +1039,11 @@ int32_t IFX_OPTIGA_TrustX::deriveKey(uint16_t ShareSecret_OID,
     //Initiate CmdLib API for the Calculate shared secret
     if(CMD_LIB_OK == CmdLib_DeriveKey(&key_opt, &key))
     {
+<<<<<<< HEAD
     	//Serial.println("deriveKey:Ok");
+=======
+    	Serial.println("deriveKey:Ok");
+>>>>>>> cebc87fb6d5bf5019899ec2464845bea46addd32
     	if(DeriveKey_OID==0x0000)
     	{
 			memcpy(ExportDeriveKey, DeriveKey, ExportDeriveKey_Len);
@@ -1015,15 +1052,24 @@ int32_t IFX_OPTIGA_TrustX::deriveKey(uint16_t ShareSecret_OID,
 			//DEBUG_PRINT(ExportDeriveKey, ExportDeriveKey_Len);
     	}else
     	{
+<<<<<<< HEAD
     		//Serial.println("Derive Secret stored: 0x");
     		//Serial.println(DeriveKey_OID,HEX);
+=======
+    		Serial.println("Derive Secret stored: 0x");
+    		Serial.println(DeriveKey_OID,HEX);
+>>>>>>> cebc87fb6d5bf5019899ec2464845bea46addd32
     	}
 
         //klen = key.wLen;
         ret = 0;
     }
 
+<<<<<<< HEAD
     //Serial.println("<deriveKey");
+=======
+    Serial.println("<deriveKey");
+>>>>>>> cebc87fb6d5bf5019899ec2464845bea46addd32
     return ret;
 }
 
