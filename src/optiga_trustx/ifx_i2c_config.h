@@ -63,6 +63,7 @@ extern "C" {
 
 /** @brief Data link layer: maximum frame size */
 #define DL_MAX_FRAME_SIZE           (0x19)
+//#define DL_MAX_FRAME_SIZE           300
 /** @brief Data link layer: header size */
 #define DL_HEADER_SIZE              (5)
 /** @brief Data link layer: maximum number of retries in case of transmission error */

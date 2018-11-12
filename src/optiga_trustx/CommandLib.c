@@ -35,6 +35,8 @@
 #include "CommandLib.h"
 #include "MemoryMgmt.h"
 
+#include "debug.h"
+
 /// @cond hidden
 
 static optiga_comms_t* p_optiga_comms;
@@ -1483,6 +1485,10 @@ int32_t CmdLib_SetAuthScheme(const sAuthScheme_d *PpsAuthVector)
     return i4Status;
 }
 
+#ifndef MODULE_ENABLE_TOOLBOX
+#define MODULE_ENABLE_TOOLBOX
+#endif
+
 #ifdef MODULE_ENABLE_TOOLBOX
 /**
 * Calculates the hash of input data by using the Security Chip.<br>
@@ -2395,12 +2401,15 @@ int32_t CmdLib_DeriveKey(const sDeriveKeyOptions_d *PpsDeriveKey,sbBlob_d *PpsKe
 	uint16_t wCalApduLen = 0;
 	sApduData_d sApduData = {0};
 
+	//print_debug(">CmdLib_DeriveKey");
+
     do
     {
         //NULL checks
         if((NULL == PpsDeriveKey) || (NULL == PpsDeriveKey->sSeed.prgbStream))
         {
             i4Status = (int32_t)CMD_LIB_NULL_PARAM;
+            print_debug("PpsDeriveKey or Seed is null");
             break;
         }   
 
@@ -2432,6 +2441,7 @@ int32_t CmdLib_DeriveKey(const sDeriveKeyOptions_d *PpsDeriveKey,sbBlob_d *PpsKe
             if(NULL == PpsKey->prgbStream)
             {
                 i4Status = (int32_t)CMD_LIB_NULL_PARAM;
+                print_debug("Error: prgbStream is null");
                 break;
             }
             wCalApduLen -= 2;
@@ -2441,6 +2451,7 @@ int32_t CmdLib_DeriveKey(const sDeriveKeyOptions_d *PpsDeriveKey,sbBlob_d *PpsKe
         if((wMaxCommsBuffer) < wCalApduLen)
         {
             i4Status = (int32_t)CMD_LIB_INSUFFICIENT_MEMORY;
+            print_debug("Error: Insufficient memory");
             break;
         }
 
@@ -2475,6 +2486,7 @@ int32_t CmdLib_DeriveKey(const sDeriveKeyOptions_d *PpsDeriveKey,sbBlob_d *PpsKe
             sApduData.prgbAPDUBuffer[wWritePosition] = TAG_EXPORT_DERIVE_KEY;
             Utility_SetUint16(&sApduData.prgbAPDUBuffer[wWritePosition + TAG_LENGTH_OFFSET], LEN_EXPORT_DERIVE_KEY);
             wWritePosition += TAG_VALUE_OFFSET;
+            //print_debug("Exporting Derive data");
         }
         else
         {
@@ -2494,6 +2506,7 @@ int32_t CmdLib_DeriveKey(const sDeriveKeyOptions_d *PpsDeriveKey,sbBlob_d *PpsKe
         i4Status = TransceiveAPDU(&sApduData,TRUE);
         if(CMD_LIB_OK != i4Status)
         {
+        	print_debug("Error: transceive APDU");
             break;
         }
 
@@ -2503,6 +2516,7 @@ int32_t CmdLib_DeriveKey(const sDeriveKeyOptions_d *PpsDeriveKey,sbBlob_d *PpsKe
             if(sApduData.wResponseLength > PpsKey->wLen)
             {
                 i4Status = (int32_t)CMD_LIB_INSUFFICIENT_MEMORY;
+                print_debug("Got response but insufficient memory");
                 break;
             }
             //Copy signature to output buffer

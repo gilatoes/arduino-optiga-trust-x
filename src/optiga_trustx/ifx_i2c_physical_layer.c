@@ -236,6 +236,8 @@ host_lib_status_t ifx_i2c_pl_write_slave_address(ifx_i2c_context_t *p_ctx, uint8
     #define ADDRESS_OFFSET              (0x02)
     #define BASE_ADDRESS_REG_OFFSET     (0x00)
     #define MODE_OFFSET                 (0x01)
+    #define POLLING_INTERVAL            (0x01)
+    #define DELAY_FOR_COMPLETION        (0x0A)
     /// @endcond
 
     //lint --e{611} suppress "void* function pointer is type casted to app_event_handler_t type"
@@ -282,6 +284,7 @@ host_lib_status_t ifx_i2c_pl_write_slave_address(ifx_i2c_context_t *p_ctx, uint8
         {
             p_ctx->slave_address = p_ctx->pl.buffer[ADDRESS_OFFSET];
         }
+        pal_os_timer_delay_in_milliseconds(DELAY_FOR_COMPLETION);
         status = IFX_I2C_STACK_SUCCESS;
     }
     //restoring the backed up event handler 
@@ -292,6 +295,8 @@ host_lib_status_t ifx_i2c_pl_write_slave_address(ifx_i2c_context_t *p_ctx, uint8
     #undef ADDRESS_OFFSET 
     #undef BASE_ADDRESS_REG_OFFSET 
     #undef MODE_OFFSET
+    #undef POLLING_INTERVAL
+    #undef DELAY_FOR_COMPLETION
     /// @endcond
     
     //print_debug("<ifx_i2c_pl_write_slave_address");
