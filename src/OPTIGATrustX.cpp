@@ -875,15 +875,10 @@ int32_t IFX_OPTIGA_TrustX::calculateSharedSecretGeneric(int32_t curveID,
     int32_t             ret = IFX_I2C_STACK_ERROR;
     sCalcSSecOptions_d  shsec_opt;
     sbBlob_d            shsec;
-<<<<<<< HEAD
+
     uint8_t             ShareSecret[ExportShareSecret_Len];
 
     //Serial.println(">calculateSharedSecretGeneric");
-=======
-    uint8_t             ShareSecret[32];
-
-    Serial.println(">calculateSharedSecretGeneric");
->>>>>>> cebc87fb6d5bf5019899ec2464845bea46addd32
 
     //Mention the Key Agreement protocol
     shsec_opt.eKeyAgreementType = eECDH_NISTSP80056A;
