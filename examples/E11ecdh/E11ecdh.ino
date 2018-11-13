@@ -45,8 +45,8 @@ uint16_t SHAREDSECRET_LEN = 32;
 #define ExportSharedSecret   0x0000 //Export ShareSecret
 
 //Configure the choice of Shared Secret storage
-#define ARBITARY_SHAREDSECRET
-//#define CONTEXT_SHAREDSECRET
+//#define ARBITARY_SHAREDSECRET
+#define CONTEXT_SHAREDSECRET
 
 #ifdef ARBITARY_SHAREDSECRET //Arbitrary data object
 uint16_t ShareSecretStore_OID_1 = 0xF1D2;   
