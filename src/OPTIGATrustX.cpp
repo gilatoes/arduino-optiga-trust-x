@@ -30,6 +30,7 @@
 #include "optiga_trustx/ifx_i2c_config.h"
 #include "optiga_trustx/pal_os_event.h"
 #include "third_crypto/uECC.h"
+#include "aes/AES.h"
 
 ///OID of IFX Certificate
 #define     OID_IFX_CERTIFICATE                 0xE0E0
@@ -67,6 +68,7 @@ static volatile uint8_t* m_optiga_rx_buffer;
 static volatile uint16_t  m_optiga_rx_len;
 
 //Preinstantiated object
+AES aes = AES();
 IFX_OPTIGA_TrustX trustX = IFX_OPTIGA_TrustX();
 optiga_comms_t optiga_comms = {static_cast<void*>(&ifx_i2c_context_0), NULL, NULL, 0};
 static host_lib_status_t optiga_comms_status;

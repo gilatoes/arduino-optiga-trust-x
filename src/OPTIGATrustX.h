@@ -157,7 +157,7 @@ public:
 
     //deconstructor
     ~IFX_OPTIGA_TrustX();
-
+	
     /**
      *
      * This function initializes the Infineon OPTIGA Trust X command library and

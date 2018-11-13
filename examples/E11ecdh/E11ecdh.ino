@@ -26,6 +26,7 @@
  */
 
 #include "OPTIGATrustX.h"
+#include "aes/AES.h"
 #include "debug.h"
 
 #define UID_LENGTH        27
@@ -46,8 +47,8 @@ uint16_t SHAREDSECRET_LEN = 32;
 #define ExportSharedSecret   0x0000 //Export ShareSecret
 
 //Configure the choice of Shared Secret storage
-#define ARBITARY_SHAREDSECRET
-//#define CONTEXT_SHAREDSECRET
+//#define ARBITARY_SHAREDSECRET
+#define CONTEXT_SHAREDSECRET
 
 #ifdef ARBITARY_SHAREDSECRET //Arbitrary data object
 uint16_t ShareSecretStore_OID_1 = 0xF1D2;   
@@ -60,7 +61,18 @@ uint16_t ShareSecretStore_OID_2 = 0xE102;
 #endif
 
 #define ExportDeriveKey   0x0000
-uint16_t DERIVEDKEY_LEN = 16;
+uint16_t DERIVEDKEY_LEN = 32; //Max len=256, for session max lem is 48 bytes
+
+byte MasterKey_1[32];
+byte MasterKey_2[32];
+
+byte message[] =
+{  
+0x59, 0x6f, 0x75, 0x20, 0x63, 0x61, 0x6e, 0x20, 0x74, 0x72, 0x75, 0x73, 0x74, 0x20, 0x74, 0x68, 
+0x69, 0x73, 0x20, 0x73, 0x65, 0x63, 0x75, 0x72, 0x65, 0x20, 0x63, 0x68, 0x61, 0x6e, 0x6e, 0x65, 
+0x6c, 0x20, 0x77, 0x69, 0x74, 0x68, 0x20, 0x79, 0x6f, 0x75, 0x72, 0x20, 0x64, 0x65, 0x65, 0x70, 
+0x65, 0x73, 0x74, 0x20, 0x73, 0x65, 0x63, 0x72, 0x65, 0x74, 0x73, 0x2e, 0x20, 0x3a, 0x29, 0x00
+};
 
 uint8_t sys_init =0;
 
@@ -71,7 +83,7 @@ void setup()
     uint16_t uidLength = UID_LENGTH;
         
     Serial.begin(115200, SERIAL_8N1);
-    delay(1000);
+    delay(100);
     Serial.println("Initializing Trust X ... ");
        
     if(reset()==0){
@@ -244,7 +256,7 @@ void get_PubKeyStore(uint16_t PublicKeyStore_OID, uint8_t *publickey)
   memset(data_readback, 0x0, PUBLICKEY_LENGTH);
 
   Serial.print("Read Public key from Data OID: 0x");
-  Serial.println(PublicKeyStore_OID,HEX);
+  Serial.println(PublicKeyStore_OID, HEX);
   ret = trustX.getArbitaryDataObject(PublicKeyStore_OID, data_readback, PUBLICKEY_LENGTH);
   if (ret){  
     Serial.print("Error: Failed to read Public Key from OID");
@@ -382,12 +394,21 @@ void loop()
     ret = compare_array(derivekey1,derivekey2, DERIVEDKEY_LEN );
 
     if (ret == 0){
-      Serial.println("\r\n+++++++++++++ Derived key is the same +++++++++++++"); 
+      Serial.println("\r\n+++++++++++++ Common Derived key created +++++++++++++"); 
       }
     else{
       Serial.println("\r\n----------- Derived key is different --------------"); 
     }
-  
+
+    memcpy(MasterKey_1, derivekey1, DERIVEDKEY_LEN);
+    memcpy(MasterKey_2, derivekey2, DERIVEDKEY_LEN);
+    
+    Serial.println("\r\nParty 1 compute AES encryption decryption using derived shared key");
+    SecureChannel(MasterKey_1, 256, 4);
+
+    Serial.println("\r\nParty 2 compute AES encryption decryption using derived shared key");
+    SecureChannel(MasterKey_2, 256, 4);
+    
   Serial.println("\r\nPress i to re-initialize.. other key to loop...");
   while (Serial.available()==0){} //Wait for user input
   String input = Serial.readString();  //Reading the Input string from Serial port.
@@ -405,27 +426,91 @@ void loop()
   }
 }
 
+
+void SecureChannel (uint8_t *key, int bits, int blocks )
+{
+
+  AES aes ;
+  
+  byte cipher [4*N_BLOCK];
+  byte check [4*N_BLOCK];
+
+  byte CONST_IV[N_BLOCK] = {
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01
+  };
+
+  byte iv [N_BLOCK] ;
+  byte status = 1;
+
+  memset(cipher, 0x0, 4*N_BLOCK);
+  memset(check, 0x0, 4*N_BLOCK);
+
+#ifdef READBACK_TEST
+  Serial.println("AES key: ");
+  __hexdump__(key, 32);
+
+  Serial.println("IV: ");
+  __hexdump__(CONST_IV, sizeof(CONST_IV));
+
+  Serial.print("N_BLOCK: "); Serial.println(N_BLOCK);
+  Serial.print("set_key: "); Serial.println(bits);
+
+  Serial.println("Plaintext: ");
+  __hexdump__(message, sizeof(message));
+#endif
+  
+  status = aes.set_key (key, bits);
+  if(status==0){
+    //Serial.println("AES set key Ok") ;
+  }
+  else{
+    Serial.println("Error: AES set key failed") ;
+  }
+  
+  //Serial.print("block size = "); Serial.println(blocks);  
+  memcpy(iv, CONST_IV, N_BLOCK);
+  status = aes.cbc_encrypt(message, cipher, blocks, iv);
+
+  Serial.println("Ciphertext: ");
+  __hexdump__(cipher, 64);
+
+  if(status==0){
+    //Serial.println("AES encrypt ok"); 
+  }else{
+    Serial.println("Error: AES encrypt failed"); 
+  }
+    
+  //Serial.print("block size = "); Serial.println(blocks);
+  memcpy(iv, CONST_IV, N_BLOCK);
+  status = aes.cbc_decrypt (cipher, check, blocks, iv);
+   
+  Serial.println("Decrypted Text: ");
+  __hexdump__(check, 64); 
+    
+  if(status==0){
+    //Serial.println("AES decrypt ok"); 
+  }else{
+    Serial.println("Error: AES decrypt failed"); 
+  }
+}
+
 uint8_t reset()
 {
-  uint32_t ret = 0;
-  Serial.println("Begin to trust ... ");
+  uint32_t ret = 0;  
   ret = trustX.begin();
   if (ret) {
-    Serial.println("Failed");
+    Serial.println("Error: Failed to initialize.");
     return -1;
-  }
-  Serial.println("OK");
-
+  } 
    /*
    * Speedup the board (from 6 mA to 15 mA)
    */
   Serial.println("Limiting Current consumption (15mA - means no limitation) ... ");
   ret = trustX.setCurrentLimit(15);
   if (ret) {
-    Serial.println("Failed");
+    Serial.println("Failed to change current limit");
     return -1;
   }
-  Serial.println("OK");
 
   return 0;
 }
