@@ -351,7 +351,7 @@ int32_t IFX_OPTIGA_TrustX::setGenericData(uint16_t oid, uint8_t* p_data, uint16_
     setdata_opt.wOID = oid;
     setdata_opt.wOffset = 0x0000;
     setdata_opt.eDataOrMdata = eDATA;
-    setdata_opt.eWriteOption = eWRITE;
+    setdata_opt.eWriteOption = eERASE_AND_WRITE;
     setdata_opt.prgbData = p_data;
     setdata_opt.wLength = hashLength;
 
