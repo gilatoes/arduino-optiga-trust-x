@@ -135,6 +135,9 @@ generateKeypair example is a Trust X toolbox feature that demonstrates ECC256 ke
 If the private key is to be stored in the security controller, the example should be modified to specify the destination Object ID.
 The generated key pair can be used for cryptographic operations.
 
+### E11bareboneTLS
+bareboneTLS is an example of how a naked TLS session looks like. This example establishes secure channel by generating 2 public-private key pair. The public keys are exchanged and used to generate common shared secrets. The shared secrets are used to calculate derived secret key which is used as ephemeral AES encryption-decryption key to securely transmit message data over insecure medium. 
+
 ## Helper Routines
 ### H01objectDump
 objectDump is a helper routine that displays all Trust X objects. These objects including all data objects and status objects.
