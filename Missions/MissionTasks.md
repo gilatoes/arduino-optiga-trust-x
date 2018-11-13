@@ -108,3 +108,12 @@ https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Mission
 
 **Firmware SHA-256 Checksum:**<br/>
 https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Missions/Mission_files/XMC2Go_FWUpdate_1_Checksum.txt
+
+## Task 8: Implement TLS
+* Study the example of bareboneTLS. It is a TLS example implemented within a single Trust X device.
+- In this scenario, implement TLS using 2 Trust X.
+- [ ] Each Trust X generate a key pair.
+- [ ] Exchange the Public Keys.
+- [ ] Generate the shared secrets. Display the share secrets to proof that ECDH is successful.
+- [ ] Generate the derive key.
+- [ ] Using the derive key, perform symmetric data encryption and decryption.
