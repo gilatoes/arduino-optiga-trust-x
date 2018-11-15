@@ -26,11 +26,9 @@
  */
 
 #include "OPTIGATrustX.h"
+#include "debug.h"
 
 #define CERT_MAXLENGTH   512
-
-#define SUPPRESSCOLLORS
-#include "fprint.h"
 
 uint8_t *cert = new uint8_t[CERT_MAXLENGTH];
 
@@ -43,7 +41,7 @@ void setup()
    * Initialise a serial port for debug output
    */
   Serial.begin(115200, SERIAL_8N1);
-  Serial.println("Initializing ... ");
+  delay(100);
 
  /*
    * Initialise an OPTIGA™ Trust X Board
@@ -53,17 +51,12 @@ void setup()
   }else{
     sys_init=0;
   }
-#if( UC_FAMILY == XMC1 )
-  led1On();
-  led2On();
-#endif
 
 }
 
 void loop()
 {
   uint32_t ret = 0;
-  uint8_t  cntr = 10;
   uint16_t certLen = 0;
 
  if(sys_init)
@@ -71,22 +64,22 @@ void loop()
     /*
      * Calculate a hash of the given data
      */
-    printlnGreen("\r\nGetting Certificate ... ");
+    Serial.println("Getting Certificate ... ");
     ret = trustX.getCertificate(cert, certLen);
     if (ret)
     {
-      printlnRed("Failed");
+      Serial.println("Failed");
     }
 
-    printlnGreen("[OK]");
-    printMagenta("Certificate Length: ");
+    Serial.println("[OK]");
+    Serial.println("Certificate Length: ");
     Serial.println(certLen);
-    printlnMagenta("Certificate:");
+    Serial.println("Certificate:");
 
     HEXDUMP(cert, certLen);
   }
 
-  printlnGreen("\r\nPress i to re-initialize.. other key to loop...");
+  Serial.println("\r\nPress i to re-initialize.. other key to loop...");
   while (Serial.available()==0){} //Wait for user input
   String input = Serial.readString();  //Reading the Input string from Serial port.
   input.trim();
@@ -109,28 +102,24 @@ void loop()
 uint8_t reset()
 {
   uint32_t ret = 0;
-  printGreen("Begin to trust ... ");
+  Serial.println("Initialize Trust X");
   ret = trustX.begin();
   if (ret) {
-    printlnRed("Failed");
+    Serial.println("Failed");
     return -1;
   }
-  printlnGreen("OK");
+  Serial.println("OK");
 
    /*
    * Speedup the board (from 6 mA to 15 mA)
    */
-  printGreen("Limiting Current consumption (15mA - means no limitation) ... ");
+  Serial.println("Limiting Current consumption (15mA - means no limitation)");
   ret = trustX.setCurrentLimit(15);
   if (ret) {
-    printlnRed("Failed");
+    Serial.println("Failed");
     return -1;
   }
-  printlnGreen("OK");
+  Serial.println("OK");
 
-#if( UC_FAMILY == XMC1 )
-  led1Off();
-  led2Off();
-#endif
   return 0;
 }

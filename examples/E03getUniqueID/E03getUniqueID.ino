@@ -27,20 +27,15 @@
 
 #include "OPTIGATrustX.h"
 #include <Arduino.h>
+#include "debug.h"
 
-#define UID_LENGTH        27
-
-#define SUPPRESSCOLLORS
-#include "fprint.h"
+uint16_t UID_LENGTH=27;
 
 uint8_t sys_init =0;
 void setup()
 {
-  /*
-   * Initialise a serial port for debug output
-   */
   Serial.begin(115200, SERIAL_8N1);
-  Serial.println("Initializing ... ");
+  delay(100);
 
  /*
    * Initialise an OPTIGA™ Trust X Board
@@ -50,28 +45,19 @@ void setup()
   }else{
     sys_init=0;
   }
-#if( UC_FAMILY == XMC1 )
-  led1On();
-  led2On();
-#endif
 }
 
 
 uint8_t reset()
 {
   uint32_t ret = 0;
-  printGreen("Begin to trust ... ");
+  Serial.println("Initialize Trust X");
   ret = trustX.begin();
   if (ret) {
-    printlnRed("Failed");
+    Serial.println("Failed");
     return -1;
   }
-  printlnGreen("OK");
-
-#if( UC_FAMILY == XMC1 )
-  led1Off();
-  led2Off();
-#endif
+  Serial.println("OK");
   return 0;
 }
 
@@ -79,29 +65,27 @@ uint8_t reset()
 void loop()
 {
   uint32_t ret = 0;
-  uint8_t  cntr = 10;
   uint8_t  uid[UID_LENGTH];
-  uint16_t uidLength = UID_LENGTH;
 
   if(sys_init)
   {
     /*
      * Getting co-processor Unique ID of 27 bytes
      */
-    printlnGreen("\r\nGetting co-processor Unique ID...");
-    ret = trustX.getUniqueID(uid, uidLength);
+    Serial.println("\r\nGetting co-processor Unique ID:");
+    ret = trustX.getUniqueID(uid, UID_LENGTH);
 
     if (ret) {
-      printlnRed("Failed");
+      Serial.println("Failed");
       Serial.println(ret,HEX);
       //close the connection
       trustX.end();
     }else{
-    HEXDUMP(uid, uidLength);
+    HEXDUMP(uid, UID_LENGTH);
     }
 
   }
-  printlnGreen("\r\nPress i to re-initialize.. other key to loop...");
+  Serial.println("\r\nPress i to re-initialize..");
   while (Serial.available()==0){} //Wait for user input
   String input = Serial.readString();  //Reading the Input string from Serial port.
   input.trim();

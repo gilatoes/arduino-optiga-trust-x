@@ -26,11 +26,10 @@
  */
 
 #include "OPTIGATrustX.h"
+#include "debug.h"
 
 #define KEY_MAXLENGTH    70
 
-#define SUPPRESSCOLLORS
-#include "fprint.h"
 
 uint8_t *pubKey = new uint8_t[KEY_MAXLENGTH];
 uint8_t *privKey = new uint8_t[KEY_MAXLENGTH];
@@ -39,11 +38,8 @@ uint8_t sys_init =0;
 
 void setup()
 {
-  /*
-     * Initialise a serial port for debug output
-     */
     Serial.begin(115200, SERIAL_8N1);
-    Serial.println("Initializing ... ");
+    delay(100);
 
    /*
      * Initialise an OPTIGA™ Trust X Board
@@ -53,23 +49,19 @@ void setup()
     }else{
       sys_init=0;
     }
-  #if( UC_FAMILY == XMC1 )
-    led1On();
-    led2On();
-  #endif
 
 }
 
 static void output_result(char* tag, uint32_t tstamp, uint8_t* in, uint16_t in_len)
 {
-  printGreen("[OK] | Command executed in ");
+  Serial.println("[OK] | Command executed in ");
   Serial.print(tstamp);
   Serial.println(" ms");
-  printMagenta(tag);
-  printMagenta(" Length: ");
+  Serial.println(tag);
+  Serial.println(" Length: ");
   Serial.println(in_len);
-  printMagenta(tag);
-  printlnMagenta(":");
+  Serial.println(tag);
+  Serial.println(":");
   HEXDUMP(in, in_len);
 }
 
@@ -88,34 +80,33 @@ void loop()
     /*
      * Generate a keypair#1
      */
-    printlnGreen("\r\nGenerate Key Pair. Store Private Key on Board ... ");
+    Serial.println("\r\nGenerate Key Pair. Store Private Key on Board ... ");
     ts = millis();
     ret = trustX.generateKeypair(pubKey, pubKeyLen, ctx);
     ts = millis() - ts;
     if (ret) {
-      printlnRed("Failed");
+      Serial.println("Failed");
       while (true);
     }
 
     output_result("Public Key ", ts, pubKey, pubKeyLen);
 
-
     /*
      * Generate a keypair#2
      */
-    printlnGreen("\r\nGenerate Key Pair. Export Private Key ... ");
+    Serial.println("\r\nGenerate Key Pair. Export Private Key ... ");
     ts = millis();
     ret = trustX.generateKeypair(pubKey, pubKeyLen, privKey, privKeyLen);
     ts = millis() - ts;
     if (ret) {
-      printlnRed("Failed");
+      Serial.println("Failed");
       while (true);
     }
 
     output_result("Public Key ", ts, pubKey, pubKeyLen);
     output_result("Private Key ", ts, privKey, privKeyLen);
 
-    printlnGreen("\r\nPress i to re-initialize.. other key to loop...");
+    Serial.println("\r\nPress i to re-initialize.. other key to loop...");
     while (Serial.available()==0){} //Wait for user input
     String input = Serial.readString();  //Reading the Input string from Serial port.
     input.trim();
@@ -140,28 +131,24 @@ void loop()
 uint8_t reset()
 {
   uint32_t ret = 0;
-  printGreen("Begin to trust ... ");
+  Serial.println("Initialize Trust X");
   ret = trustX.begin();
   if (ret) {
-    printlnRed("Failed");
+    Serial.println("Failed");
     return -1;
   }
-  printlnGreen("OK");
+  Serial.println("OK");
 
    /*
    * Speedup the board (from 6 mA to 15 mA)
    */
-  printGreen("Limiting Current consumption (15mA - means no limitation) ... ");
+  Serial.println("Limiting Current consumption (15mA - means no limitation)");
   ret = trustX.setCurrentLimit(15);
   if (ret) {
-    printlnRed("Failed");
+    Serial.println("Failed");
     return -1;
   }
-  printlnGreen("OK");
+  Serial.println("OK");
 
-#if( UC_FAMILY == XMC1 )
-  led1Off();
-  led2Off();
-#endif
   return 0;
 }

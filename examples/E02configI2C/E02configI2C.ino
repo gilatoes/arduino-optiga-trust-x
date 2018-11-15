@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE
  *
- * Demonstrates use of the 
+ * Demonstrates use of the
  * Infineon Technologies AG OPTIGA™ Trust X Arduino library
  */
 
@@ -29,13 +29,12 @@
 #include <Arduino.h>
 
 uint8_t sys_init =0;
-void setup() 
+void setup()
 {
   /*
    * Initialise a serial port for debug output
    */
   Serial.begin(115200, SERIAL_8N1);
-  Serial.println("Initializing ... ");
   delay(100);
  /*
    * Initialise an OPTIGA™ Trust X Board
@@ -49,38 +48,38 @@ void setup()
 
 uint8_t reset()
 {
-  uint32_t ret = 0;   
-  Serial.print("Begin to trust ... ");
+  uint32_t ret = 0;
+  Serial.print("Initialize Trust X");
   ret = trustX.begin();
   if (ret) {
     Serial.print("Failed");
-    return -1;   
+    return -1;
   }
   Serial.println("Done");
-  
+
   return 0;
 }
 
 void loop()
 {
    uint8_t  security_event_counter[1];
-   uint32_t ret=0; 
+   uint32_t ret=0;
    uint16_t SEC_OID=0xE0C5;
    uint16_t SEC_SIZE=1;
-     
+
   if(sys_init)
   {
-    Serial.println("Implement the I2C address change here!");    
+    Serial.println("Implement the I2C address change here!");
     //ret = trustX.getArbitaryDataObject(SEC_OID, security_event_counter, SEC_SIZE);
-    //Serial.print("Security event counter:");  
+    //Serial.print("Security event counter:");
     //Serial.println(security_event_counter[0], HEX);
-    
+
     //restore the I2C address to default(optional)
-    
+
     Serial.println("End of I2C address routine.");
   }
-  Serial.println("\r\nPress i to re-initialize.. other key to loop...");   
-  while (Serial.available()==0){} //Wait for user input  
+  Serial.println("\r\nPress i to re-initialize.. other key to loop...");
+  while (Serial.available()==0){} //Wait for user input
   String input = Serial.readString();  //Reading the Input string from Serial port.
   input.trim();
   if(input=="i"){
@@ -94,4 +93,3 @@ void loop()
       }
   }
 }
-

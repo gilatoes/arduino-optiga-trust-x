@@ -26,6 +26,7 @@
  */
 
 #include "OPTIGATrustX.h"
+#include "debug.h"
 
 #define SOFTWARE_VERIFY      1
 
@@ -40,10 +41,8 @@
 #define SIGN_LENGTH   80
 #define PUBKEY_LENGTH 70
 
-#define SUPPRESSCOLLORS
-#include "fprint.h"
 
-#define ASSERT(err)   if (ret) { printlnRed("Failed"); while (true); }
+#define ASSERT(err)   if (ret) { Serial.println("Failed"); while (true); }
 
 /*
  * Allocating buffers for further use in loop()
@@ -81,21 +80,17 @@ void setup()
   }else{
     sys_init=0;
   }
-#if( UC_FAMILY == XMC1 )
-  led1On();
-  led2On();
-#endif
 }
 
 
 static void output_result(char* tag, uint8_t* in, uint16_t in_len)
 {
-  printlnGreen("OK");
-  printMagenta(tag);
-  printMagenta(" Length: ");
+  Serial.println("OK");
+  Serial.println(tag);
+  Serial.println(" Length: ");
   Serial.println(in_len);
-  printMagenta(tag);
-  printlnMagenta(":");
+  Serial.println(tag);
+  Serial.println(":");
   HEXDUMP(in, in_len);
 }
 
@@ -216,7 +211,7 @@ void loop()
 
   }
 
-  printlnGreen("\r\nPress i to re-initialize.. other key to loop...");
+  Serial.println("\r\nPress i to re-initialize.. other key to loop...");
   while (Serial.available()==0){} //Wait for user input
   String input = Serial.readString();  //Reading the Input string from Serial port.
   input.trim();
@@ -238,28 +233,23 @@ void loop()
 uint8_t reset()
 {
   uint32_t ret = 0;
-  printGreen("Begin to trust ... ");
+  Serial.println("Begin to trust ... ");
   ret = trustX.begin();
   if (ret) {
-    printlnRed("Failed");
+    Serial.println("Failed");
     return -1;
   }
-  printlnGreen("OK");
+  Serial.println("OK");
 
    /*
    * Speedup the board (from 6 mA to 15 mA)
    */
-  printGreen("Limiting Current consumption (15mA - means no limitation) ... ");
+  Serial.println("Limiting Current consumption (15mA - means no limitation) ... ");
   ret = trustX.setCurrentLimit(6);
   if (ret) {
-    printlnRed("Failed");
+    Serial.println("Failed");
     return -1;
   }
-  printlnGreen("OK");
-
-#if( UC_FAMILY == XMC1 )
-  led1Off();
-  led2Off();
-#endif
+  Serial.println("OK");
   return 0;
 }

@@ -26,21 +26,16 @@
  */
 
 #include "OPTIGATrustX.h"
+#include "debug.h"
 
 #define RND_MAXLENGTH     256
-
-#define SUPPRESSCOLLORS
-#include "fprint.h"
 
 uint8_t sys_init =0;
 
 void setup()
 {
-/*
-   * Initialise a serial port for debug output
-   */
   Serial.begin(115200, SERIAL_8N1);
-  Serial.println("Initializing ... ");
+  delay(100);
 
  /*
    * Initialise an OPTIGA™ Trust X Board
@@ -50,23 +45,13 @@ void setup()
   }else{
     sys_init=0;
   }
-#if( UC_FAMILY == XMC1 )
-  led1On();
-  led2On();
-#endif
-
 }
 
 static void output_result(char* tag, uint32_t tstamp, uint8_t* in, uint16_t in_len)
 {
-  printGreen("[OK] | Command executed in ");
-  Serial.print(tstamp);
-  Serial.println(" ms");
-  printMagenta(tag);
-  printMagenta(" Length: ");
-  Serial.println(in_len);
-  printMagenta(tag);
-  printlnMagenta(":");
+  debug_print("[OK] | Time(ms): %d", tstamp);
+  debug_print("Tag: %s", tag);
+
   HEXDUMP(in, in_len);
 }
 
@@ -85,57 +70,57 @@ void loop()
     /*
      * Generate Random values of different sizes
      */
-    printGreen("\r\nGet 16 bytes random number");
+    Serial.println("\r\nGet 16 bytes random number");
     ts = millis();
     ret = trustX.getRandom(16, rnd);
     ts = millis() - ts;
     if (ret) {
-      printlnRed("Failed");
+      Serial.println("Failed");
       while (true);
     }
     output_result("Random", ts, rnd, 16);
 
-    printGreen("\r\nGet 32 bytes random number");
+    Serial.println("\r\nGet 32 bytes random number");
     ts = millis();
     ret = trustX.getRandom(32, rnd);
     ts = millis() - ts;
     if (ret) {
-      printlnRed("Failed");
+      Serial.println("Failed");
       while (true);
     }
     output_result("Random", ts, rnd, 32);
 
-    printGreen("\r\nGet 64 bytes random number");
+    Serial.println("\r\nGet 64 bytes random number");
     ts = millis();
     ret = trustX.getRandom(64, rnd);
     ts = millis() - ts;
     if (ret) {
-      printlnRed("Failed");
+      Serial.println("Failed");
       while (true);
     }
     output_result("Random", ts, rnd, 64);
 
-    printGreen("\r\nGet 128 bytes random number");
+    Serial.println("\r\nGet 128 bytes random number");
     ts = millis();
     ret = trustX.getRandom(128, rnd);
     ts = millis() - ts;
     if (ret) {
-      printlnRed("Failed");
+      Serial.println("Failed");
       while (true);
     }
     output_result("Random", ts, rnd, 128);
 
-    printGreen("\r\nGet 256 bytes random number");
+    Serial.println("\r\nGet 256 bytes random number");
     ts = millis();
     ret = trustX.getRandom(256, rnd);
     ts = millis() - ts;
     if (ret) {
-      printlnRed("Failed");
+      Serial.println("Failed");
       while (true);
     }
     output_result("Random", ts, rnd, 256);
 
-      printlnGreen("\r\nPress i to re-initialize.. other key to loop...");
+      Serial.println("\r\nPress i to re-initialize.. other key to loop...");
       while (Serial.available()==0){} //Wait for user input
       String input = Serial.readString();  //Reading the Input string from Serial port.
       input.trim();
@@ -165,28 +150,23 @@ void loop()
 uint8_t reset()
 {
   uint32_t ret = 0;
-  printGreen("Begin to trust ... ");
+  Serial.println("Initialize Trust X");
   ret = trustX.begin();
   if (ret) {
-    printlnRed("Failed");
+    Serial.println("Failed");
     return -1;
   }
-  printlnGreen("OK");
+  Serial.println("OK");
 
    /*
    * Speedup the board (from 6 mA to 15 mA)
    */
-  printGreen("Limiting Current consumption (15mA - means no limitation) ... ");
+  Serial.println("Limiting Current consumption (15mA - means no limitation)");
   ret = trustX.setCurrentLimit(15);
   if (ret) {
-    printlnRed("Failed");
+    Serial.println("Failed");
     return -1;
   }
-  printlnGreen("OK");
-
-#if( UC_FAMILY == XMC1 )
-  led1Off();
-  led2Off();
-#endif
+  Serial.println("OK");
   return 0;
 }

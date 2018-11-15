@@ -48,15 +48,15 @@ int debug_print(char *str, ...)
         case 's': Serial.print(va_arg(argv, char *));
                   break;
         case 'x': Serial.print(va_arg(argv, int),HEX);
-                  break;          
+                  break;
         default:  ;
       };
     }
-    else 
+    else
     {
       temp[j] = str[i];
       j = (j+1)%BUF_SIZE;
-      if(j==0) 
+      if(j==0)
       {
         temp[BUF_SIZE] = '\0';
         Serial.print(temp);
@@ -77,7 +77,7 @@ int debug_print(char *str, ...)
  * @param[in] l_len   Length of a data
  *
  * @retval  None
- * @example  
+ * @example
  0x000000: 2e 2f 68 65 78 64 75 6d ./hexdum
  0x000008: 70 00 53 53 48 5f 41 47 p.SSH_AG
  0x000010: 45 4e 54 5f             ENT_
@@ -124,9 +124,9 @@ inline void __hexdump__(const void* p_buf, uint32_t l_len) {
   }
 }
 
-//Display the output. When in_len is 0, there is no data dump 
-static void output_result(uint16_t result, uint8_t* in, uint16_t in_len)
-{  
+//Display the output. When in_len is 0, there is no data dump
+static void output_result(uint32_t result, uint8_t* in, uint16_t in_len)
+{
   if(result !=0){    
     Serial.print("Error code:");
     Serial.println(result, HEX);
@@ -140,4 +140,3 @@ static void output_result(uint16_t result, uint8_t* in, uint16_t in_len)
 }
 #endif
 #endif
-

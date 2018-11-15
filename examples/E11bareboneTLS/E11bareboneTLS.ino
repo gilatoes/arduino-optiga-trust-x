@@ -26,8 +26,8 @@
  */
 
 #include "OPTIGATrustX.h"
-#include "aes/AES.h"
 #include "debug.h"
+#include "aes/AES.h"
 
 #define UID_LENGTH        27
 
@@ -37,7 +37,7 @@
 //#define READBACK_TEST
 
 //Choice of Public Key storage
-uint16_t PubKeyStore_OID_1 = 0xF1D0;   
+uint16_t PubKeyStore_OID_1 = 0xF1D0;
 uint16_t PubKeyStore_OID_2 = 0xF1D1;
 uint16_t PrivateKeyStore_1 = 0xE0F1;
 uint16_t PrivateKeyStore_2 = 0xE0F2;
@@ -51,12 +51,12 @@ uint16_t SHAREDSECRET_LEN = 32;
 #define CONTEXT_SHAREDSECRET
 
 #ifdef ARBITARY_SHAREDSECRET //Arbitrary data object
-uint16_t ShareSecretStore_OID_1 = 0xF1D2;   
+uint16_t ShareSecretStore_OID_1 = 0xF1D2;
 uint16_t ShareSecretStore_OID_2 = 0xF1D3;
 #endif
 
 #ifdef CONTEXT_SHAREDSECRET //Session context object
-uint16_t ShareSecretStore_OID_1 = 0xE101;   
+uint16_t ShareSecretStore_OID_1 = 0xE101;
 uint16_t ShareSecretStore_OID_2 = 0xE102;
 #endif
 
@@ -67,10 +67,10 @@ byte MasterKey_1[32];
 byte MasterKey_2[32];
 
 byte message[] =
-{  
-0x59, 0x6f, 0x75, 0x20, 0x63, 0x61, 0x6e, 0x20, 0x74, 0x72, 0x75, 0x73, 0x74, 0x20, 0x74, 0x68, 
-0x69, 0x73, 0x20, 0x73, 0x65, 0x63, 0x75, 0x72, 0x65, 0x20, 0x63, 0x68, 0x61, 0x6e, 0x6e, 0x65, 
-0x6c, 0x20, 0x77, 0x69, 0x74, 0x68, 0x20, 0x79, 0x6f, 0x75, 0x72, 0x20, 0x64, 0x65, 0x65, 0x70, 
+{
+0x59, 0x6f, 0x75, 0x20, 0x63, 0x61, 0x6e, 0x20, 0x74, 0x72, 0x75, 0x73, 0x74, 0x20, 0x74, 0x68,
+0x69, 0x73, 0x20, 0x73, 0x65, 0x63, 0x75, 0x72, 0x65, 0x20, 0x63, 0x68, 0x61, 0x6e, 0x6e, 0x65,
+0x6c, 0x20, 0x77, 0x69, 0x74, 0x68, 0x20, 0x79, 0x6f, 0x75, 0x72, 0x20, 0x64, 0x65, 0x65, 0x70,
 0x65, 0x73, 0x74, 0x20, 0x73, 0x65, 0x63, 0x72, 0x65, 0x74, 0x73, 0x2e, 0x20, 0x3a, 0x29, 0x00
 };
 
@@ -81,11 +81,11 @@ void setup()
     uint32_t ret = 0;
     uint8_t  uid[UID_LENGTH];
     uint16_t uidLength = UID_LENGTH;
-        
+
     Serial.begin(115200, SERIAL_8N1);
     delay(100);
     Serial.println("Initializing Trust X ... ");
-       
+
     if(reset()==0){
       sys_init=1;
     }else{
@@ -96,10 +96,10 @@ void setup()
     ret = trustX.getUniqueID(uid, uidLength);
     if (ret) {
       Serial.println("Error: Unable to read Trust X UID.");
-      Serial.println(ret,HEX);  
+      Serial.println(ret,HEX);
       //close the connection
-      trustX.end();         
-    }else{  
+      trustX.end();
+    }else{
     HEXDUMP(uid, uidLength);
     }
 
@@ -108,13 +108,13 @@ void setup()
     {
       Serial.println("Error: Trust X FW version must be at least 0x1118");
       while(1);
-    }    
-#endif    
+    }
+#endif
 
 #ifdef PROVISION_ME
   makekeypair(PrivateKeyStore_1, PubKeyStore_OID_1);
-  makekeypair(PrivateKeyStore_2, PubKeyStore_OID_2);   
-#endif  
+  makekeypair(PrivateKeyStore_2, PubKeyStore_OID_2);
+#endif
 }
 
 //Make a new key pair with a defined Private key slot and store export public key data OID
@@ -129,23 +129,23 @@ void makekeypair(uint16_t PrivateKeySlot, uint16_t PublicKeyStore_OID)
   Serial.print("Write Public key in Data OID: 0x");
   Serial.println(PublicKeyStore_OID,HEX);
   ret = trustX.generateKeypair(PubKey, PUBLICKEY_LENGTH, PrivateKeySlot);
-  
+
   if (ret) {
     Serial.println("Error generating key pair");
     while (true);
   }
-  
-  ret = trustX.setArbitaryDataObject(PublicKeyStore_OID, PubKey, PUBLICKEY_LENGTH);    
+
+  ret = trustX.setArbitaryDataObject(PublicKeyStore_OID, PubKey, PUBLICKEY_LENGTH);
   if (ret){
     Serial.print("Error: Failed to write Public Key in OID");
   }
   else{
-    
+
 #ifdef READBACK_TEST
     uint8_t *readPubKey = new uint8_t[PUBLICKEY_LENGTH];
     get_PubKeyStore(PublicKeyStore_OID, readPubKey);
     HEXDUMP(readPubKey, PUBLICKEY_LENGTH);
-#endif    
+#endif
   }
 }
 
@@ -157,22 +157,22 @@ uint8_t compare_oid(uint16_t oid1, uint16_t oid2, uint16_t len)
   uint8_t *oid_data2 = new uint8_t[len];
 
   ret = trustX.getArbitaryDataObject(oid1, oid_data1, len);
-  if (ret){  
+  if (ret){
     Serial.print("Error: Failed to read data from OID 1 parameter");
     Serial.println(ret, HEX);
   }
-  
+
   ret = trustX.getArbitaryDataObject(oid2, oid_data2, len);
-  if (ret){  
+  if (ret){
     Serial.print("Error: Failed to read data from OID 2 parameter");
     Serial.println(ret, HEX);
   }
-  
+
   ret = memcmp(oid_data1,oid_data2, len);
   if (ret==0){
     return 0;
   }
-  else{    
+  else{
     return 1;
   }
 }
@@ -186,7 +186,7 @@ uint8_t compare_array(uint8_t *a, uint8_t *b, uint16_t len)
       if (a[n]!=b[n]){
         return 1;
       }
-     }     
+     }
      return 0;
 }
 
@@ -211,38 +211,38 @@ void calculateShareSecretStore(uint16_t PrivateKeySlot, uint16_t PublicKeyStore_
         ret = trustX.sharedSecret(PrivateKeySlot, PubKey, PUBLICKEY_LENGTH, ShareSecretStore_OID, sharedsecret, sharedsecret_len);
         if (ret) {
           Serial.print("Error code:");
-          Serial.print(ret,HEX);     
+          Serial.print(ret,HEX);
           while (true);
         }
         Serial.print("Shared Secret stored in context OID:");
-        Serial.println(ShareSecretStore_OID,HEX); 
+        Serial.println(ShareSecretStore_OID,HEX);
   }
   else
   {
      ret = trustX.sharedSecret(PrivateKeySlot, PubKey, PUBLICKEY_LENGTH, ExportSharedSecret, sharedsecret, sharedsecret_len);
       if (ret) {
         Serial.print("Error code:");
-        Serial.println(ret,HEX);     
+        Serial.println(ret,HEX);
         while (true);
        }
-#ifdef READBACK_TEST   
-    Serial.println("----- BEGIN SHARED SECRET KEY -----"); 
+#ifdef READBACK_TEST
+    Serial.println("----- BEGIN SHARED SECRET KEY -----");
     HEXONLYDUMP(sharedsecret, sharedsecret_len);
-    Serial.println("----- END SHARED SECRET KEY -----"); 
+    Serial.println("----- END SHARED SECRET KEY -----");
 #endif
 
   //Store the Share Secret in the data OID
-  ret = trustX.setArbitaryDataObject(ShareSecretStore_OID, sharedsecret, sharedsecret_len);    
+  ret = trustX.setArbitaryDataObject(ShareSecretStore_OID, sharedsecret, sharedsecret_len);
   if (ret){
     Serial.print("Error: Failed to write Share Secret in data OID");
   }
   else{
-    
+
 #ifdef READBACK_TEST
     uint8_t *readsharesecretkey = new uint8_t[sharedsecret_len];
     get_SharedSecretStore(ShareSecretStore_OID, readsharesecretkey, sharedsecret_len);
     HEXDUMP(readsharesecretkey, sharedsecret_len);
-#endif    
+#endif
     }
    }
 }
@@ -258,14 +258,14 @@ void get_PubKeyStore(uint16_t PublicKeyStore_OID, uint8_t *publickey)
   Serial.print("Read Public key from Data OID: 0x");
   Serial.println(PublicKeyStore_OID, HEX);
   ret = trustX.getArbitaryDataObject(PublicKeyStore_OID, data_readback, PUBLICKEY_LENGTH);
-  if (ret){  
+  if (ret){
     Serial.print("Error: Failed to read Public Key from OID");
     Serial.println(ret, HEX);
   }
-   else{      
+   else{
 #ifdef READBACK_TEST
     HEXDUMP(data_readback, PUBLICKEY_LENGTH);
-#endif    
+#endif
     memcpy(publickey, data_readback, PUBLICKEY_LENGTH);
   }
 }
@@ -286,14 +286,14 @@ void get_SharedSecretStore(uint16_t SharedSecretStore_OID, uint8_t *SharedSecret
       ){
 
         ret = trustX.getArbitaryDataObject(SharedSecretStore_OID, data_readback, SharedSecret_Len);
-        if (ret){  
+        if (ret){
           Serial.print("Error: Failed to read Shared Secret Key from OID");
           Serial.println(ret, HEX);
         }
-         else{      
-#ifdef READBACK_TEST    
+         else{
+#ifdef READBACK_TEST
     HEXDUMP(data_readback, SharedSecret_Len);
-#endif    
+#endif
           memcpy(SharedSecret, data_readback, SharedSecret_Len);
         }
       }
@@ -306,7 +306,7 @@ void loop()
   uint32_t ret = 0;
 
   if(sys_init)
-  {       
+  {
     uint8_t *derivekey1 = new uint8_t[DERIVEDKEY_LEN];
     uint8_t *derivekey2 = new uint8_t[DERIVEDKEY_LEN];
 
@@ -321,7 +321,7 @@ void loop()
        (ShareSecretStore_OID_1!= 0xE103)
       )
     {
-      Serial.println("Party 1 Shared Secret key from OID: 0x"); 
+      Serial.println("Party 1 Shared Secret key from OID: 0x");
       Serial.println(ShareSecretStore_OID_1,HEX);
       uint8_t *readsharesecretkey = new uint8_t[SHAREDSECRET_LEN];
       get_SharedSecretStore(ShareSecretStore_OID_1, readsharesecretkey,SHAREDSECRET_LEN);
@@ -337,13 +337,13 @@ void loop()
        (ShareSecretStore_OID_2!= 0xE103)
       )
     {
-      Serial.println("Party 2 Shared Secret key from OID: 0x"); 
+      Serial.println("Party 2 Shared Secret key from OID: 0x");
       Serial.println(ShareSecretStore_OID_2,HEX);
       uint8_t *readsharesecretkey = new uint8_t[SHAREDSECRET_LEN];
       get_SharedSecretStore(ShareSecretStore_OID_2, readsharesecretkey, SHAREDSECRET_LEN);
       HEXDUMP(readsharesecretkey, SHAREDSECRET_LEN);
     }
-#endif    
+#endif
 
     //Only exported shared secret can be compared
     if((ShareSecretStore_OID_1!= 0xE100) &&
@@ -353,14 +353,14 @@ void loop()
        (ShareSecretStore_OID_2!= 0xE100) &&
        (ShareSecretStore_OID_2!= 0xE101) &&
        (ShareSecretStore_OID_2!= 0xE102) &&
-       (ShareSecretStore_OID_2!= 0xE103) 
+       (ShareSecretStore_OID_2!= 0xE103)
      )
     {
       uint8_t result = compare_oid(ShareSecretStore_OID_1, ShareSecretStore_OID_2, SHAREDSECRET_LEN);
       if(result==0)
       { Serial.println("\r\n+++++++++++++ Shared secret is established +++++++++++++.\r\n"); }
       else
-      {Serial.println("\r\n---------- Unable to establish share secret -----------"); 
+      {Serial.println("\r\n---------- Unable to establish share secret -----------");
       while(1);
       }
     }
@@ -371,12 +371,12 @@ void loop()
     ret = trustX.deriveKey( ShareSecretStore_OID_1, SHAREDSECRET_LEN, ExportDeriveKey, derivekey1, DERIVEDKEY_LEN);
     if (ret) {
       Serial.print("Error code: ");
-      Serial.println(ret,HEX);     
+      Serial.println(ret,HEX);
       while (true);
-    }    
-    Serial.println("\r\n-----BEGIN DERIVE KEY 1-----"); 
+    }
+    Serial.println("\r\n-----BEGIN DERIVE KEY 1-----");
     HEXONLYDUMP(derivekey1, DERIVEDKEY_LEN);
-    Serial.println("-----END DERIVE KEY-----"); 
+    Serial.println("-----END DERIVE KEY-----");
 
     Serial.println("Export plaintext derive key 2.");
     Serial.print("Shared Secret OID: 0x");
@@ -384,31 +384,31 @@ void loop()
     ret = trustX.deriveKey( ShareSecretStore_OID_2, SHAREDSECRET_LEN, ExportDeriveKey, derivekey2, DERIVEDKEY_LEN);
     if (ret) {
       Serial.print("Error code: ");
-      Serial.println(ret,HEX);     
+      Serial.println(ret,HEX);
       while (true);
-    }    
-    Serial.println("\r\n-----BEGIN DERIVE KEY 2-----"); 
+    }
+    Serial.println("\r\n-----BEGIN DERIVE KEY 2-----");
     HEXONLYDUMP(derivekey2, DERIVEDKEY_LEN);
-    Serial.println("-----END DERIVE KEY-----"); 
+    Serial.println("-----END DERIVE KEY-----");
 
     ret = compare_array(derivekey1,derivekey2, DERIVEDKEY_LEN );
 
     if (ret == 0){
-      Serial.println("\r\n+++++++++++++ Common Derived key created +++++++++++++"); 
+      Serial.println("\r\n+++++++++++++ Common Derived key created +++++++++++++");
       }
     else{
-      Serial.println("\r\n----------- Derived key is different --------------"); 
+      Serial.println("\r\n----------- Derived key is different --------------");
     }
 
     memcpy(MasterKey_1, derivekey1, DERIVEDKEY_LEN);
     memcpy(MasterKey_2, derivekey2, DERIVEDKEY_LEN);
-    
+
     Serial.println("\r\nParty 1 compute AES encryption decryption using derived shared key");
     SecureChannel(MasterKey_1, 256, 4);
 
     Serial.println("\r\nParty 2 compute AES encryption decryption using derived shared key");
     SecureChannel(MasterKey_2, 256, 4);
-    
+
   Serial.println("\r\nPress i to re-initialize.. other key to loop...");
   while (Serial.available()==0){} //Wait for user input
   String input = Serial.readString();  //Reading the Input string from Serial port.
@@ -431,7 +431,7 @@ void SecureChannel (uint8_t *key, int bits, int blocks )
 {
 
   AES aes ;
-  
+
   byte cipher [4*N_BLOCK];
   byte check [4*N_BLOCK];
 
@@ -458,7 +458,7 @@ void SecureChannel (uint8_t *key, int bits, int blocks )
   Serial.println("Plaintext: ");
   __hexdump__(message, sizeof(message));
 #endif
-  
+
   status = aes.set_key (key, bits);
   if(status==0){
     //Serial.println("AES set key Ok") ;
@@ -466,8 +466,8 @@ void SecureChannel (uint8_t *key, int bits, int blocks )
   else{
     Serial.println("Error: AES set key failed") ;
   }
-  
-  //Serial.print("block size = "); Serial.println(blocks);  
+
+  //Serial.print("block size = "); Serial.println(blocks);
   memcpy(iv, CONST_IV, N_BLOCK);
   status = aes.cbc_encrypt(message, cipher, blocks, iv);
 
@@ -475,33 +475,33 @@ void SecureChannel (uint8_t *key, int bits, int blocks )
   __hexdump__(cipher, 64);
 
   if(status==0){
-    //Serial.println("AES encrypt ok"); 
+    //Serial.println("AES encrypt ok");
   }else{
-    Serial.println("Error: AES encrypt failed"); 
+    Serial.println("Error: AES encrypt failed");
   }
-    
+
   //Serial.print("block size = "); Serial.println(blocks);
   memcpy(iv, CONST_IV, N_BLOCK);
   status = aes.cbc_decrypt (cipher, check, blocks, iv);
-   
+
   Serial.println("Decrypted Text: ");
-  __hexdump__(check, 64); 
-    
+  __hexdump__(check, 64);
+
   if(status==0){
-    //Serial.println("AES decrypt ok"); 
+    //Serial.println("AES decrypt ok");
   }else{
-    Serial.println("Error: AES decrypt failed"); 
+    Serial.println("Error: AES decrypt failed");
   }
 }
 
 uint8_t reset()
 {
-  uint32_t ret = 0;  
+  uint32_t ret = 0;
   ret = trustX.begin();
   if (ret) {
     Serial.println("Error: Failed to initialize.");
     return -1;
-  } 
+  }
    /*
    * Speedup the board (from 6 mA to 15 mA)
    */
