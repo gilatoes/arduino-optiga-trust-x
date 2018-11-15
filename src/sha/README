@@ -10,3 +10,6 @@ Installation:
   Make a 'libraries' directory with your Arduino folder if you do not already have one.
   Rename this folder 'Sha' and move it into that directory.
   Restart Arduino IDE to rescan for new libraries.
+  
+Example references:  
+  https://platformio.org/lib/show/2060/Cryptosuite/examples?file=sha256test.pde
