@@ -131,7 +131,7 @@ If the private key is to be stored in the security controller, the example shoul
 The generated key pair can be used for cryptographic operations.
 
 ### E10bareboneTLS
-bareboneTLS is an example of how a naked TLS session looks like. This example establishes secure channel by generating 2 public-private key pair. The public keys are exchanged and used to generate common shared secrets. The shared secrets are used to calculate derived secret key which is used as ephemeral AES encryption-decryption key to securely transmit message data over insecure medium.
+bareboneTLS is an example of a stripped down TLS session. This example establishes secure channel by generating 2 public-private key pairs. The public keys are exchanged and used to generate common shared secrets. The shared secrets are used to calculate common derived secret key which is used as ephemeral AES encryption-decryption key to securely transmit message data over insecure medium.
 
 ### E11firmwareUpdate (TBD)
 firmwareupdate example is a basic example of ECDH.
