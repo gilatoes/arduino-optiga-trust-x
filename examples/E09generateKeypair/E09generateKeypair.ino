@@ -28,7 +28,7 @@
 #include "OPTIGATrustX.h"
 #include "debug.h"
 
-#define KEY_MAXLENGTH    70
+#define KEY_MAXLENGTH    68
 
 
 uint8_t *pubKey = new uint8_t[KEY_MAXLENGTH];
@@ -52,24 +52,16 @@ void setup()
 
 }
 
-static void output_result(char* tag, uint32_t tstamp, uint8_t* in, uint16_t in_len)
+static void output_result(char* tag, uint8_t* in, uint16_t in_len)
 {
-  Serial.println("[OK] | Command executed in ");
-  Serial.print(tstamp);
-  Serial.println(" ms");
-  Serial.println(tag);
-  Serial.println(" Length: ");
-  Serial.println(in_len);
-  Serial.println(tag);
-  Serial.println(":");
+  debug_print("Tag: %s", tag);
+
   HEXDUMP(in, in_len);
 }
 
 void loop()
 {
   uint32_t ret = 0;
-  uint8_t  cntr = 10;
-  uint32_t ts = 0;
   /* OPTIGA Trust X support up to 4 contexts to store you private key  */
   uint16_t ctx = 0;
   uint16_t pubKeyLen = 0;
@@ -81,30 +73,26 @@ void loop()
      * Generate a keypair#1
      */
     Serial.println("\r\nGenerate Key Pair. Store Private Key on Board ... ");
-    ts = millis();
     ret = trustX.generateKeypair(pubKey, pubKeyLen, ctx);
-    ts = millis() - ts;
     if (ret) {
       Serial.println("Failed");
       while (true);
     }
 
-    output_result("Public Key ", ts, pubKey, pubKeyLen);
+    output_result("Public Key ", pubKey, pubKeyLen);
 
     /*
      * Generate a keypair#2
      */
     Serial.println("\r\nGenerate Key Pair. Export Private Key ... ");
-    ts = millis();
     ret = trustX.generateKeypair(pubKey, pubKeyLen, privKey, privKeyLen);
-    ts = millis() - ts;
     if (ret) {
       Serial.println("Failed");
       while (true);
     }
 
-    output_result("Public Key ", ts, pubKey, pubKeyLen);
-    output_result("Private Key ", ts, privKey, privKeyLen);
+    output_result("Public Key ", pubKey, pubKeyLen);
+    output_result("Private Key ", privKey, privKeyLen);
 
     Serial.println("\r\nPress i to re-initialize.. other key to loop...");
     while (Serial.available()==0){} //Wait for user input
