@@ -14,19 +14,19 @@ Download and install the latest Arduino IDE version.
 
 ## XMC Host Library for Arduino IDE
 Install Infineon XMC library support for Arduino platform.
-Follow the instruction on the offical XMC-for-Arduino Github.
+Follow the instruction on the official XMC-for-Arduino Github.
 
 [XMC-for-Arduino]<br/>
 https://github.com/Infineon/XMC-for-Arduino
 
-DAVE 4.4.2 download link:<br/>
+DAVE 4.4.2 (64-bit) download link:<br/>
 https://infineoncommunity.com/dave-download_ID645
 
 Alternate DAVE 4.4.2 download link (Valid on during the Boot Camp training only):<br/>
 https://drive.google.com/file/d/1l_TAdm1e6Q3ZJnSK5oMYVVpKxm5e4ZUW/view?usp=sharing
 
 ### Mission Arduino with Trust X and Library
-Clone or download this github to get the Trust X integration library and examples.
+Clone or download this Github to get the Trust X integration library and examples.
 
 To install Trust X Library in the Arduino IDE several options can be taken:
 **Sketch** > **Include Library** > **Add .ZIP Library...** in the Arduino IDE and navigate to the downloaded .ZIP file of this repository. The library will be installed in your Arduino sketch folder in libraries and you can select as well as include this one to your project under **Sketch** > **Include Library** > **OPTIGATrustX**.
@@ -125,16 +125,16 @@ For the verification, three methods are available:
 ### E08OneWayAuth
 one-way authentication example is used to verify the authenticity of Trust X chip. It makes use of Trust X chip crypto functions to implement the authentication function.
 
-### E09firmwareUpdate (TBD)
-firmwareupdate example is a basic example of ECDH.
-
-### E10generateKeypair
+### E09generateKeypair
 generateKeypair example is a Trust X toolbox feature that demonstrates ECC256 keypair generation. The private key can either be exported in plaintext or held within the security controller.
 If the private key is to be stored in the security controller, the example should be modified to specify the destination Object ID.
 The generated key pair can be used for cryptographic operations.
 
-### E11bareboneTLS
+### E10bareboneTLS
 bareboneTLS is an example of how a naked TLS session looks like. This example establishes secure channel by generating 2 public-private key pair. The public keys are exchanged and used to generate common shared secrets. The shared secrets are used to calculate derived secret key which is used as ephemeral AES encryption-decryption key to securely transmit message data over insecure medium.
+
+### E11firmwareUpdate (TBD)
+firmwareupdate example is a basic example of ECDH.
 
 ## Helper Routines
 ### H01objectDump
