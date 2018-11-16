@@ -1825,6 +1825,8 @@ int32_t CmdLib_VerifySign(const sVerifyOption_d* PpsVerifySign,const sbBlob_d * 
 	#define OID_APDU_INDATA_LEN				11
 /// @endcond	
 
+    print_debug(">CmdLib_VerifySign");
+
     do
 	{
         //NULL checks
@@ -1908,6 +1910,7 @@ int32_t CmdLib_VerifySign(const sVerifyOption_d* PpsVerifySign,const sbBlob_d * 
         i4Status = TransceiveAPDU(&sApduData,TRUE);
         if(CMD_LIB_OK != i4Status)
         {
+        	print_debug("CmdLib_VerifySign: Error transceive");
             break;
         }
     }while(FALSE);
