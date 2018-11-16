@@ -177,7 +177,7 @@ void loop()
                       signature,
                       uECC_secp256r1());
 
-    output_result(ret, signature, SIGNATURE_LENGTH);
+    HEXDUMP(signature, SIGNATURE_LENGTH);
 
     ts = millis() - ts;
     debug_print("\r\nVerification time (ms): %d", ts);
