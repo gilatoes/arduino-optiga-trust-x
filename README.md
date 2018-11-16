@@ -108,15 +108,13 @@ openssl x509 -in certificate.pem -text -noout
 ```
 
 ### E06calculateHash
-calculateHash demonstrates example usage of the SHA256 hash, as well as a simple benchmarking for your microcontroller.
-The performance of this benchmark test greatly depends on I2C bus frame size (it affects mainly big blocks of data transmitted to the Trust X chip for hashing),
-which was limited by default down to 32 bytes (in case of 32 bytes the library will perform fragmentation).
+calculateHash is an example that demonstrates the usage of Trust X SHA256 toolbox function. There is also a simple hash benchmarking time for your microcontroller. The performance of this benchmark test greatly depends on I2C bus frame size (it affects mainly big blocks of data transmitted to the Trust X chip for hashing), which was limited by default down to 32 bytes (in case of 32 bytes the library will perform fragmentation).
 
-### E07calculateSignVerifySign  
-calculateSignVerifySign demonstrates signature generation and signature verification methods of the library.
+### E07SignVerify
+SignVerify demonstrates signature generation and verification methods of the library.
 This example shows two modes of operation:
-1) Calculate a signature using manufacturer private key, the resulted value is verified against the public key.
-2) Generate a public-private keypair and store the latter inside one of Object IDs of the Trust X,
+1) Calculate a signature using manufacturer (in this case, Infineon) private key, the resulted value is verified against the public key.
+2) Generate a new public-private keypair and store the latter inside one of Object IDs of the Trust X,
 then sign the digest giving only the latter Object ID, the result value is verified against the public key.  
 
 For the verification, three methods are available:
@@ -136,7 +134,7 @@ If the private key is to be stored in the security controller, the example shoul
 The generated key pair can be used for cryptographic operations.
 
 ### E11bareboneTLS
-bareboneTLS is an example of how a naked TLS session looks like. This example establishes secure channel by generating 2 public-private key pair. The public keys are exchanged and used to generate common shared secrets. The shared secrets are used to calculate derived secret key which is used as ephemeral AES encryption-decryption key to securely transmit message data over insecure medium. 
+bareboneTLS is an example of how a naked TLS session looks like. This example establishes secure channel by generating 2 public-private key pair. The public keys are exchanged and used to generate common shared secrets. The shared secrets are used to calculate derived secret key which is used as ephemeral AES encryption-decryption key to securely transmit message data over insecure medium.
 
 ## Helper Routines
 ### H01objectDump

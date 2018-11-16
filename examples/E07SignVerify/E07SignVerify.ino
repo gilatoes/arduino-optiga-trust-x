@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE
  *
- * Demonstrates use of the 
+ * Demonstrates use of the
  * Infineon Technologies AG OPTIGA™ Trust X Arduino library
  */
 
@@ -44,14 +44,14 @@ uint8_t *Signature = new uint8_t[SIGN_MAX_LENGTH];
 //#define REPLAY_ATTACK
 
 uint8_t sys_init =0;
-void setup() 
+void setup()
 {
   /*
    * Initialise a serial port for debug output
    */
   Serial.begin(115200, SERIAL_8N1);
   delay(100);
-      
+
   if(reset()==1){
     sys_init=1;
   }else{
@@ -70,19 +70,19 @@ uint8_t calculateSignVerifySign_IFXkey()
   /*
    * Extract public key of the device certificate
    */
-  Serial.println("IFX Public Key:");  
+  Serial.println("IFX Public Key:");
   ret = trustX.getPublicKey(ifxPublicKey);
   output_result(ret, ifxPublicKey, PUBKEY_LENGTH);
   ASSERT(ret);
 
   /*
    * Calculate a hash of the given Message
-   */  
-  Serial.println("Hash:");  
+   */
+  Serial.println("Hash:");
   ret = trustX.sha256(Message, MESSAGE_LENGTH, hash);
   output_result(ret, hash, HASH_LENGTH);
   ASSERT(ret);
-  
+
   /*
    * Sign hash
    */
@@ -96,7 +96,7 @@ uint8_t calculateSignVerifySign_IFXkey()
    * Verify a signature
    */
   Serial.println("Verify Signature:");
-  ret = trustX.verifySignature(hash, HASH_LENGTH, Signature , Signature_Len, ifxPublicKey, PUBKEY_LENGTH);  
+  ret = trustX.verifySignature(hash, HASH_LENGTH, Signature , Signature_Len, ifxPublicKey, PUBKEY_LENGTH);
   if(ret==0)
   {Serial.println("+++++++++++++ Verify Signature successful +++++++++++++");}
   else{
@@ -119,7 +119,7 @@ uint8_t calculateSignVerifySign_IFXkey()
       Serial.println("------------- Verify Replay Signature failed -------------");
       return 0;
       }
-#endif    
+#endif
   return 1;
 }
 
@@ -128,9 +128,9 @@ uint8_t calculateSignVerifySign_Newkey()
   uint32_t ret = 0;
   uint8_t  Message[MESSAGE_LENGTH] = {'T', 'R', 'U', 'S', 'T', ' ', 'X', ' ', 'B', 'O', 'O', 'T', 'C', 'A', 'M', 'P'};
   uint8_t *PublicKey = new uint8_t[PUBKEY_LENGTH];
-  
+
   uint16_t Signature_Len = 0;
-  
+
   /*
    * Generate a key pair and store private key inside the security chip
    */
@@ -138,7 +138,7 @@ uint8_t calculateSignVerifySign_Newkey()
   ret = trustX.generateKeypair(PublicKey, PUBKEY_LENGTH, eSESSION_ID_2);
   output_result(ret, PublicKey, PUBKEY_LENGTH);
   ASSERT(ret);
-  
+
   /*
    * Calculate a hash of the given Message
    */
@@ -152,7 +152,7 @@ uint8_t calculateSignVerifySign_Newkey()
    */
   Serial.println("Signature:");
   ret = trustX.calculateSignature(hash, HASH_LENGTH, eSESSION_ID_2, Signature, Signature_Len);
-  debug_print("Signature length: %d", Signature_Len);  
+  debug_print("Signature length: %d", Signature_Len);
   output_result(ret, Signature, Signature_Len);
   ASSERT(ret);
 
@@ -167,7 +167,7 @@ uint8_t calculateSignVerifySign_Newkey()
   }else{
    Serial.println("+++++++++++++ Verify Signature successful +++++++++++++");
    return 1;
-   }  
+   }
 }
 
 void loop()
@@ -175,7 +175,7 @@ void loop()
 uint8_t ret=0;
 
   if(sys_init)
-  { 
+  {
     Serial.println("Sign Message and verify a signature using IFX public key");
     ret = calculateSignVerifySign_IFXkey();
     if(ret==0){
@@ -185,15 +185,15 @@ uint8_t ret=0;
     Serial.println("Sign Message and verify a signature using a new generated public key");
     ret = calculateSignVerifySign_Newkey();
     if(ret==0){
-       Serial.println("Sign and Verify new key failed");      
-    }    
+       Serial.println("Sign and Verify new key failed");
+    }
   }
-  
-  Serial.println("\r\nPress i to re-initialize.. other key to loop...");   
-  while (Serial.available()==0){} //Wait for user input  
+
+  Serial.println("\r\nPress i to re-initialize.. other key to loop...");
+  while (Serial.available()==0){} //Wait for user input
   String input = Serial.readString();  //Reading the Input string from Serial port.
   input.trim();
-  if(input=="i") 
+  if(input=="i")
   {
     if(reset()==0)
     {
@@ -211,11 +211,11 @@ uint8_t ret=0;
 
 uint8_t reset()
 {
-  uint32_t ret = 0;   
+  uint32_t ret = 0;
   Serial.println("Initialize Trust X");
   ret = trustX.begin();
   ASSERT(ret);
-  
+
    /*
    * Speedup the board (from 6 mA to 15 mA)
    */
@@ -225,5 +225,3 @@ uint8_t reset()
 
   return 1;
 }
-
-

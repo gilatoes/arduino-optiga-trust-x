@@ -74,7 +74,7 @@ https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Mission
   - [ ]  Server sign a message and provide the message to device.
   - [ ]  Verify the signature, message against the root CA.
 
-## Task 6: Special accessory Authentication
+## Task 6: A very special accessory authentication use case
 * Using One-Way Authentication example as a starting point
 - In the scenario, implement your own Asymmetric Key 1-way Authentication.
 ### Condition:
@@ -82,12 +82,16 @@ https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Mission
   - [ ] Attaching other Trust X should fail on your board.
 
 ## Memory footprints
-  - [ ] Compare hardware and software verification.
-  - [ ] Compete with your camp mates for the least XMC2Go memory foot print. Least memory wins!
+  - [ ] Compare hardware and software verification approach.
+  - [ ] Compete with your camp mates for the least XMC2Go memory foot print. Check the compiled memory footprint, least memory usage wins!
   - [ ] Compete the speed of the 1-way Authentication. Least time wins!
 
+### Task 7: Let's look at replay attack
+Study the SignVerify example carefully. Turn on the "Replay Attack" macro and check the status.
+- [ ] Why does the verification passes when replay attack is switched on?
+- [ ] How can such replay attack be prevented?
 
-## Task 7: Simple Firmware Update
+## Task 8: Simple Firmware Update
 * Using One-Way Authentication example as a starting point...
 
 ### Server
@@ -109,9 +113,9 @@ https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Mission
 **Firmware SHA-256 Checksum:**<br/>
 https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Missions/Mission_files/XMC2Go_FWUpdate_1_Checksum.txt
 
-## Task 8: Implement TLS
+## Task 9: Implement TLS
 * Study the example of bareboneTLS. It is a TLS example implemented within a single Trust X device.
-- In this scenario, implement TLS using 2 Trust X.
+- In this scenario, implement TLS using 2 Trust X(s).
 - [ ] Each Trust X generate a key pair.
 - [ ] Exchange the Public Keys.
 - [ ] Generate the shared secrets. Display the share secrets to proof that ECDH is successful.
