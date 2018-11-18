@@ -13,13 +13,9 @@ In this task, there will be some changes required for your Trust X library. You 
 - [ ]  Modify the I2C address of Trust X to 0x40.
 
 ## Task 3: Trust X Object IDs
-In this task, it consists of 3 parts. First, read and decode the Trust X UID. Second, a specific data object ID needs to be filled up with some specific information. Third, determine the Public Key issued by Infineon PKI.
+In this task, it consists of 3 parts. First, read and decode the Trust X UID. Second, determine the Public Key issued by Infineon PKI.
 - [ ] Read the UID Object.
   * Decode the UID to determine the hardware token identity.
-- [ ] Program the following data into the "Arbitrary data object Type 1" 0xF1DE.
-```hash
-  f8 79 f9 36 cd d6 d6 e4 f1 3e c3 3f 18 71 1b a1 ed a0 eb 8a de ba 15 13 75 d0 af 75 39 39 9b ff
-```
 - [ ] Determine the Public key issued by Infineon PKI from your Trust X.
 
 ## Task 4: Concepts of Digital Signature using ECC Asymmetric keys
