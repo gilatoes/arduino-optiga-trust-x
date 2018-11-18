@@ -107,9 +107,17 @@ https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Mission
 
 - [ ] Establish shared secrets and derived key.
 - [ ] Display the share secrets to proof that ECDH is successful.
-- [ ] Generate the AES Key from the derived key.
-- [ ] Use AES Key to encrypt the firmware. (Use OpenSSL in this step)
+- [ ] Generate the AES Key from the derived key and display the key.
+- [ ] Select an Initialization vector and use AES Key to encrypt the firmware.
+```
+OpenSSL Command:
+openssl enc -nosalt -aes-256-cbc -in XMC2Go_FWUpdate_2.hex -out XMC2Go_FWUpdate_2.hex.enc -base64 -K <key> -iv <iv> -P
+```
 - [ ] Hash the encrypted firmware.
+```
+OpenSSL Command:
+openssl dgst -sha256 XMC2Go_FWUpdate_2.hex.enc
+```
 - [ ] Send the hash and encrypted firmware to the receiver.
 
 ### Receiver
@@ -117,6 +125,16 @@ https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Mission
 - [ ] Establish shared secrets and derived key.
 - [ ] Display the share secrets to proof that ECDH is successful.
 - [ ] Generate the AES Key from the derived key.
+- [ ] Receive the Initialization vector, XMC2Go_FWUpdate_2.hex.enc and hash.
 - [ ] Hash the encrypted firmware and check the hash matches the server sent hash.
-- [ ] Use AES Key to decrypt the firmware. (Use OpenSSL in this step)
+```
+OpenSSL Command:
+openssl dgst -sha256 XMC2Go_FWUpdate_2.hex.enc
+```
+- [ ] Use AES Key to decrypt the firmware.
+```
+OpenSSL Command:
+$ openssl enc -nosalt -aes-256-cbc -d -in XMC2Go_FWUpdate_2.hex.enc -in XMC2Go_FWUpdate_2.hex -base64 -K <key> -iv <iv> -P
+```
+
 - [ ] Perform firmware update. (Use JFlash in this step)
