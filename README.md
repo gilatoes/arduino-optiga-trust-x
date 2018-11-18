@@ -143,7 +143,7 @@ This is especially useful for certificates locations.
 
 ## Troubleshooting
 1. There are many ways of getting the Arduino platform to work. However, it is advisable to counter check with the original Arduino IDE to duplicate the issue.
-2. Ensure that you can execute the helloBootCamp example before moving to the crypto examples.
+2. Ensure that you can execute the HelloBootCamp example before moving to the crypto examples.
 3. Some serial terminals might have different setup. When in doubt, fall back to Arduino serial monitor.  
 
 
