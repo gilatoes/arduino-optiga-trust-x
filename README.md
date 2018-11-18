@@ -47,7 +47,7 @@ For manual wire jumping of XMC2Go board with a Trust X Shield2Go board, please r
 
 Once the XMC and Trust X Library has been installed on the PC, you can try to open the helloBootCamp example. Perform the **Verify** and **Upload** to flash the MCU firmware to make sure that the environment has been properly setup.
 
-## Examples and Exercises
+## Examples and sample codes
 The Library is equipped with eight examples which can be found on the following path: **File**->**Examples**>**OPTIGATrustX**.
 
 The following section describe all the examples in detail.
@@ -72,21 +72,21 @@ Click on the Upload button to download the compiled binary to XMC2Go.
 
 Click on the Serial Monitor button to show the serial output from XMC2Go. If there is no output, make sure that the baud rate is set to 115200 at the bottom of the serial monitor.
 
-### E01helloBootCamp
-helloBootCamp example helps to verify that the XMC and Trust X library are compiled correctly. Compiling and uploading the code should display both version number of the libraries indicating that the library has been executed correctly.
+### E01HelloBootCamp
+HelloBootCamp example helps to verify that the XMC and Trust X library are compiled correctly. Compiling and uploading the code should display both version number of the libraries indicating that the library has been executed correctly.
 
-### E02configI2C
-configI2C example is a skeleton example program which calls the Trust X I2C library. As the I2C is already working on the platform, you will be task to perform certain modification such that you will need to explore the underlying library and its APIs.
+### E02ConfigI2C
+ConfigI2C example is a skeleton example program which calls the Trust X I2C library. As the I2C is already working on the platform, you will be task to perform certain modification such that you will need to explore the underlying library and its APIs.
 
-### E03getUniqueID
-getUniqueID example demonstrate reading of Trust X unique chip ID from data object 0xE0C2. The chip ID consists of 27 bytes and can be decoded using the Data structure Coprocessor UID table found in the solution reference manual.
+### E03GetUniqueID
+GetUniqueID example demonstrate reading of Trust X unique chip ID from data object 0xE0C2. The chip ID consists of 27 bytes and can be decoded using the Data structure Coprocessor UID table found in the solution reference manual.
 
-### E04getRandom
-getRandom example uses Trust X to generate true random numbers. This example output is configurable for various random numbers length (**16**, **32**, **64**, **128**, **256**).
+### E04GetRandom
+GetRandom example uses Trust X to generate true random numbers. This example output is configurable for various random numbers length (**16**, **32**, **64**, **128**, **256**).
 High quality random number is very important for cryptography application.
 
-### E05getCertificate
-getCertificate example reads a digital certificate stored within Trust X data Object 0xE0E0. The certificate is encoded in X.509 format and dump out as hex output.
+### E05GetCertificate
+GetCertificate example reads a digital certificate stored within Trust X data Object 0xE0E0. The certificate is encoded in X.509 format and dump out as hex output.
 A X.509 certificate contains a public key and an identity that is signed by Infineon Certificate Authority (CA). The certificate can be copy-and-paste into a Hex to Base64 convertor.
 Once the certificate is encoded into Base64 format, it should be enclosed with the following text.
 
@@ -107,8 +107,8 @@ OpenSSL command:
 openssl x509 -in certificate.pem -text -noout
 ```
 
-### E06calculateHash
-calculateHash is an example that demonstrates the usage of Trust X SHA256 toolbox function. There is also a simple hash benchmarking time for your microcontroller. The performance of this benchmark test greatly depends on I2C bus frame size (it affects mainly big blocks of data transmitted to the Trust X chip for hashing), which was limited by default down to 32 bytes (in case of 32 bytes the library will perform fragmentation).
+### E06CalculateHash
+CalculateHash is an example that demonstrates the usage of Trust X SHA256 toolbox function. There is also a simple hash benchmarking time for your microcontroller. The performance of this benchmark test greatly depends on I2C bus frame size (it affects mainly big blocks of data transmitted to the Trust X chip for hashing), which was limited by default down to 32 bytes (in case of 32 bytes the library will perform fragmentation).
 
 ### E07SignVerify
 SignVerify demonstrates signature generation and verification methods of the library.
@@ -123,21 +123,21 @@ For the verification, three methods are available:
 3) if neither Object ID nor raw public key were specified, the function will use a default Object ID with manufacturer public key certificate.
 
 ### E08OneWayAuth
-one-way authentication example is used to verify the authenticity of Trust X chip. It makes use of Trust X chip crypto functions to implement the authentication function.
+One-way authentication example is used to verify the authenticity of Trust X chip. It makes use of Trust X chip crypto functions to implement the authentication function.
 
-### E09generateKeypair
-generateKeypair example is a Trust X toolbox feature that demonstrates ECC256 keypair generation. The private key can either be exported in plaintext or held within the security controller.
+### E09GenerateKeypair
+GenerateKeypair example is a Trust X toolbox feature that demonstrates ECC256 keypair generation. The private key can either be exported in plaintext or held within the security controller.
 If the private key is to be stored in the security controller, the example should be modified to specify the destination Object ID.
 The generated key pair can be used for cryptographic operations.
 
-### E10bareboneTLS
-bareboneTLS is an example of a stripped down TLS session. This example establishes secure channel by generating 2 public-private key pairs. The public keys are exchanged and used to generate common shared secrets. The shared secrets are used to calculate common derived secret key which is used as ephemeral AES encryption-decryption key to securely transmit message data over insecure medium.
+### E10BareboneTLS
+BareboneTLS is an example of a stripped down TLS session. This example establishes secure channel by generating 2 public-private key pairs. The public keys are exchanged and used to generate common shared secrets. The shared secrets are used to calculate common derived secret key which is used as ephemeral AES encryption-decryption key to securely transmit message data over insecure medium.
 
-### E11firmwareUpdate (TBD)
-firmwareupdate example is a basic example of ECDH.
+### E11SetTrustAnchor
+SetTrustAnchor is an example where a Root CA certificate (a.k.a Trust Anchor) is programmed into Trust X. The Trust Anchor is used to verify the identity of the remote connection.
 
 ## Helper Routines
-### H01objectDump
+### H01ObjectDump
 objectDump is a helper routine that displays all Trust X objects. These objects including all data objects and status objects.
 This is especially useful for certificates locations.
 
