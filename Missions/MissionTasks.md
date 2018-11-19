@@ -2,7 +2,7 @@
 ## Task 0: Setup your Arduino environment for XMC and Trust X
 - [ ]  Download and setup all the required software and make sure that E00_Minimal example can be executed without any error.
 
-## Task 1: helloBootCamp
+## Task 1: HelloBootCamp
 - [ ]  Attach the Trust X to your platform and execute the E01_HelloBootcamp example.
 - [ ]  What is your XMC and Trust X library version?
 
@@ -13,7 +13,7 @@ In this task, there will be some changes required for your Trust X library. You 
 - [ ]  Modify the I2C address of Trust X to 0x40.
 
 ## Task 3: Trust X Object IDs
-In this task, it consists of 3 parts. First, read and decode the Trust X UID. Second, determine the Public Key issued by Infineon PKI.
+In this task, it consists of 2 parts. First, read and decode the Trust X UID. Second, using your issued Trust X, determine the Public Key issued by Infineon PKI.
 - [ ] Read the UID Object.
   * Decode the UID to determine the hardware token identity.
 - [ ] Determine the Public key issued by Infineon PKI from your Trust X.
@@ -35,7 +35,8 @@ Bob received the PM and wonders about its integrity.
 https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Missions/Mission_files/task4/Alice-Message.txt
 
   - [ ] Alice generates a set of ECC keypair using ECC NIST P384 curve.
-  ```KeyGen
+  [comment]: <> (This is a comment, it will not be included)
+  ```
   openssl ecparam -name secp384r1 -genkey -noout -out private.key.pem
 
   openssl ec -in private.key.pem -outform PEM -pubout -out public.key.pem
@@ -62,7 +63,7 @@ https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Mission
 
   - [ ]  Create Boot Camp Certificate Authority.
 
-  ## Server Certificate Authority
+  ### Server Certificate Authority
   - [ ]  Create and export Public Key and private key.
   - [ ]  Format the Public key and Secret key to PEM format.
   - [ ]  Create a CSR with the Public Key.
@@ -85,20 +86,21 @@ In this task, there are 2 parts. First, implement asymmetric cryptography (modif
   - [ ] Your XMC2Go will only work with your own Trust X.
   - [ ] Attaching other Trust X should fail on your board.
 
-## Memory footprints
+### Memory footprints
   - [ ] Compare hardware and software verification approach.
   - [ ] Compete with your camp mates for the least XMC2Go memory foot print. Check the compiled memory footprint, least memory usage wins!
   - [ ] Compete the speed of the 1-way Authentication. Least time wins!
 
-### Task 7: Let's look at replay attack
+## Task 7: Let's look at replay attack
 Study the SignVerify example carefully. Turn on the "Replay Attack" macro and check the status.
 - [ ] Why does the verification passes when replay attack is switched on?
 - [ ] How can such replay attack be prevented?
 
 ## Task 8: Simplify Firmware Update
 Study the example of PseudoTLS. It is an example implemented within a single Trust X device.
-- In this scenario, let us implement Secure Firmware update using 2 Trust X(s).
-### Server
+- In this scenario, let us implement Secure Firmware update using 2 Trust X(s) and OpenSSL.
+
+### Firmware Update Server
 The firmware update image has been prepared for the server.
 **Firmware Image:**<br/>
 https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Missions/Mission_files/XMC2Go_FWUpdate_2.hex
@@ -110,17 +112,15 @@ https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Mission
 - [ ] Generate the AES Key from the derived key and display the key.
 - [ ] Select an Initialization vector and use AES Key to encrypt the firmware.
 ```
-OpenSSL Command:
-openssl enc -nosalt -aes-256-cbc -in XMC2Go_FWUpdate_2.hex -out XMC2Go_FWUpdate_2.hex.enc -base64 -K <key> -iv <iv> -P
+openssl enc -nosalt -aes-256-cbc -in XMC2Go_FWUpdate_2.hex -out XMC2Go_FWUpdate_2.hex.enc -base64 -K <key> -iv <iv>
 ```
 - [ ] Hash the encrypted firmware.
 ```
-OpenSSL Command:
 openssl dgst -sha256 XMC2Go_FWUpdate_2.hex.enc
 ```
 - [ ] Send the hash and encrypted firmware to the receiver.
 
-### Receiver
+### Firmware update client
 - [ ] Receive the Server Public Key.
 - [ ] Establish shared secrets and derived key.
 - [ ] Display the share secrets to proof that ECDH is successful.
@@ -128,13 +128,12 @@ openssl dgst -sha256 XMC2Go_FWUpdate_2.hex.enc
 - [ ] Receive the Initialization vector, XMC2Go_FWUpdate_2.hex.enc and hash.
 - [ ] Hash the encrypted firmware and check the hash matches the server sent hash.
 ```
-OpenSSL Command:
 openssl dgst -sha256 XMC2Go_FWUpdate_2.hex.enc
 ```
 - [ ] Use AES Key to decrypt the firmware.
 ```
-OpenSSL Command:
-$ openssl enc -nosalt -aes-256-cbc -d -in XMC2Go_FWUpdate_2.hex.enc -in XMC2Go_FWUpdate_2.hex -base64 -K <key> -iv <iv> -P
+openssl enc -d -nosalt -aes-256-cbc -in XMC2Go_FWUpdate_2.hex.enc -in XMC2Go_FWUpdate_2.hex -base64 -K <key> -iv <iv>
 ```
 
-- [ ] Perform firmware update. (Use JFlash in this step)
+- [ ] Perform firmware update on XMC2Go. (Use JFlash in this step)
+- [ ] Use a terminal program to see the output of the updated firmware.
