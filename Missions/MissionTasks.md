@@ -13,7 +13,7 @@ In this task, there will be some changes required for your Trust X library. You 
 - [ ]  Modify the I2C address of Trust X to 0x40.
 
 ## Task 3: Trust X Object IDs
-In this task, it consists of 2 parts. First, read and decode the Trust X UID. Second, using your issued Trust X, determine the Public Key issued by Infineon PKI.
+This task consists of 2 parts. First, read and decode the Trust X UID. Second, using your issued Trust X, determine the Public Key issued by Infineon PKI.
 - [ ] Read the UID Object.
   * Decode the UID to determine the hardware token identity.
 - [ ] Determine the Public key issued by Infineon PKI from your Trust X.
@@ -26,7 +26,7 @@ A valid digital signature gives a recipient reason to believe that the message w
 (authentication), that the sender cannot deny having sent the message (non-repudiation), and that the message
 was not altered in transit (integrity).
 
-Find a partner and role play Alice (She has dual roles) and Bob in this task.
+Get a partner and role play Alice (She has dual roles) and Bob in this task.
 
 Alice wants to sends Bob a Private Message (PM). "I am joining Infineon Trust X Boot Camp."
 Bob received the PM and wonders about its integrity.
@@ -62,7 +62,7 @@ https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Mission
 
   - [ ]  Create Boot Camp Certificate Authority.
 
-### Server Certificate Authority
+### Role of Server Certificate Authority
   - [ ]  Create and export Public Key and private key.
   - [ ]  Format the Public key and Secret key to PEM format.
   - [ ]  Create a CSR with the Public Key.
@@ -70,11 +70,16 @@ https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Mission
   - [ ]  Inject Root CA certificate to "remote" Trust X device
   - [ ]  Store the Root CA Certificate (a.k.a Trust Anchor) into 0xE0EF.
 
-### Authenticate Server
+### Role of Client
   - [ ]  Server sign a message and provide the message to device.
   - [ ]  Verify the signature, message against the root CA.
 
-## Task 6: A very special accessory authentication use case
+## Task 6: Let's look at replay attack
+  Study the SignVerify example carefully. Turn on the "Replay Attack" macro and check the status.
+  - [ ] Why does the verification passes when replay attack is switched on?
+  - [ ] How can such replay attack be prevented?
+
+## Task 7: A very special accessory authentication use case
 A One-way authentication is a process where the an entity is trying to identify the true identity of the communicating party. Prior to the authentication process, both parties had already established some common understanding. For example, they will need to agree upon common ECC parameters, type of hash process and message format.
 
 In this task, there are 2 parts. First, implement asymmetric cryptography (modify the One-Way Authentication example) such that only your Trust X can work on your board or host code. Second, implement the One-way authentication with the least time.
@@ -90,14 +95,10 @@ In this task, there are 2 parts. First, implement asymmetric cryptography (modif
   - [ ] Compete with your camp mates for the least XMC2Go memory foot print. Check the compiled memory footprint, least memory usage wins!
   - [ ] Compete the speed of the 1-way Authentication. Least time wins!
 
-## Task 7: Let's look at replay attack
-Study the SignVerify example carefully. Turn on the "Replay Attack" macro and check the status.
-- [ ] Why does the verification passes when replay attack is switched on?
-- [ ] How can such replay attack be prevented?
-
-## Task 8: Simplify Firmware Update
+## Task 8: Simplified Firmware Update
 Study the example of PseudoTLS. It is an example implemented within a single Trust X device.
-- In this scenario, let us implement Secure Firmware update using 2 Trust X(s) and OpenSSL.
+- Find a partner for this exercise. In this scenario, implement Secure Firmware update using 2 Trust X(s) and OpenSSL. One of the Trust X will be playing the role of firmware update server and the other will be firmware update client. The server will prepare the firmware package for the client to be updated.
+
 
 ### Firmware Update Server
 The firmware update image has been prepared for the server.<br/>
