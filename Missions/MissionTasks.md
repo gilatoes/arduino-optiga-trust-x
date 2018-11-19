@@ -19,7 +19,7 @@ In this task, it consists of 2 parts. First, read and decode the Trust X UID. Se
 - [ ] Determine the Public key issued by Infineon PKI from your Trust X.
 
 ## Task 4: Concepts of Digital Signature using ECC Asymmetric keys
-**Note:** In this task, only OpenSSL is used.
+*Note:* In this task, only OpenSSL is used.
 
 Digital signature is a mathematical scheme for presenting the authenticity of digital messages or documents.
 A valid digital signature gives a recipient reason to believe that the message was created by a known sender
@@ -62,7 +62,7 @@ https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Mission
 
   - [ ]  Create Boot Camp Certificate Authority.
 
-  ### Server Certificate Authority
+### Server Certificate Authority
   - [ ]  Create and export Public Key and private key.
   - [ ]  Format the Public key and Secret key to PEM format.
   - [ ]  Create a CSR with the Public Key.
@@ -70,7 +70,7 @@ https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Mission
   - [ ]  Inject Root CA certificate to "remote" Trust X device
   - [ ]  Store the Root CA Certificate (a.k.a Trust Anchor) into 0xE0EF.
 
-  ### Authenticate Server
+### Authenticate Server
   - [ ]  Server sign a message and provide the message to device.
   - [ ]  Verify the signature, message against the root CA.
 
