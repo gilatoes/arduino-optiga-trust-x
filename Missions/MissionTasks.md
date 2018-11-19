@@ -35,7 +35,7 @@ Bob received the PM and wonders about its integrity.
 https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Missions/Mission_files/task4/Alice-Message.txt
 
   - [ ] Alice generates a set of ECC keypair using ECC NIST P384 curve.
-  [comment]: <> (This is a comment, it will not be included)
+[//]: # (This may be the most platform independent comment)
   ```
   openssl ecparam -name secp384r1 -genkey -noout -out private.key.pem
 
@@ -101,7 +101,7 @@ Study the example of PseudoTLS. It is an example implemented within a single Tru
 - In this scenario, let us implement Secure Firmware update using 2 Trust X(s) and OpenSSL.
 
 ### Firmware Update Server
-The firmware update image has been prepared for the server.
+The firmware update image has been prepared for the server.<br/>
 **Firmware Image:**<br/>
 https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Missions/Mission_files/XMC2Go_FWUpdate_2.hex
 
