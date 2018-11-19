@@ -35,7 +35,6 @@ Bob received the PM and wonders about its integrity.
 https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Missions/Mission_files/task4/Alice-Message.txt
 
   - [ ] Alice generates a set of ECC keypair using ECC NIST P384 curve.
-[//]: # (This may be the most platform independent comment)
   ```
   openssl ecparam -name secp384r1 -genkey -noout -out private.key.pem
 
@@ -80,7 +79,7 @@ A One-way authentication is a process where the an entity is trying to identify 
 
 In this task, there are 2 parts. First, implement asymmetric cryptography (modify the One-Way Authentication example) such that only your Trust X can work on your board or host code. Second, implement the One-way authentication with the least time.
 
-**Hint:** There is something to do with the Public Key. :-)
+*Hint:* There is something to do with the Public Key. :-)
 
 ### Condition:
   - [ ] Your XMC2Go will only work with your own Trust X.
