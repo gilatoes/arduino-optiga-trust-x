@@ -111,8 +111,13 @@ https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Mission
 - [ ] Display the share secrets to proof that ECDH is successful.
 - [ ] Generate the AES Key from the derived key and display the key.
 - [ ] Select an Initialization vector and use AES Key to encrypt the firmware.
+  *Note:* In block cipher mode operation such as AES, IV is used to initialize the block operation. IV can be a random and unpredictable value. However, it is not necessary to maintain its secrecy.
+  For highly secure communication, the same firmware can be encrypted with different IV. This will yield completely different ciphertext.
+  For simplicity, use the following IV in this exercise.
+  iv=61A813408638CCCD67DA288B4142BF10
+
 ```
-openssl enc -nosalt -aes-256-cbc -in XMC2Go_FWUpdate_2.hex -out XMC2Go_FWUpdate_2.hex.enc -base64 -K <key> -iv <iv>
+openssl enc -nosalt -aes-256-cbc -in XMC2Go_FWUpdate_2.hex -out XMC2Go_FWUpdate_2.hex.enc -base64 -K <key> -iv 61A813408638CCCD67DA288B4142BF10
 ```
 - [ ] Hash the encrypted firmware.
 ```
@@ -132,7 +137,7 @@ openssl dgst -sha256 XMC2Go_FWUpdate_2.hex.enc
 ```
 - [ ] Use AES Key to decrypt the firmware.
 ```
-openssl enc -d -nosalt -aes-256-cbc -in XMC2Go_FWUpdate_2.hex.enc -in XMC2Go_FWUpdate_2.hex -base64 -K <key> -iv <iv>
+openssl enc -d -nosalt -aes-256-cbc -in XMC2Go_FWUpdate_2.hex.enc -out XMC2Go_FWUpdate_2.hex -base64 -K <key> -iv 61A813408638CCCD67DA288B4142BF10
 ```
 
 - [ ] Perform firmware update on XMC2Go. (Use JFlash in this step)
