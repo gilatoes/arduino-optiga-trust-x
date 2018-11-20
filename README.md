@@ -133,9 +133,6 @@ The generated key pair can be used for cryptographic operations.
 ### E10_PseudoTLS
 PseudoTLS is a simplified example of a TLS session. This example establishes secure channel by generating 2 public-private key pairs within the same Trust X. The public keys are "exchanged" and used to generate common shared secret. This process of establishing common shared secret is known as ECDH. The shared secrets can be used to compute a secret key using the Key derivation function (KDF). KDF can be used to stretch keys into longer keys or converting into symmetric key application. In this case, the derived secret key is used as ephemeral AES encryption-decryption key to securely transmit encrypted messages over insecure medium.
 
-### E11_SetTrustAnchor
-SetTrustAnchor is an example where a Root CA certificate (a.k.a Trust Anchor) is programmed into Trust X. The Trust Anchor is used to verify the identity of the remote connection.
-
 ## Helper Routines
 ### H01ObjectDump
 objectDump is a helper routine that displays all Trust X objects. These objects including all data objects and status objects.

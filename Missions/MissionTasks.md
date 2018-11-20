@@ -1,6 +1,8 @@
 # Mission Tasks:
 ## Task 0: Setup your Arduino environment for XMC and Trust X
 - [ ]  Download and setup all the required software and make sure that E00_Minimal example can be executed without any error.
+- [ ]  Open the command prompt. On Windows 10, it is call Windows Powershell. For a more advance interface, open ise from powershell.
+- [ ]  Ensure that openssl is installed and can be accessed from the powershell. Use the "openssl version" to check the path accessibility.
 
 ## Task 1: HelloBootCamp
 - [ ]  Attach the Trust X to your platform and execute the E01_HelloBootcamp example.
@@ -52,7 +54,9 @@ https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Mission
   - [ ] Discussion: This approach seems to work? What is the weakness using this approach?
   - [ ] After verifying the message, can Bob really trust its contents?
 
-## Task 5: Certificate Create and Verify (Server verification)
+## Task 5: Simplify Server Authentication
+*Note:* In this task, only OpenSSL is used.
+
   Digital certificate is most commonly used to verify a identity in a Public Key Infrastructure (PKI). Certificate enables public key cryptography to address the problem of impersonation.
 
   Certificate Authority issues the certificate which binds a public key to it. Certificate helps to prevents fake public keys for impersonation. Only public key that is certified by the CA will work with the corresponding private key that is owned by the certificate owner.
@@ -60,19 +64,101 @@ https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Mission
   **Configuration file openssl.cnf for OpenSSL CA**<br/>
   https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Missions/Mission_files/openssl.cnf
 
-  - [ ]  Create Boot Camp Certificate Authority.
+### Role of Certificate Authority
+- [ ]  Create Boot Camp Certificate Authority (CA).
+- [ ]  Create ECC 384 Public Key and secret key.
+- [ ]  Create a CA CSR with the Public Key. The CSR is signed using the CA secret key.
+- [ ]  Create a CA root certificate.
+- [ ]  Display the CA root certificate and store the certificate in all clients.
 
-### Role of Server Certificate Authority
-  - [ ]  Create and export Public Key and private key.
-  - [ ]  Format the Public key and Secret key to PEM format.
-  - [ ]  Create a CSR with the Public Key.
-  - [ ]  Sign the CSR with a self-sign CA.
-  - [ ]  Inject Root CA certificate to "remote" Trust X device
-  - [ ]  Store the Root CA Certificate (a.k.a Trust Anchor) into 0xE0EF.
+  ```
+  mkdir certs ; mkdir crl ; mkdir newcerts ; mkdir private
+  fsutil file createnew index.txt 0
+  fsutil file createnew index.txt.attr 0
+  fsutil file createnew serial 0
+  echo "1000" >serial
 
-### Role of Client
-  - [ ]  Server sign a message and provide the message to device.
-  - [ ]  Verify the signature, message against the root CA.
+  #Create a Bootcamp public secret key pair
+  openssl ecparam -genkey -name secp384r1 -out private\ca.secretkey.pem
+
+  #Create a CA CSR and CA cert
+  openssl req -config openssl.cnf -key private\ca.secretkey.pem -new -x509 -days 7300 -sha256 -extensions v3_ca -out certs\ca.cert.pem -subj "/C=SG/ST=Singapore/L=Singapore/O=Infineon Technologies/OU=DSS/CN=TrustXBootCampCA"
+
+  #Display the RootCA certificate
+  openssl x509 -noout -text -in certs\ca.cert.pem
+  ```
+
+### Server Preparation
+- [ ]  Create ECC 256 Public Key and secret key.
+- [ ]  Create a Server CSR signed using the Server secret key.
+- [ ]  Request a Server certificate using the CSR.
+
+  ```
+  #Create server public and secret keypair
+  openssl ecparam -genkey -name prime256v1 -out private\server.secretkey.pem
+
+  #Create CSR using server private key
+  openssl req -new -key private\server.secretkey.pem -out server.csr.pem -subj "/C=SG/ST=Singapore/L=Singapore/O=Infineon Technologies/OU=DSS/CN=Server"
+
+  #Create a PEM (Base64 encoded ASCII) format server certificate signed by CA
+  openssl x509 -req -in server.csr.pem -CA certs\ca.cert.pem -CAkey private\ca.secretkey.pem -CAcreateserial -out server.cert.pem
+
+  #Display the server certificate
+  openssl x509 -noout -text -in server.cert.pem
+  ```
+### Server Sending information
+- [ ] Server wants to send a message.
+- [ ] Hash the message.
+- [ ] Sign the message with the server secret key.
+- [ ] Server will provides the server certificate, message and signature to client.
+  ```
+#Message=OPTIGA Trust X BootCamp
+"OPTIGA Trust X BootCamp" | Out-File -filePath .\message.txt -Encoding ASCII -NoNewline
+
+#hash a message in file
+openssl dgst -sha256 message.txt
+
+#****************************************
+#Data:			OPTIGA Trust X BootCamp
+#Hash type:		SHA-256
+#----------------------------------------
+#Hash:			B090013953CBB65A3999110F31C249DD7A1C35D259A99EF785813B846911C593
+
+#sign the message using signature
+openssl dgst -sha256 -sign private\server.secretkey.pem -out signature.der message.txt
+
+#show signature
+openssl asn1parse -inform der -in signature.der
+  ```
+
+### Client receiving the information
+  - [ ]  Client makes sure that CA certificate is provisioned.
+  - [ ]  Client verifies the Server certificate using the root CA certificate.
+  - [ ]  Client extract the public key from the server certificate.
+  - [ ]  Client hash the message and checks the hash.
+  - [ ]  Client verifies the message using the signature, server public key and message hash.
+
+  ```
+  #Verify server identity using Root CA
+  #4 items are required.
+  #1. RootCA
+  #2. Server certificate
+  #2. Message
+  #3. Server signature
+
+  #Get server certificate
+  openssl verify -CAfile certs\ca.cert.pem server.cert.pem
+
+  #hash a message in file
+  openssl dgst -sha256 message.txt
+
+  #Extract server public key from the RootCA
+  openssl x509 -in .\server.cert.pem -pubkey -noout | Out-File -filePath .\publickey.pem -Encoding ASCII
+
+  #Verify the signature using server public key
+  openssl dgst -sha256 -verify publickey.pem -signature signature.der message.txt
+
+  ```
 
 ## Task 6: Let's look at replay attack
   Study the SignVerify example carefully. Turn on the "Replay Attack" macro and check the status.
