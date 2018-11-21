@@ -126,6 +126,7 @@ void loop()
     /*
      * Use the Public key to check against the Signature
      */
+     Serial.println("Trust X public key...");
     ret = trustX.getPublicKey(ifxPublicKey);
     output_result(ret, ifxPublicKey, (64 + TLV_PADDING));
     ASSERT(ret);
