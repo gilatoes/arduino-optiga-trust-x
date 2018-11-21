@@ -117,11 +117,6 @@ This example shows two modes of operation:
 2) Generate a new public-private keypair and store the latter inside one of Object IDs of the Trust X,
 then sign the digest giving only the latter Object ID, the result value is verified against the public key.  
 
-For the verification, three methods are available:
-1) with a given raw public key
-2) with Object ID pointing to the memory slot where the public key is located,
-3) if neither Object ID nor raw public key were specified, the function will use a default Object ID with manufacturer public key certificate.
-
 ### E08_OneWayAuth
 One-way authentication example is used to verify the authenticity of Trust X chip. It makes use of Trust X chip crypto functions to implement the authentication function.
 
