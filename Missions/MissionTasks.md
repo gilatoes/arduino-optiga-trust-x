@@ -56,9 +56,10 @@ https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Mission
   - [ ] After verifying the message, can Bob really trust its contents?
 
 ## Task 5: Let's look at replay attack
-    Study the SignVerify example carefully. Turn on the "Replay Attack" macro and check the status.
-    - [ ] Why does the verification passes when replay attack is switched on?
-    - [ ] How can such replay attack be prevented?
+
+Study the SignVerify example carefully. Turn on the "Replay Attack" macro and check the status.
+- [ ] Why does the verification passes when replay attack is switched on?
+- [ ] How can such replay attack be prevented?
 
 ## Task 6: Simplified Server Authentication
 *Note:* In this task, only OpenSSL is used.
