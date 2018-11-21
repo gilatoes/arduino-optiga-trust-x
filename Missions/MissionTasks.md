@@ -18,7 +18,8 @@ In this task, there will be some changes required for your Trust X library. You 
 This task consists of 2 parts. First, read and decode the Trust X UID. Second, using your issued Trust X, determine the Public Key issued by Infineon PKI.
 - [ ] Read the UID Object.
   * Decode the UID to determine the hardware token identity.
-- [ ] Determine the Public key issued by Infineon PKI from your Trust X.
+- [ ] Determine the Certificate serial number, Issue date and Public key issued by Infineon PKI from your Trust X.
+*Hint:* Use E05_GetCertificate example as a starting point. You will need to convert the Hex value to Base64 value then decode it using certificate decoder tools.
 
 ## Task 4: Concepts of Digital Signature using ECC Asymmetric keys
 *Note:* In this task, only OpenSSL is used.
