@@ -55,7 +55,7 @@ https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Mission
   - [ ] Discussion: This approach seems to work? What is the weakness using this approach?
   - [ ] After verifying the message, can Bob really trust its contents?
 
-## Task 5: Simplify Server Authentication
+## Task 5: Simplified Server Authentication
 *Note:* In this task, only OpenSSL is used.
 
   Digital certificate is most commonly used to verify a identity in a Public Key Infrastructure (PKI). Certificate enables public key cryptography to address the problem of impersonation.
@@ -112,7 +112,8 @@ https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Mission
 - [ ] Hash the message.
 - [ ] Sign the message with the server secret key.
 - [ ] Server will provides the server certificate, message and signature to client.
-  ```
+
+```
 #Message=OPTIGA Trust X BootCamp
 "OPTIGA Trust X BootCamp" | Out-File -filePath .\message.txt -Encoding ASCII -NoNewline
 
@@ -130,7 +131,7 @@ openssl dgst -sha256 -sign private\server.secretkey.pem -out signature.der messa
 
 #show signature
 openssl asn1parse -inform der -in signature.der
-  ```
+```
 
 ### Client receiving the information
   - [ ]  Client makes sure that CA certificate is provisioned.
