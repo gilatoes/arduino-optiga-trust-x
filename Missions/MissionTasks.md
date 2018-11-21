@@ -55,7 +55,12 @@ https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Mission
   - [ ] Discussion: This approach seems to work? What is the weakness using this approach?
   - [ ] After verifying the message, can Bob really trust its contents?
 
-## Task 5: Simplified Server Authentication
+## Task 5: Let's look at replay attack
+    Study the SignVerify example carefully. Turn on the "Replay Attack" macro and check the status.
+    - [ ] Why does the verification passes when replay attack is switched on?
+    - [ ] How can such replay attack be prevented?
+
+## Task 6: Simplified Server Authentication
 *Note:* In this task, only OpenSSL is used.
 
   Digital certificate is most commonly used to verify a identity in a Public Key Infrastructure (PKI). Certificate enables public key cryptography to address the problem of impersonation.
@@ -161,11 +166,6 @@ openssl asn1parse -inform der -in signature.der
   openssl dgst -sha256 -verify publickey.pem -signature signature.der message.txt
 
   ```
-
-## Task 6: Let's look at replay attack
-  Study the SignVerify example carefully. Turn on the "Replay Attack" macro and check the status.
-  - [ ] Why does the verification passes when replay attack is switched on?
-  - [ ] How can such replay attack be prevented?
 
 ## Task 7: A very special accessory authentication use case
 A One-way authentication is a process where the an entity is trying to identify the true identity of the communicating party. Prior to the authentication process, both parties had already established some common understanding. For example, they will need to agree upon common ECC parameters, type of hash process and message format.
