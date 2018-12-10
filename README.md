@@ -48,7 +48,7 @@ For manual wire jumping of XMC2Go board with a Trust X Shield2Go board, please r
 Once the XMC and Trust X Library has been installed on the PC, you can try to open the helloBootCamp example. Perform the **Verify** and **Upload** to flash the MCU firmware to make sure that the environment has been properly setup.
 
 ## Examples and sample codes
-The Library is equipped with eight examples which can be found on the following path: **File**->**Examples**>**OPTIGATrustX**.
+The Library is equipped with eleven examples which can be found on the following path: **File**->**Examples**>**OPTIGATrustX**.
 
 The following section describe all the examples in detail.
 ### E00_Minimal

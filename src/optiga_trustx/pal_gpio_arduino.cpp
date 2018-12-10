@@ -70,12 +70,13 @@ void pal_gpio_set_high(const pal_gpio_t* p_gpio_context)
 
   uint8_t gpio[1];
 
+
   //Serial.println(">pal_gpio_set_high");
-  //memcpy(gpio, p_gpio_context->p_gpio_hw, 1);
-  //if ((p_gpio_context != NULL) && (p_gpio_context->p_gpio_hw != NULL)){
-  //	  pinMode(gpio[0], OUTPUT);
-  //    digitalWrite(gpio[0], HIGH); // (HIGH is the voltage level)
-  //}
+  memcpy(gpio, p_gpio_context->p_gpio_hw, 1);
+  if ((p_gpio_context != NULL) && (p_gpio_context->p_gpio_hw != NULL)){
+  	  pinMode(gpio[0], OUTPUT);
+      digitalWrite(gpio[0], HIGH); // (HIGH is the voltage level)
+  }
   //Serial.println("<pal_gpio_set_high");
 }
 
@@ -95,11 +96,11 @@ void pal_gpio_set_low(const pal_gpio_t* p_gpio_context)
   uint8_t gpio[1];
 
   //Serial.println(">pal_gpio_set_low");
-  //memcpy(gpio, p_gpio_context->p_gpio_hw, 1);
-  //if ((p_gpio_context != NULL) && (p_gpio_context->p_gpio_hw != NULL)){
-  //      pinMode(gpio[0], OUTPUT);
-  //      digitalWrite(gpio[0], LOW); // (LOW is the voltage level)
-  //}
+  memcpy(gpio, p_gpio_context->p_gpio_hw, 1);
+  if ((p_gpio_context != NULL) && (p_gpio_context->p_gpio_hw != NULL)){
+        pinMode(gpio[0], OUTPUT);
+        digitalWrite(gpio[0], LOW); // (LOW is the voltage level)
+  }
   //Serial.println("<pal_gpio_set_low");
 }
 
