@@ -1,4 +1,4 @@
-# Mission Tasks:
+# Mission and Tasks:
 ## Task 0: Setup your Arduino environment for XMC and Trust X
 - [ ]  Download and setup all the required software and make sure that E00_Minimal example can be executed without any error.
 - [ ]  Open the command prompt. On Windows 10, it is call Windows Powershell. For a more advance interface, open ise from powershell.

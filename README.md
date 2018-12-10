@@ -4,12 +4,17 @@
 
 Infineon's [OPTIGA&trade; Trust X] is a security controller (https://www.infineon.com/cms/en/product/security-smart-card-solutions/optiga-embedded-security-solutions/optiga-trust/optiga-trust-x-sls-32aia/)
 
-## Objectives of the Boot Camp Mission Arduino
-The section of the Boot Camp aims to instil confidence and basic product knowledge of Infineon OPTIGA&trade; Trust X (hereafter called Trust X). The sample codes a.k.a sketches in Arduino allows you to work on the OPTIGA&trade; Trust X integration library (hereafter called Library) and perform some useful tasks using the library API. At the end of this Boot Camp session, you will be able to understand the capabilities of the Library and exercise Trust X hardware.
+## Objectives of the OPTIGA&trade; Trust X Boot Camp
+The Boot Camp aims to guide its participant the fundamental concepts and principles of information security using Infineon OPTIGA&trade; Trust X (hereafter called Trust X). These concepts and principles are relevant in all computing environments regardless of hardware platform or operating systems. Apart from the theory, the Boot Camp also includes numerous hands-on activities using  which further instil confidence and product knowledge.
+
+In this Boot Camp, an Infineon XMC2Go MCU and Arduino environment will be used as the embedded platform. Example codes a.k.a sketches in Arduino are provided with the Trust X integration library (hereafter called Library). These sample codes perform some useful tasks using the Library API are good starting point for the Mission and Tasks section. Apart from Arduino development, participants will also be utilizing the OpenSSL - most popular cryptography library to complete some of the more complex tasks.
+
+At the end of this Boot Camp session, participants will understand basic security concepts, capabilities of the Library and applying Trust X hardware in real-world application.
 
 ## Getting Started
 
-You should have administrator right for installing software.
+You should have administrator right for installing all the software on your computer.
+Note: This Boot Camp is developed and test based on Windows 10 64-bit and Windows 7 32-bit operating systems. It might not work well on other platforms.
 Download and install the latest Arduino IDE version.
 
 ## XMC Host Library for Arduino IDE
@@ -22,18 +27,33 @@ https://github.com/Infineon/XMC-for-Arduino
 DAVE 4.4.2 (64-bit) download link:<br/>
 https://infineoncommunity.com/dave-download_ID645
 
-Alternate DAVE 4.4.2 download link (Valid on during the Boot Camp training only):<br/>
+Alternate DAVE 4.4.2 (64-bit) download link (Valid on during the Boot Camp training only):<br/>
 https://drive.google.com/file/d/1l_TAdm1e6Q3ZJnSK5oMYVVpKxm5e4ZUW/view?usp=sharing
 
-### Mission Arduino with Trust X and Library
-Clone or download this Github to get the Trust X integration library and examples.
+### Trust X and Library
+Download this Github contents to get the Trust X integration library and examples.
 
 To install Trust X Library in the Arduino IDE several options can be taken:
 **Sketch** > **Include Library** > **Add .ZIP Library...** in the Arduino IDE and navigate to the downloaded .ZIP file of this repository. The library will be installed in your Arduino sketch folder in libraries and you can select as well as include this one to your project under **Sketch** > **Include Library** > **OPTIGATrustX**.
 
 ![Install Library](https://raw.githubusercontent.com/infineon/assets/master/Pictures/Library_Install_ZIP.png)
 
-## Boot Camp Hardware
+OpenSSL for Windows:<br/>
+Windows version of OpenSSL can be downloaded from the following website.<br/>
+https://slproweb.com/products/Win32OpenSSL.html
+
+Alternative Win64 OpenSSL version 1.1.0i<br/>
+https://drive.google.com/open?id=1yDZC_0CJx1NVSi9sECObcaDUTMwQP7tg
+
+After installing OpenSSL, the binary path location needs to be added to the Environment Path variable. This allows OpenSSL to be accessible from any folder from the computer.
+
+Testing the OpenSSL
+Open the Command Prompt window from the Windows menu, type in "openssl version".
+If OpenSSL has been installed correctly with the Path setting, it will shows the current OpenSSL version.
+
+Apart from the simple test, another option is the "openssl speed" command that will run some cryptographic commands and benchmarking to verify that OpenSSL is operational.
+
+## Hardware for BootCamp
 For this part of training, a XMC2Go board will be used as the MCU I2C host controller for Trust X. The MCU board comes with a JTAG programmer needs to be connected to a Windows based PC for flashing the firmware.
 
 * XMC2Go (Infineon Technologies, XMC1100, Cortex M0)
