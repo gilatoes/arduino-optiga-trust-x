@@ -14,7 +14,9 @@ At the end of this Boot Camp session, participants will understand basic securit
 ## Getting Started
 
 You should have administrator right for installing all the software on your computer.
-Note: This Boot Camp is developed and test based on Windows 10 64-bit and Windows 7 32-bit operating systems. It might not work well on other platforms.
+Note: This Boot Camp is developed and test based on Windows 7 32-bit and Windows 10 64-bit operating systems. It might not work well on other platforms.
+Please reserved about 5GB of free disk space for all the software tools and documentation.
+
 Download and install the latest Arduino IDE version.
 
 ## XMC Host Library for Arduino IDE
@@ -38,12 +40,16 @@ To install Trust X Library in the Arduino IDE several options can be taken:
 
 ![Install Library](https://raw.githubusercontent.com/infineon/assets/master/Pictures/Library_Install_ZIP.png)
 
-OpenSSL for Windows:<br/>
+### OpenSSL for Windows:<br/>
 Windows version of OpenSSL can be downloaded from the following website.<br/>
 https://slproweb.com/products/Win32OpenSSL.html
+The latest OpenSSL version tested with this is 1.1.0j.
 
-Alternative Win64 OpenSSL version 1.1.0i<br/>
-https://drive.google.com/open?id=1yDZC_0CJx1NVSi9sECObcaDUTMwQP7tg
+Alternative 64-bit OpenSSL version 1.1.0j<br/>
+https://drive.google.com/open?id=1_vJvLmCBT-J4bUEO13knatdqlXihJlxA
+
+Alternative 32-bit OpenSSL version 1.1.0j<br/>
+https://drive.google.com/open?id=14hmdRW_pZ-m2mHYHeaOgdNiHAnBf8aeZ
 
 After installing OpenSSL, the binary path location needs to be added to the Environment Path variable. This allows OpenSSL to be accessible from any folder from the computer.
 
@@ -52,6 +58,17 @@ Open the Command Prompt window from the Windows menu, type in "openssl version".
 If OpenSSL has been installed correctly with the Path setting, it will shows the current OpenSSL version.
 
 Apart from the simple test, another option is the "openssl speed" command that will run some cryptographic commands and benchmarking to verify that OpenSSL is operational.
+
+### Other softwares
+There is a list of other optional software useful for Boot Camp. They are fairly straight-forward to install therefore there shall be no further explaination.
+1. Total Phase Analyzer software
+2. Saleae Logic Analyzer software
+3. Decompression tool eg. Zip-7
+4. PDF reader e.g. Adobe PDF reader
+5. Source Code editor e.g Eclipse
+6. Wireshark
+7. Terminal Software e.g Tera Terminal or Putty
+8. BP Tools
 
 ## Hardware for BootCamp
 For this part of training, a XMC2Go board will be used as the MCU I2C host controller for Trust X. The MCU board comes with a JTAG programmer needs to be connected to a Windows based PC for flashing the firmware.
