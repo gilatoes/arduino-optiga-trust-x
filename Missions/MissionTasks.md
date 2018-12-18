@@ -6,7 +6,7 @@ https://github.com/Infineon/XMC-for-Arduino<br/>
 
 XMC Library version 1.2.1 (Github)<br/>
 https://github.com/Infineon/XMC-for-Arduino<br/>
-Arduino IDE version 1.8.7<br/>
+Arduino IDE version 1.8.8<br/>
 https://www.arduino.cc/en/main/software<br/>
 SEGGER J-Link (J-Link Software and Documentation pack for Windows)<br/>
 https://www.segger.com/downloads/jlink<br/>

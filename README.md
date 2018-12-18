@@ -34,9 +34,11 @@ Alternate DAVE 4.4.2 (64-bit) download link (Valid on during the Boot Camp train
 https://drive.google.com/file/d/1l_TAdm1e6Q3ZJnSK5oMYVVpKxm5e4ZUW/view?usp=sharing
 
 ### Trust X and Library
-Download this Github contents to get the Trust X integration library and examples.
+Download this Github contents to get the Trust X integration library and examples.<br/>
 
-To install Trust X Library in the Arduino IDE several options can be taken:
+To install Trust X Library in the Arduino IDE:<br/>
+Click on the Clone or download button on Github. Select Download ZIP and download the Github repository as a Zip file. The zip file will be saved as arduino-optiga-trust-x-master.zip in your local disk drive.<br/>
+
 **Sketch** > **Include Library** > **Add .ZIP Library...** in the Arduino IDE and navigate to the downloaded .ZIP file of this repository. The library will be installed in your Arduino sketch folder in libraries and you can select as well as include this one to your project under **Sketch** > **Include Library** > **OPTIGATrustX**.
 
 ![Install Library](https://raw.githubusercontent.com/infineon/assets/master/Pictures/Library_Install_ZIP.png)
