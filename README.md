@@ -5,19 +5,17 @@
 Infineon's [OPTIGA&trade; Trust X] is a security controller (https://www.infineon.com/cms/en/product/security-smart-card-solutions/optiga-embedded-security-solutions/optiga-trust/optiga-trust-x-sls-32aia/)
 
 ## Objectives of the OPTIGA&trade; Trust X Boot Camp
-The Boot Camp aims to guide its participant the fundamental concepts and principles of information security using Infineon OPTIGA&trade; Trust X (hereafter called Trust X). These concepts and principles are relevant in all computing environments regardless of hardware platform or operating systems. Apart from the theory, the Boot Camp also includes numerous hands-on activities using  which further instil confidence and product knowledge.
+The Boot Camp aims to guide its participant the fundamental concepts and principles of information security using Infineon OPTIGA&trade; Trust X (hereafter called Trust X). These concepts and principles are relevant in all computing environments regardless of hardware platform or operating systems. Apart from the theory, the Boot Camp emphasis on kinesthetic learning and activities  which further instil confidence and product knowledge.
 
-In this Boot Camp, an Infineon XMC2Go MCU and Arduino environment will be used as the embedded platform. Example codes a.k.a sketches in Arduino are provided with the Trust X integration library (hereafter called Library). These sample codes perform some useful tasks using the Library API are good starting point for the Mission and Tasks section. Apart from Arduino development, participants will also be utilizing the OpenSSL - most popular cryptography library to complete some of the more complex tasks.
+Infineon XMC2Go MCU and Arduino environment will be used as the embedded platform. Example codes a.k.a sketches in Arduino are provided with the Trust X integration library (hereafter called Library). These sample codes perform some useful tasks using the Library API are good starting point for the Mission and Tasks section. Apart from Arduino development, participants will also be utilizing the OpenSSL - most popular cryptography library to complete some of the more complex tasks.
 
 At the end of this Boot Camp session, participants will understand basic security concepts, capabilities of the Library and applying Trust X hardware in real-world application.
 
 ## Getting Started
 
-You should have administrator right for installing all the software on your computer.
-Note: This Boot Camp is developed and test based on Windows 7 32-bit and Windows 10 64-bit operating systems. It might not work well on other platforms.
-Please reserved about 5GB of free disk space for all the software tools and documentation.
+The Boot Camp is designed based on the assumption that its trainee had little or no prior knowledge on information security.
 
-Download and install the latest Arduino IDE version.
+It is recommended that using a Windows OS computer (Windows 10 64-bit preferred) with at least 5GB of free disk space for all the software tools and documentation. You must have administration rights for software installation and execution.
 
 ## XMC Host Library for Arduino IDE
 Install Infineon XMC library support for Arduino platform.
@@ -25,6 +23,9 @@ Follow the instruction on the official XMC-for-Arduino Github.
 
 [XMC-for-Arduino]<br/>
 https://github.com/Infineon/XMC-for-Arduino
+
+SEGGER J-Link (J-Link Software and Documentation pack for Windows)<br/>
+https://www.segger.com/downloads/jlink
 
 DAVE 4.4.2 (64-bit) download link:<br/>
 https://infineoncommunity.com/dave-download_ID645
@@ -59,18 +60,17 @@ If OpenSSL has been installed correctly with the Path setting, it will shows the
 
 Apart from the simple test, another option is the "openssl speed" command that will run some cryptographic commands and benchmarking to verify that OpenSSL is operational.
 
-### Other softwares
-There is a list of other optional software useful for Boot Camp. They are fairly straight-forward to install therefore there shall be no further explaination.
-1. Total Phase Analyzer software
-2. Saleae Logic Analyzer software
-3. Decompression tool eg. Zip-7
-4. PDF reader e.g. Adobe PDF reader
-5. Source Code editor e.g Eclipse
-6. Wireshark
-7. Terminal Software e.g Tera Terminal or Putty
-8. BP Tools
+### Other softwares and tools
+There is a list of other software and tools useful for Boot Camp. They are fairly straight-forward to install therefore there shall be no further explaination.
+1. Total Phase Analyzer software (https://www.totalphase.com/products/data-center/)
+2. Saleae Logic Analyzer software (https://www.saleae.com/downloads/)
+3. Terminal Software e.g MobaXterm (free), Tera Terminal or Putty (https://mobaxterm.mobatek.net/download.html)
+4. BP Tools (https://www.eftlab.co.uk/index.php/downloads/bp-tools)
+5. Source Code editor e.g Eclipse (https://www.eclipse.org/downloads/)
+6. PDF reader e.g. Adobe PDF reader
+7. Decompression tool eg. Zip-7
 
-## Hardware for BootCamp
+## Hardware for Boot Camp
 For this part of training, a XMC2Go board will be used as the MCU I2C host controller for Trust X. The MCU board comes with a JTAG programmer needs to be connected to a Windows based PC for flashing the firmware.
 
 * XMC2Go (Infineon Technologies, XMC1100, Cortex M0)
