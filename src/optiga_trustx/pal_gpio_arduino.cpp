@@ -59,25 +59,26 @@
 *
 * <b>API Details:</b>
 *      The API sets the pin high, only if the pin is assigned to a valid gpio context.<br>
-*      Otherwise the API returns without any faliure status.<br>
+*      Otherwise the API returns without any failure status.<br>
 *
 *\param[in] p_gpio_context Pointer to pal layer gpio context
 *
 *
 */
+//#define RESET_TO_P0_0    9
+
 void pal_gpio_set_high(const pal_gpio_t* p_gpio_context)
 {
 
   uint8_t gpio[1];
 
-
-  //Serial.println(">pal_gpio_set_high");
+  //Serial.println(">pal_gpio_set_high()");
   //memcpy(gpio, p_gpio_context->p_gpio_hw, 1);
   //if ((p_gpio_context != NULL) && (p_gpio_context->p_gpio_hw != NULL)){
-  //	  pinMode(gpio[0], OUTPUT);
-  //    digitalWrite(gpio[0], HIGH); // (HIGH is the voltage level)
+  //	  pinMode(RESET_TO_P0_0, OUTPUT);
+  //    digitalWrite(RESET_TO_P0_0, HIGH); // (HIGH is the voltage level)
   //}
-  //Serial.println("<pal_gpio_set_high");
+  //Serial.println("<pal_gpio_set_high()");
 }
 
 /**
@@ -85,7 +86,7 @@ void pal_gpio_set_high(const pal_gpio_t* p_gpio_context)
 *
 * <b>API Details:</b>
 *      The API set the pin low, only if the pin is assigned to a valid gpio context.<br>
-*      Otherwise the API returns without any faliure status.<br>
+*      Otherwise the API returns without any failure status.<br>
 *
 *\param[in] p_gpio_context Pointer to pal layer gpio context
 *
@@ -95,13 +96,13 @@ void pal_gpio_set_low(const pal_gpio_t* p_gpio_context)
 
   uint8_t gpio[1];
 
-  //Serial.println(">pal_gpio_set_low");
+  //Serial.println(">pal_gpio_set_low()");
   //memcpy(gpio, p_gpio_context->p_gpio_hw, 1);
   //if ((p_gpio_context != NULL) && (p_gpio_context->p_gpio_hw != NULL)){
-  //      pinMode(gpio[0], OUTPUT);
-  //      digitalWrite(gpio[0], LOW); // (LOW is the voltage level)
+  //      pinMode(RESET_TO_P0_0, OUTPUT);
+  //      digitalWrite(RESET_TO_P0_0, LOW); // (LOW is the voltage level)
   //}
-  //Serial.println("<pal_gpio_set_low");
+  //Serial.println("<pal_gpio_set_low()");
 }
 
 /**
