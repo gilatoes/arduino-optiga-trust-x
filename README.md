@@ -21,17 +21,11 @@ It is recommended that using a Windows OS computer (Windows 10 64-bit preferred)
 Install Infineon XMC library support for Arduino platform.
 Follow the instruction on the official XMC-for-Arduino Github.
 
-[XMC-for-Arduino]<br/>
+XMC-for-Arduino Github<br/>
 https://github.com/Infineon/XMC-for-Arduino
 
 SEGGER J-Link (J-Link Software and Documentation pack for Windows)<br/>
 https://www.segger.com/downloads/jlink
-
-DAVE 4.4.2 (64-bit) download link:<br/>
-https://infineoncommunity.com/dave-download_ID645
-
-Alternate DAVE 4.4.2 (64-bit) download link (Valid on during the Boot Camp training only):<br/>
-https://drive.google.com/file/d/1l_TAdm1e6Q3ZJnSK5oMYVVpKxm5e4ZUW/view?usp=sharing
 
 ### Trust X and Library
 Download this Github contents to get the Trust X integration library and examples.<br/>
@@ -66,7 +60,7 @@ Apart from the simple test, another option is the "openssl speed" command that w
 There is a list of other software and tools useful for Boot Camp. They are fairly straight-forward to install therefore there shall be no further explaination.
 1. Total Phase Analyzer software (https://www.totalphase.com/products/data-center/)
 2. Saleae Logic Analyzer software (https://www.saleae.com/downloads/)
-3. Terminal Software e.g MobaXterm (free), Tera Terminal or Putty (https://mobaxterm.mobatek.net/download.html)
+3. Terminal software e.g MobaXterm (free), Tera Terminal or Putty (https://mobaxterm.mobatek.net/download.html)
 4. BP Tools (https://www.eftlab.co.uk/index.php/downloads/bp-tools)
 5. Source Code editor e.g Eclipse (https://www.eclipse.org/downloads/)
 6. PDF reader e.g. Adobe PDF reader
