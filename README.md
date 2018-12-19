@@ -58,9 +58,9 @@ Apart from the simple test, another option is the "openssl speed" command that w
 
 ### Other softwares and tools
 There is a list of other software and tools useful for Boot Camp. They are fairly straight-forward to install therefore there shall be no further explaination.
-1. Total Phase Analyzer software (https://www.totalphase.com/products/data-center/)
+1. Terminal software e.g MobaXterm (free), Tera Terminal or Putty (https://mobaxterm.mobatek.net/download.html)
 2. Saleae Logic Analyzer software (https://www.saleae.com/downloads/)
-3. Terminal software e.g MobaXterm (free), Tera Terminal or Putty (https://mobaxterm.mobatek.net/download.html)
+3. Total Phase Analyzer software (Optional) (https://www.totalphase.com/products/data-center/)
 4. BP Tools (https://www.eftlab.co.uk/index.php/downloads/bp-tools)
 5. Source Code editor e.g Eclipse (https://www.eclipse.org/downloads/)
 6. PDF reader e.g. Adobe PDF reader
