@@ -36,9 +36,12 @@ PDF reader e.g Adobe PDF reader (Optional)<br/>
 
 ## Task 2: GPIO and I2C Debug and Analysis Exercise
 In this task, there will be some changes required for your Trust X library. You are expected to take reference from Trust X Datasheet, read up I2C fundamentals and connect up Logic analyzer and/or I2C analyzer for this task. Use E02_ConfigI2C sketch example as your starting point.
-- [ ]  Configure GPIO (P0.0) to enable warm reset.
+- [ ]  Refer to Trust X datasheet V2.5 section 5.1.6.2
+- [ ]  Monitor and enable warm reset using GPIO (P0.0).
+Trust X I2C understanding:
 - [ ]  What is the default Trust X I2C address?
-- [ ]  Modify the I2C bus frequency. Monitor the update using either an I2C analyzer, logic analyzer or oscilloscope.
+- [ ]  What is the current I2C bus speed?
+- [ ]  Modify and increase the I2C bus frequency. Monitor the update using either an I2C analyzer, logic analyzer or oscilloscope.
 - [ ]  Modify the I2C address of Trust X to 0x40.
 
 ## Task 3: Trust X Object IDs
