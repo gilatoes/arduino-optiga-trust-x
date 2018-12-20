@@ -59,7 +59,7 @@ A valid digital signature gives a recipient reason to believe that the message w
 (authentication), that the sender cannot deny having sent the message (non-repudiation), and that the message
 was not altered in transit (integrity).
 
-Get a partner within the training group and role play Alice (She has dual roles) and Bob in this task.
+This task can be completed alone. However, it will be more fun to get a partner role play Alice (She has dual roles) and Bob in this task.
 
 Alice wants to sends Bob a Private Message (PM). "I am joining Infineon Trust X Boot Camp."
 Bob received the PM and wonders about its integrity.
