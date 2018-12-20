@@ -1,29 +1,28 @@
 # Mission and Tasks:
 ## Task 0: Setup Boot Camp Environment
 - [ ]  Download and setup all the required software and tools.<br/>
-Follow XMC Arduino Github for instruction to install XMC & Arduino IDE.<br/>
+ - Follow XMC Arduino Github for instruction to install XMC & Arduino IDE.<br/>
 https://github.com/Infineon/XMC-for-Arduino<br/>
-
-XMC Library version 1.2.1 (Github)<br/>
+ - XMC Library version 1.2.1 (Github)<br/>
 https://github.com/Infineon/XMC-for-Arduino<br/>
-Arduino IDE version 1.8.8<br/>
+ - Arduino IDE version 1.8.8<br/>
 https://www.arduino.cc/en/main/software<br/>
-SEGGER J-Link (J-Link Software and Documentation pack for Windows)<br/>
+ - SEGGER J-Link (J-Link Software and Documentation pack for Windows)<br/>
 https://www.segger.com/downloads/jlink<br/>
-OpenSSL for Windows v1.1.0j<br/>
+ - OpenSSL for Windows v1.1.0j<br/>
 https://slproweb.com/products/Win32OpenSSL.html<br/>
-Saleae Logic Analyzer<br/>
+ - Saleae Logic Analyzer<br/>
 https://www.saleae.com/downloads/<br/>
-Source editor e.g Eclipse (Optional)<br/>
+ - Source editor e.g Eclipse (Optional)<br/>
 https://www.eclipse.org/downloads/<br/>
-Terminal Software e.g MobaXterm(Free edition), Tera Term or Putty (Optional)<br/>
+ - Terminal Software e.g MobaXterm(Free edition), Tera Term or Putty (Optional)<br/>
 https://mobaxterm.mobatek.net/download.html<br/>
-Total Phase Beagle Software and driver (Optional)<br/>
+ - Total Phase Beagle Software and driver (Optional)<br/>
 https://www.totalphase.com/products/data-center/<br/>
-BP Tools (Optional)<br/>
+ - BP Tools (Optional)<br/>
 https://www.eftlab.co.uk/index.php/downloads/bp-tools<br/>
-Decompression tool e.g Zip-7 (Optional)<br/>
-PDF reader e.g Adobe PDF reader (Optional)<br/>
+ - Decompression tool e.g Zip-7 (Optional)<br/>
+ - PDF reader e.g Adobe PDF reader (Optional)<br/>
 
 - [ ]  After installing the Boot Camp Trust X repo, start E00_Minimal example and ensure that it can be compiled without any error.
 - [ ]  Open the command prompt. On Windows 10, it is call Windows Powershell. For a more advance interface, open ise from powershell.
