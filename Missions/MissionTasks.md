@@ -109,9 +109,8 @@ Study the E07_SignVerify sketch example carefully.
   **Configuration file openssl.cnf for OpenSSL CA**<br/>
   https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Missions/Mission_files/openssl.cnf
 
-### Role of Certificate Authority
-- [ ]  Create Boot Camp Certificate Authority (CA).
-- [ ]  Create ECC 384 Public Key and secret key.
+### Create a Certificate Authority (CA)
+- [ ]  Create a pair of ECC 384 Public Key and secret key.
 - [ ]  Create a CA CSR with the Public Key. The CSR is signed using the CA secret key.
 - [ ]  Create a CA root certificate.
 - [ ]  Display the CA root certificate and store the certificate in all clients.
