@@ -206,15 +206,21 @@ openssl asn1parse -inform der -in signature.der
   ```
 
 ## Task 7: A very special accessory authentication use case
-A One-way authentication is a process where an entity is trying to identify the true identity of the communicating party. Prior to the authentication process, both parties had already established some common understanding. For example, they will need to agree upon common ECC parameters, type of hash process and message format.
+One-way authentication is a process where an entity is trying to identify the true identity of the communicating party. Prior to the authentication process, both parties had already established some common understanding. For example, they will need to agree upon common ECC parameters, type of hash process and message format.
 
-In this task, there are 2 parts. First, implement asymmetric cryptography (modify the One-Way Authentication example) such that only your Trust X can work on your board or host code. Second, implement the One-way authentication with the least time.
+In this task, there are 2 parts 7A and 7B.
 
-*Hint:* There is something to do with the Public Key. :-)
+#### Part A
+Study E08_OneWay_Auth example carefully. This example works on any Trust X. Try switching Trust X with your fellow camp mate. In this part of the exercise, implement *asymmetric cryptography* such that only your Trust X can work on your board or host code.
 
 ### Condition:
   - [ ] Your XMC2Go will only work with your own Trust X.
-  - [ ] Attaching other Trust X should fail on your board.
+  - [ ] Attaching other Trust X device should fail on your board.
+
+  *Hint:* There is something to do with the Public Key. :-)
+
+#### Part B
+Implements the One-way authentication with the least amount of time.
 
 ### Memory footprints
   - [ ] Compare hardware and software verification approach.
