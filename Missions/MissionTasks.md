@@ -276,4 +276,4 @@ openssl enc -d -nosalt -aes-256-cbc -in XMC2Go_FWUpdate_2.hex.enc -out XMC2Go_FW
 - [ ] Use a terminal program to see what does the updated firmware do.
 
 ___
-**That's all folks!
+ **That's all folks!**
