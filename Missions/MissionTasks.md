@@ -243,7 +243,7 @@ https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Mission
 - [ ] Generate the AES Key from the derived key and display the key.
 - [ ] Select an Initialization vector and use AES Key to encrypt the firmware.<br/>
   *Note:* In block cipher mode operation such as AES, IV is used to initialize the block operation. IV can be a random and unpredictable value. However, it is not necessary to maintain its secrecy.
-  For highly secure communication, the same firmware can be encrypted with different IV. This will yield completely different ciphertext.
+  For more secure communication, the same firmware can be encrypted with different IVs. This will yield completely different ciphertext.
   For simplicity, use the following IV in this exercise.
   iv=61A813408638CCCD67DA288B4142BF10
 
