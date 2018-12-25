@@ -1,4 +1,4 @@
-# Mission and Tasks:
+# Tasks and Mission:
 ## Task 0: Setup Boot Camp Environment
 - [ ]  Download and setup all the required software and tools.<br/>
  - Follow XMC Arduino Github for instruction to install XMC & Arduino IDE.<br/>
