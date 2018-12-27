@@ -880,7 +880,7 @@ int32_t IFX_OPTIGA_TrustX::calculateSharedSecretGeneric(int32_t curveID,
 
     uint8_t             ShareSecret[ExportShareSecret_Len];
 
-    //Serial.println(">calculateSharedSecretGeneric");
+    //Serial.println(">calculateSharedSecretGeneric()");
 
     //Mention the Key Agreement protocol
     shsec_opt.eKeyAgreementType = eECDH_NISTSP80056A;
@@ -905,6 +905,8 @@ int32_t IFX_OPTIGA_TrustX::calculateSharedSecretGeneric(int32_t curveID,
     shsec.prgbStream = ShareSecret;
     shsec.wLen = sizeof(ShareSecret);
 
+    //Serial.println("calculateSharedSecretGeneric: calling CmdLib_CalculateSharedSecret()");
+
     //Initiate CmdLib API for the Calculate shared secret
     ret = CmdLib_CalculateSharedSecret(&shsec_opt, &shsec);
     if(CMD_LIB_OK == ret)
@@ -928,12 +930,12 @@ int32_t IFX_OPTIGA_TrustX::calculateSharedSecretGeneric(int32_t curveID,
         ret = 0;
     }else
     {
-    	Serial.println("calculateSharedSecretGeneric:Error");
+    	Serial.println("calculateSharedSecretGeneric: Error code");
     	Serial.println(ret,HEX);
 
     }
 
-    //Serial.println("<calculateSharedSecretGeneric");
+    //Serial.println("<calculateSharedSecretGeneric()");
     return ret;
 }
 
