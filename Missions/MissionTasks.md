@@ -229,17 +229,20 @@ Implements the One-way authentication with the least amount of time.
 
 # Mission: Simplified Firmware Update
 Study the example of E10_PseudoTLS where the ECDH operation occurs with a single Trust X.
-- Find a partner for this mission. In this mission, implements Secure Firmware update of XMC2Go using 2 Trust X(s) and OpenSSL. One of the Trust X operates the role of firmware update server and the other will be firmware update client. The server will prepare the firmware package for the client to be updated.
+- Find a partner for this mission. In this mission, implements Secure Firmware update of XMC2Go using 2 Trust X(s) and OpenSSL.
+One of the Trust X operates the role of firmware update server and the other will be firmware update client.
+The server will prepare the firmware package for the client to be updated.
 
 ### Firmware Update Server
 The firmware update image has been prepared for the server.<br/>
 **Firmware Image:**<br/>
 https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Missions/Mission_files/XMC2Go_FWUpdate_2.hex
 
-- [ ] Exchange Infineon issued Public Key Pair (0xE0E0) with Receiver.
+- [ ] Generate a new key pair.
  *Hint:* Refer to E07_SignVerify to get the public key.
-- [ ] Both party calculate shared secrets and export derived key.
-- [ ] Display the share secrets to proof that ECDH is successful using 2 Trust X.
+- [ ] Exchange the newly generated public key.
+- [ ] Both parties calculate the shared secrets and export derived key.
+- [ ] Display the share secrets to proof that ECDH is successful using 2 Trust X(s).
 - [ ] Generate the AES Key from the derived key and display the key.
 - [ ] Select an Initialization vector and use AES Key to encrypt the firmware.<br/>
   *Note:* In block cipher mode operation such as AES, IV is used to initialize the block operation. IV can be a random and unpredictable value. However, it is not necessary to maintain its secrecy.
