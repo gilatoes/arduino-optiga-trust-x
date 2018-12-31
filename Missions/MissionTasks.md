@@ -58,28 +58,28 @@ A valid digital signature gives a recipient reason to believe that the message w
 (authentication), that the sender cannot deny having sent the message (non-repudiation), and that the message
 was not altered in transit (integrity).
 
-This task can be completed alone. However, it will be more fun to get a partner role play Alice (She has dual roles) and Bob in this task.
+This task can be completed alone. However, it will be more fun to get a partner role play Bob (He could played dual roles) and Alice in this task.
 
-Alice wants to sends Bob a Private Message (PM). "I am joining Infineon Trust X Boot Camp."
-Bob received the PM and wonders about its integrity.
+Bob wants to sends Alice a Private Message (PM). "I am joining Infineon Trust X Boot Camp."
+Alice received the PM and wonders about its integrity.
 
 **Alice message**<br/>
 https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Missions/Mission_files/task4/Alice-Message.txt
 
-  - [ ] Alice generates a set of ECC keypair using ECC NIST P384 curve.
+  - [ ] Bob generates a set of ECC keypair using ECC NIST P384 curve.
   ```
   openssl ecparam -name secp384r1 -genkey -noout -out private.key.pem
 
   openssl ec -in private.key.pem -outform PEM -pubout -out public.key.pem
   ```
 
-  - [ ] Alice signs the message using her private key. Show the trainer how the message is signed using OpenSSL command.
-  - [ ] Keeping her secret key private, Alice will email/transmit her public key, signature, and message hash to Bob.
-  - [ ] Bob verifies the message using the received package. Show the trainer using OpenSSL command how the Alice's public key, digest and message is used to verify the signature.
+  - [ ] Bob signs the message using his private key. Show the trainer how the message is signed using OpenSSL command.
+  - [ ] Keeping his secret key private, Bob will email/transmit his public key, signature, and message hash to Alice.
+  - [ ] Alice verifies the message using the received package. Show the trainer using OpenSSL command how the Bob's public key, digest and message is used to verify the signature.
 
-  The use of public key verification process has successfully prevented Eve (Evil twin of Alice) from impersonating Alice from sending a "fake" message to Bob. Without Alice's Secret Key, all Eve's message will be rejected by Bob.
-  - [ ] As a negative use case, Eve send a message "I am not joining Infineon Boot camp" to Bob and see if the verification works.
-  - [ ] Bob received the second message. He verifies the new message again using the previous signature and public key.
+  The use of public key verification process has successfully prevented Eve (Evil Robot) from impersonating Bob from sending a "fake" message to Alice. Without Bob's Secret Key, all Eve's message will be rejected by Alice.
+  - [ ] As a negative use case, Eve send a message "I am not joining Infineon Boot camp" to Alice and see if the verification works.
+  - [ ] Alice received the second message. She verifies the new message again using the previous signature and public key.
   - [ ] If time permits, Alice and Bob should switch roles.
   - [ ] Discussion: If we purely use the public key and secret key to perform verification of data message what is the potential problem? What is the potential weakness using such approach?
   - [ ] After verifying the message, can Bob really trust its contents?
