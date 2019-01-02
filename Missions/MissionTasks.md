@@ -104,7 +104,7 @@ Study the E07_SignVerify sketch example carefully.
 
   Digital certificate is most commonly used to verify a identity in a Public Key Infrastructure (PKI). Certificate enables public key cryptography to address the problem of impersonation.
 
-  Certificate Authority issues the certificate which binds a public key to it. Certificate helps to prevents fake public keys for impersonation. Only public key that is certified by the CA will work with the corresponding private key that is owned by the certificate owner.
+  Certificate Authority issues the certificate which binds a public key to it. Certificate helps to prevents fake public keys for impersonation. Only public key that is certified by the CA will work with the corresponding private key that is owned by the certificate owner. In this task, we are creating a self-signed certificate signed by a private entity rather than a trusted certificate authority.
 
   **Configuration file openssl.cnf for OpenSSL CA**<br/>
   https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Missions/Mission_files/openssl.cnf
