@@ -30,11 +30,11 @@ https://www.eftlab.co.uk/index.php/downloads/bp-tools<br/>
 
 ## Task 1: HelloBootCamp
 - [ ]  Attach the Trust X to your platform and execute the E01_HelloBootcamp example.
-- [ ]  What is your XMC and Trust X library version?
+- [ ]  What is the current XMC and Trust X library version?
 - [ ]  Find out which file stores the Trust X library version number?
 
 ## Task 2: GPIO and I2C Debug and Analysis Exercise
-In this task, there will be some changes required for your Trust X library. You are expected to take reference from Trust X Datasheet, read up I2C fundamentals and connect up Logic analyzer and/or I2C analyzer for this task. Use E02_ConfigI2C sketch example as your starting point.
+In this task, there will be some changes required for your Trust X library. You are expected to take reference from Trust X Datasheet located in the doc folder, read up I2C fundamentals and connect up Logic analyzer and/or I2C analyzer for this task. Use E02_ConfigI2C sketch example as your starting point.
 - [ ]  Refer to Trust X datasheet V2.5 section 5.1.6.2
 - [ ]  Monitor and enable warm reset using GPIO (P0.0).
 Trust X I2C understanding:
@@ -44,10 +44,10 @@ Trust X I2C understanding:
 - [ ]  Modify the I2C address of Trust X to 0x40.
 
 ## Task 3: Trust X Object IDs
-This task consists of 2 parts. First, read and decode the Trust X UID. Second, using your issued Trust X, determine the Public Key issued by Infineon PKI.
-- [ ] Read the UID Object.
+This task consists of 2 parts. First, read and decode the Trust X UID. Second, using your issued Trust X, determine the Public Key issued by Infineon CA.
+- [ ] Read the Trust X UID Object.
   * Decode the UID to determine the Trust X identity.
-- [ ] Determine the Certificate serial number, Issue date and Public key issued by Infineon PKI from your Trust X.
+- [ ] Determine the Signature algorithm, Certificate serial number, Issue date, Valid period and Public key and signature value issued by Infineon CA from your Trust X.
 *Hint:* Use E05_GetCertificate example as a starting point. You will need to convert the Hex value to Base64 value then decode it using certificate decoder tools.
 
 ## Task 4: Concepts of Digital Signature using ECC Asymmetric keys
