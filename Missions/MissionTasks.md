@@ -29,6 +29,7 @@ https://www.eftlab.co.uk/index.php/downloads/bp-tools<br/>
 - [ ]  Ensure that openssl is installed and can be accessed from the powershell. Use the "openssl version" to check the path accessibility.
 
 ## Task 1: HelloBootCamp
+- [ ]  BootCamp orientation of hardware and software. Logistics and distribution of available resources.
 - [ ]  Attach the Trust X to your platform and execute the E01_HelloBootcamp example.
 - [ ]  What is the current XMC and Trust X library version?
 - [ ]  Find out which file stores the Trust X library version number?
