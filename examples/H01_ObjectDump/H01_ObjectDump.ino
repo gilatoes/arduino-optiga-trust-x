@@ -22,7 +22,7 @@
  * SOFTWARE
  *
  * Demonstrates use of the
- * Infineon Technologies AG OPTIGA™ Trust X Arduino library
+ * Infineon Technologies AG OPTIGAâ„¢ Trust X Arduino library
  */
 
 #include "OPTIGATrustX.h"
@@ -35,11 +35,11 @@ uint16_t OID[] = {0xE0C0, 0xE0C1, 0xE0C2, 0xE0C3, 0xE0C4, 0xE0C5, 0xE0C6, 0xE0E0
 uint16_t OID_max_size[] = {1, 1, 27, 1, 1, 1, 2, 1728, 1728, 1728, 1728, 1024, 1024};
 #define MAX_OID_SIZE_VALUE  1728
 
-#define ENABLE_TRUSTX_CHARACTERISTICS_OBJECT  1
-#define ENABLE_IFX_ISSUED_CERT_OBJECT         1
-#define ENABLE_PROJECT_SPECIFIC_CERT_OBJECTS  1
-#define ENABLE_ROOTCA_CERTIFICATES            1
-#define ENABLE_ARBITRARY_OBJECTS              1
+#define ENABLE_TRUSTX_CHARACTERISTICS_OBJECT  0
+#define ENABLE_IFX_ISSUED_CERT_OBJECT         0
+#define ENABLE_PROJECT_SPECIFIC_CERT_OBJECTS  0
+#define ENABLE_ROOTCA_CERTIFICATES            0
+#define ENABLE_ARBITRARY_OBJECTS              0
 
 #define EASY_CUT_PASTE 1
 void setup()
@@ -51,7 +51,7 @@ void setup()
   delay(100);
 
  /*
-   * Initialise an OPTIGA™ Trust X Board
+   * Initialise an OPTIGAâ„¢ Trust X Board
    */
   if(reset()==0){
     sys_init=1;
@@ -74,6 +74,34 @@ uint8_t reset()
   return 0;
 }
 
+void printmetadata(uint8_t *metadata)
+{
+  uint16_t maxsize = 0;
+  uint16_t usedsize = 0;
+  
+  //Serial.print("OID maxsize:");
+  maxsize = metadata[7]<<8 |(metadata[8]);
+  //Serial.println(maxsize, DEC);
+
+  //Serial.print("OID usedsize:");
+  usedsize = metadata[11]<<8 |(metadata[12]);
+  //Serial.println(usedsize, DEC);
+
+  Serial.print("OID: usedsize/maxsize = ");
+  Serial.print(usedsize, DEC);
+  Serial.print("/");
+  Serial.println(maxsize, DEC);
+
+  Serial.print("TLV Change AC: ");
+  Serial.print(" "); Serial.print(metadata[15], HEX);
+  Serial.print(" "); Serial.print(metadata[16], HEX);
+  Serial.print(" "); Serial.println(metadata[17], HEX);
+
+  Serial.print("TLV Read AC: ");
+  Serial.print(" "); Serial.print(metadata[19], HEX);
+  Serial.print(" "); Serial.println(metadata[20], HEX);
+ 
+}
 void printObject(uint8_t object)
 {
   uint32_t ret = 0;
@@ -139,6 +167,52 @@ void loop()
 
   if(sys_init)
   {
+      uint16_t FirstCert=0xE0E0;
+      uint16_t SecondCert=0xE0E1;
+      uint16_t ThirdCert=0xE0E2;
+      uint16_t FourthCert=0xE0E3;
+      uint16_t TrustAnchor1=0xE0E8;
+      uint16_t TrustAnchor2=0xE0EF;
+      
+      uint8_t temp[28];
+      
+      //Clear temp buffer
+      memset(temp, 0x0, 28);
+
+      Serial.println("Cert 1:");
+      ret = trustX.getMetaData(FirstCert, temp);
+      HEXONLYDUMP(temp, 28);
+      printmetadata(temp);
+
+      Serial.println("Cert 2:");
+       memset(temp, 0x0, 28);
+      ret = trustX.getMetaData(SecondCert, temp);
+      HEXONLYDUMP(temp, 28);
+      printmetadata(temp);
+
+      Serial.println("Cert 3:");
+       memset(temp, 0x0, 28);
+      ret = trustX.getMetaData(ThirdCert, temp);
+      HEXONLYDUMP(temp, 28);
+      printmetadata(temp);
+
+      Serial.println("Cert 4:");
+       memset(temp, 0x0, 28);
+      ret = trustX.getMetaData(FourthCert, temp);
+      HEXONLYDUMP(temp, 28);
+      printmetadata(temp);
+
+      Serial.println("TrustAnchor1:");
+       memset(temp, 0x0, 28);
+      ret = trustX.getMetaData(TrustAnchor1, temp);
+      HEXONLYDUMP(temp, 28);
+      printmetadata(temp);
+
+      Serial.println("TrustAnchor2:");
+       memset(temp, 0x0, 28);
+      ret = trustX.getMetaData(TrustAnchor2, temp);
+      HEXONLYDUMP(temp, 28);
+      printmetadata(temp);
 
 #if (ENABLE_TRUSTX_CHARACTERISTICS_OBJECT == 1)
     // Get Data structure Global (LcsG) = 0xE0C0
