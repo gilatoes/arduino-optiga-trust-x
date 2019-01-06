@@ -297,6 +297,17 @@ public:
     { return arbitary_data_objectLength != 0?getGenericData(oid, arbitary_data_object_buffer, arbitary_data_objectLength):1; }
 
     /**
+    * This function gets the meta data object value in the oid. Length is defined by the user.
+    *
+    * @param[out] metadata_buffer    Pointer where the meta of the oid value will be stored
+    * @param[in]  metadata_len    Pointer where the length of the meta data value is stored
+    *
+    */
+   //int32_t getOIDMetaData(uint16_t& oid, uint8_t metadata_buffer[], uint16_t& metadata_len)
+    int32_t getMetaData(uint16_t& oid, uint8_t metadata_buffer[])
+   { return getOIDMetaData(oid, metadata_buffer); }
+
+    /**
      * @brief Get a random number.
      *
      * The function retrieves a cryptographic-quality random number
@@ -539,6 +550,7 @@ private:
     int32_t setAppSecurityStatus(uint8_t status);
     int32_t getGenericData(uint16_t oid, uint8_t* p_data, uint16_t& hashLength);
     int32_t getState(uint16_t oid, uint8_t& p_data);
+    int32_t getOIDMetaData(uint16_t oid, uint8_t* p_data);
     int32_t setGenericData(uint16_t oid, uint8_t* p_data, uint16_t hashLength);
     int32_t str2cur(String curve_name);
 	int32_t calculateSharedSecretGeneric( int32_t curveID, uint16_t priv_oid, uint8_t* p_pubkey, uint16_t plen, uint16_t out_oid) {

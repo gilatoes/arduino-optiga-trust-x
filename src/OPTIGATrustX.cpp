@@ -343,6 +343,31 @@ int32_t IFX_OPTIGA_TrustX::getState(uint16_t oid, uint8_t& byte)
     return ret;
 }
 
+
+int32_t IFX_OPTIGA_TrustX::getOIDMetaData(uint16_t oid, uint8_t* p_data)
+{
+    int32_t  ret = (int32_t)CMD_LIB_ERROR;
+	sGetData_d sGDVector;
+    sCmdResponse_d sCmdResponse;
+
+	sGDVector.wOID = oid;
+	sGDVector.wLength = 50;
+	sGDVector.wOffset = 0;
+	sGDVector.eDataOrMdata = eMETA_DATA;
+
+	sCmdResponse.prgbBuffer = p_data;
+	sCmdResponse.wBufferLength = 50;
+	sCmdResponse.wRespLength = 0;
+
+	ret = CmdLib_GetDataObject(&sGDVector, &sCmdResponse);
+	if(CMD_LIB_OK == ret)
+	{
+		ret = 0;
+	}
+
+    return ret;
+}
+
 int32_t IFX_OPTIGA_TrustX::setGenericData(uint16_t oid, uint8_t* p_data, uint16_t hashLength)
 {
     int32_t ret = (int32_t)CMD_LIB_ERROR;
