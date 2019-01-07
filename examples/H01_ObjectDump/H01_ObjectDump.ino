@@ -31,17 +31,17 @@
 
 uint8_t sys_init =0;
 
-uint16_t OID[] = {0xE0C0, 0xE0C1, 0xE0C2, 0xE0C3, 0xE0C4, 0xE0C5, 0xE0C6, 0xE0E0, 0xE0E1, 0xE0E2, 0xE0E3, 0xE0E8, 0xE0EF};
+uint16_t OID[] = {0xE0C0, 0xE0C1, 0xE0C2, 0xE0C3, 0xE0C4, 0xE0C5, 0xE0C6, 0xE0E0, 0xE0E1, 0xE0E2, 0xE0E3, 0xE0E8, 0xE0EF, 0xE0F0};
 uint16_t OID_max_size[] = {1, 1, 27, 1, 1, 1, 2, 1728, 1728, 1728, 1728, 1024, 1024};
 #define MAX_OID_SIZE_VALUE  1728
 
-#define ENABLE_TRUSTX_CHARACTERISTICS_OBJECT  0
-#define ENABLE_IFX_ISSUED_CERT_OBJECT         0
+#define ENABLE_TRUSTX_CHARACTERISTICS_OBJECT  1
+#define ENABLE_IFX_ISSUED_CERT_OBJECT         1
 #define ENABLE_PROJECT_SPECIFIC_CERT_OBJECTS  0
 #define ENABLE_ROOTCA_CERTIFICATES            0
 #define ENABLE_ARBITRARY_OBJECTS              0
 
-#define EASY_CUT_PASTE 1
+#define EASY_CUT_PASTE                        0
 void setup()
 {
   /*
@@ -76,40 +76,191 @@ uint8_t reset()
 
 void printmetadata(uint8_t *metadata)
 {
+  int offset=0;
   uint16_t maxsize = 0;
   uint16_t usedsize = 0;
+
+  //Get matadata size
+  for(int i=0; i<28; i++){
+    if(metadata[i]==0x20){
+      Serial.print("Metadata size: ");
+      Serial.println(metadata[i+1], DEC);
+      offset = i+2;
+      break;
+      }
+  }
+
+  //Get Lifecycle state
+  for(int i=offset; i<28-offset; i++){
+    if(metadata[i]==0xC0){
+      Serial.print("Lifecycle State:");
+      if(metadata[i+1]==1){
+      Serial.print(" "); Serial.print(metadata[i+2], HEX); Serial.print(" ");
+      if(metadata[i+2]==0x01){Serial.println("(Creation state)");}
+      if(metadata[i+2]==0x03){Serial.println("(Initialization state)");}
+      if(metadata[i+2]==0x07){Serial.println("(Operational state)");}
+      if(metadata[i+2]==0x0F){Serial.println("(Termination state)");}
+      offset = i+3;
+      break;
+      }   
+    }
+  }
   
-  //Serial.print("OID maxsize:");
-  maxsize = metadata[7]<<8 |(metadata[8]);
-  //Serial.println(maxsize, DEC);
 
-  //Serial.print("OID usedsize:");
-  usedsize = metadata[11]<<8 |(metadata[12]);
-  //Serial.println(usedsize, DEC);
+  //Get max size
+  for(int i=offset; i<28-offset; i++){
+    if(metadata[i]==0xC4){
+      //length of size
+      if(metadata[i+1]==1){
+        maxsize = metadata[i+2];
+        break;
+      }
+      if(metadata[i+1]==2){      
+        maxsize = metadata[i+2]<<8 |(metadata[i+3]);
+        break;
+      }      
+    }
+  }
 
+  //Get used size
+    for(int i=0; i<28; i++){
+    if(metadata[i]==0xC5){
+      //length of size
+      if(metadata[i+1]==1){
+        usedsize = metadata[i+2];
+        break;
+      }
+      if(metadata[i+1]==2){      
+        usedsize = metadata[i+2]<<8 |(metadata[i+3]);
+        break;
+      }      
+    }
+  }
+  
   Serial.print("OID: usedsize/maxsize = ");
   Serial.print(usedsize, DEC);
   Serial.print("/");
   Serial.println(maxsize, DEC);
 
-  Serial.print("TLV Change AC: ");
-  Serial.print(" "); Serial.print(metadata[15], HEX);
-  Serial.print(" "); Serial.print(metadata[16], HEX);
-  Serial.print(" "); Serial.println(metadata[17], HEX);
+  
+  //Get Change Access Condition
+    for(int i=0; i<28; i++){
+    if(metadata[i]==0xD0){
+      Serial.print("TLV Change AC: ");
+      //length of size
+      if(metadata[i+1]==1){
+         if(metadata[i+2]==0x00){Serial.print("(ALW)");}
+         if(metadata[i+2]==0xFF){Serial.print("(NEV)");}
+        Serial.print(" "); Serial.println(metadata[i+2], HEX);        
+        break;
+      }
 
-  Serial.print("TLV Read AC: ");
-  Serial.print(" "); Serial.print(metadata[19], HEX);
-  Serial.print(" "); Serial.println(metadata[20], HEX);
+      if(metadata[i+1]==3){
+        if(metadata[i+2]==0x70){Serial.print("(LcsG");}
+        if(metadata[i+2]==0xE0){Serial.print("(LcsA");}
+        if(metadata[i+2]==0xE1){Serial.print("(LcsO");}
+
+        if(metadata[i+3]==0xFA){Serial.print("==");}
+        if(metadata[i+3]==0xFB){Serial.print(">");}
+        if(metadata[i+3]==0xFC){Serial.print("<");}
+        if(metadata[i+3]==0xFD){Serial.print("&&");}
+        if(metadata[i+3]==0xFE){Serial.print("||");}
+        if(metadata[i+3]==0xFF){Serial.print("NEV");}
+        Serial.print(metadata[i+4], HEX);
+        Serial.print(")");
+        
+        Serial.print("["); Serial.print(metadata[i+2], HEX);
+        Serial.print(" "); Serial.print(metadata[i+3], HEX);
+        Serial.print(" "); Serial.print(metadata[i+4], HEX);
+        Serial.println("]");
+        break;
+      }
+    }
+  }
+
  
+  //Get Read Access Condition
+    for(int i=0; i<28; i++){
+    if(metadata[i]==0xD1){
+       Serial.print("TLV Read AC: ");
+      //length of size
+      if(metadata[i+1]==1){
+         if(metadata[i+2]==0x00){Serial.print("(ALW)");}
+         if(metadata[i+2]==0xFF){Serial.print("(NEV)");}
+        Serial.print(" "); Serial.println(metadata[i+2], HEX);
+        break;
+      }    
+      if(metadata[i+1]==3){
+        if(metadata[i+2]==0x70){Serial.print("(LcsG");}
+        if(metadata[i+2]==0xE0){Serial.print("(LcsA");}
+        if(metadata[i+2]==0xE1){Serial.print("(LcsO");}
+
+        if(metadata[i+3]==0xFA){Serial.print("==");}
+        if(metadata[i+3]==0xFB){Serial.print(">");}
+        if(metadata[i+3]==0xFC){Serial.print("<");}
+        if(metadata[i+3]==0xFD){Serial.print("&&");}
+        if(metadata[i+3]==0xFE){Serial.print("||");}
+        if(metadata[i+3]==0xFF){Serial.print("NEV");}
+        Serial.print(metadata[i+4], HEX);
+        Serial.print(")");
+        
+        Serial.print("["); Serial.print(metadata[i+2], HEX);
+        Serial.print(" "); Serial.print(metadata[i+3], HEX);
+        Serial.print(" "); Serial.print(metadata[i+4], HEX);
+        Serial.println("]");
+        break;
+      }
+    }
+  }
+
+  
+  //Get Delete Access Condition
+    for(int i=0; i<28; i++){
+    if(metadata[i]==0xD2){
+      Serial.print("TLV Delete AC: ");
+      //length of size
+      if(metadata[i+1]==1){
+        if(metadata[i+2]==0x00){Serial.print("(ALW)");}
+        if(metadata[i+2]==0xFF){Serial.print("(NEV)");}
+        Serial.print(" "); Serial.println(metadata[i+2], HEX);
+        break;
+      }   
+      if(metadata[i+1]==3){
+        if(metadata[i+2]==0x70){Serial.print("(LcsG");}
+        if(metadata[i+2]==0xE0){Serial.print("(LcsA");}
+        if(metadata[i+2]==0xE1){Serial.print("(LcsO");}
+
+        if(metadata[i+3]==0xFA){Serial.print("==");}
+        if(metadata[i+3]==0xFB){Serial.print(">");}
+        if(metadata[i+3]==0xFC){Serial.print("<");}
+        if(metadata[i+3]==0xFD){Serial.print("&&");}
+        if(metadata[i+3]==0xFE){Serial.print("||");}
+        if(metadata[i+3]==0xFF){Serial.print("NEV");}
+        Serial.print(metadata[i+4], HEX);
+        Serial.print(")");
+        
+        Serial.print("["); Serial.print(metadata[i+2], HEX);
+        Serial.print(" "); Serial.print(metadata[i+3], HEX);
+        Serial.print(" "); Serial.print(metadata[i+4], HEX);
+        Serial.println("]");
+        break;
+      }
+    }
+  }
 }
 void printObject(uint8_t object)
 {
   uint32_t ret = 0;
   uint16_t MAX_OID_SIZE =1500;
   uint8_t temp[MAX_OID_SIZE_VALUE];
+  uint8_t metadata_temp[28];
 
   //Clear temp buffer
   memset(temp, 0x0, MAX_OID_SIZE_VALUE);
+  memset(metadata_temp, 0x0, 28);
+  ret = trustX.getMetaData(OID[object], metadata_temp);
+  HEXONLYDUMP(metadata_temp, 28);
+  printmetadata(metadata_temp);
 
   ret = trustX.getArbitaryDataObject(OID[object], temp, OID_max_size[object]);
   if (ret){
@@ -166,53 +317,7 @@ void loop()
   uint32_t ret = 0;
 
   if(sys_init)
-  {
-      uint16_t FirstCert=0xE0E0;
-      uint16_t SecondCert=0xE0E1;
-      uint16_t ThirdCert=0xE0E2;
-      uint16_t FourthCert=0xE0E3;
-      uint16_t TrustAnchor1=0xE0E8;
-      uint16_t TrustAnchor2=0xE0EF;
-      
-      uint8_t temp[28];
-      
-      //Clear temp buffer
-      memset(temp, 0x0, 28);
-
-      Serial.println("Cert 1:");
-      ret = trustX.getMetaData(FirstCert, temp);
-      HEXONLYDUMP(temp, 28);
-      printmetadata(temp);
-
-      Serial.println("Cert 2:");
-       memset(temp, 0x0, 28);
-      ret = trustX.getMetaData(SecondCert, temp);
-      HEXONLYDUMP(temp, 28);
-      printmetadata(temp);
-
-      Serial.println("Cert 3:");
-       memset(temp, 0x0, 28);
-      ret = trustX.getMetaData(ThirdCert, temp);
-      HEXONLYDUMP(temp, 28);
-      printmetadata(temp);
-
-      Serial.println("Cert 4:");
-       memset(temp, 0x0, 28);
-      ret = trustX.getMetaData(FourthCert, temp);
-      HEXONLYDUMP(temp, 28);
-      printmetadata(temp);
-
-      Serial.println("TrustAnchor1:");
-       memset(temp, 0x0, 28);
-      ret = trustX.getMetaData(TrustAnchor1, temp);
-      HEXONLYDUMP(temp, 28);
-      printmetadata(temp);
-
-      Serial.println("TrustAnchor2:");
-       memset(temp, 0x0, 28);
-      ret = trustX.getMetaData(TrustAnchor2, temp);
-      HEXONLYDUMP(temp, 28);
-      printmetadata(temp);
+  {   
 
 #if (ENABLE_TRUSTX_CHARACTERISTICS_OBJECT == 1)
     // Get Data structure Global (LcsG) = 0xE0C0
@@ -306,6 +411,12 @@ void loop()
     Serial.println("\r\nData Object: 0xF1E1");
     printDataObject(0xF1E1);
 #endif
+
+#if (ENABLE_SECRETKEY_OBJECTS == 1)
+    // Get 0xE0F0 Meta Data
+    Serial.print("\r\nE0F0 Metadata: 0x");
+    Serial.println(OID[13],HEX);
+    printObject(13);
   }
   Serial.print("\r\nPress i to re-initialize.. other key to loop...");
   while (Serial.available()==0){} //Wait for user input
