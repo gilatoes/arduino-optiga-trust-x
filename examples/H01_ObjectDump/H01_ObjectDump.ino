@@ -80,6 +80,11 @@ void printmetadata(uint8_t *metadata)
   uint16_t maxsize = 0;
   uint16_t usedsize = 0;
 
+  if(metadata[0]!=0x20){
+    Serial.print("Invalid Metadata header");
+    return;
+  }
+
   //Get matadata size
   for(int i=0; i<28; i++){
     if(metadata[i]==0x20){
@@ -106,7 +111,6 @@ void printmetadata(uint8_t *metadata)
     }
   }
   
-
   //Get max size
   for(int i=offset; i<28-offset; i++){
     if(metadata[i]==0xC4){
