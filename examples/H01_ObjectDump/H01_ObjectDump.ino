@@ -40,8 +40,10 @@ uint16_t OID_max_size[] = {1, 1, 27, 1, 1, 1, 2, 1728, 1728, 1728, 1728, 1024, 1
 #define ENABLE_PROJECT_SPECIFIC_CERT_OBJECTS  0
 #define ENABLE_ROOTCA_CERTIFICATES            0
 #define ENABLE_ARBITRARY_OBJECTS              0
+#define ENABLE_SECRETKEY_OBJECTS              0
 
 #define EASY_CUT_PASTE                        0
+#define ENABLE_METADATA_PRINT                 0
 void setup()
 {
   /*
@@ -107,10 +109,10 @@ void printmetadata(uint8_t *metadata)
       if(metadata[i+2]==0x0F){Serial.println("(Termination state)");}
       offset = i+3;
       break;
-      }   
+      }
     }
   }
-  
+
   //Get max size
   for(int i=offset; i<28-offset; i++){
     if(metadata[i]==0xC4){
@@ -119,10 +121,10 @@ void printmetadata(uint8_t *metadata)
         maxsize = metadata[i+2];
         break;
       }
-      if(metadata[i+1]==2){      
+      if(metadata[i+1]==2){
         maxsize = metadata[i+2]<<8 |(metadata[i+3]);
         break;
-      }      
+      }
     }
   }
 
@@ -134,19 +136,19 @@ void printmetadata(uint8_t *metadata)
         usedsize = metadata[i+2];
         break;
       }
-      if(metadata[i+1]==2){      
+      if(metadata[i+1]==2){
         usedsize = metadata[i+2]<<8 |(metadata[i+3]);
         break;
-      }      
+      }
     }
   }
-  
+
   Serial.print("OID: usedsize/maxsize = ");
   Serial.print(usedsize, DEC);
   Serial.print("/");
   Serial.println(maxsize, DEC);
 
-  
+
   //Get Change Access Condition
     for(int i=0; i<28; i++){
     if(metadata[i]==0xD0){
@@ -155,7 +157,7 @@ void printmetadata(uint8_t *metadata)
       if(metadata[i+1]==1){
          if(metadata[i+2]==0x00){Serial.print("(ALW)");}
          if(metadata[i+2]==0xFF){Serial.print("(NEV)");}
-        Serial.print(" "); Serial.println(metadata[i+2], HEX);        
+        Serial.print(" "); Serial.println(metadata[i+2], HEX);
         break;
       }
 
@@ -172,7 +174,7 @@ void printmetadata(uint8_t *metadata)
         if(metadata[i+3]==0xFF){Serial.print("NEV");}
         Serial.print(metadata[i+4], HEX);
         Serial.print(")");
-        
+
         Serial.print("["); Serial.print(metadata[i+2], HEX);
         Serial.print(" "); Serial.print(metadata[i+3], HEX);
         Serial.print(" "); Serial.print(metadata[i+4], HEX);
@@ -182,7 +184,7 @@ void printmetadata(uint8_t *metadata)
     }
   }
 
- 
+
   //Get Read Access Condition
     for(int i=0; i<28; i++){
     if(metadata[i]==0xD1){
@@ -193,7 +195,7 @@ void printmetadata(uint8_t *metadata)
          if(metadata[i+2]==0xFF){Serial.print("(NEV)");}
         Serial.print(" "); Serial.println(metadata[i+2], HEX);
         break;
-      }    
+      }
       if(metadata[i+1]==3){
         if(metadata[i+2]==0x70){Serial.print("(LcsG");}
         if(metadata[i+2]==0xE0){Serial.print("(LcsA");}
@@ -207,7 +209,7 @@ void printmetadata(uint8_t *metadata)
         if(metadata[i+3]==0xFF){Serial.print("NEV");}
         Serial.print(metadata[i+4], HEX);
         Serial.print(")");
-        
+
         Serial.print("["); Serial.print(metadata[i+2], HEX);
         Serial.print(" "); Serial.print(metadata[i+3], HEX);
         Serial.print(" "); Serial.print(metadata[i+4], HEX);
@@ -217,7 +219,7 @@ void printmetadata(uint8_t *metadata)
     }
   }
 
-  
+
   //Get Delete Access Condition
     for(int i=0; i<28; i++){
     if(metadata[i]==0xD2){
@@ -228,7 +230,7 @@ void printmetadata(uint8_t *metadata)
         if(metadata[i+2]==0xFF){Serial.print("(NEV)");}
         Serial.print(" "); Serial.println(metadata[i+2], HEX);
         break;
-      }   
+      }
       if(metadata[i+1]==3){
         if(metadata[i+2]==0x70){Serial.print("(LcsG");}
         if(metadata[i+2]==0xE0){Serial.print("(LcsA");}
@@ -242,7 +244,7 @@ void printmetadata(uint8_t *metadata)
         if(metadata[i+3]==0xFF){Serial.print("NEV");}
         Serial.print(metadata[i+4], HEX);
         Serial.print(")");
-        
+
         Serial.print("["); Serial.print(metadata[i+2], HEX);
         Serial.print(" "); Serial.print(metadata[i+3], HEX);
         Serial.print(" "); Serial.print(metadata[i+4], HEX);
@@ -257,6 +259,7 @@ void printObject(uint8_t object)
   uint32_t ret = 0;
   uint16_t MAX_OID_SIZE =1500;
   uint8_t temp[MAX_OID_SIZE_VALUE];
+#if (ENABLE_METADATA_PRINT == 1)
   uint8_t metadata_temp[28];
 
   //Clear temp buffer
@@ -265,6 +268,7 @@ void printObject(uint8_t object)
   ret = trustX.getMetaData(OID[object], metadata_temp);
   HEXONLYDUMP(metadata_temp, 28);
   printmetadata(metadata_temp);
+#endif
 
   ret = trustX.getArbitaryDataObject(OID[object], temp, OID_max_size[object]);
   if (ret){
@@ -321,7 +325,7 @@ void loop()
   uint32_t ret = 0;
 
   if(sys_init)
-  {   
+  {
 
 #if (ENABLE_TRUSTX_CHARACTERISTICS_OBJECT == 1)
     // Get Data structure Global (LcsG) = 0xE0C0
@@ -421,6 +425,8 @@ void loop()
     Serial.print("\r\nE0F0 Metadata: 0x");
     Serial.println(OID[13],HEX);
     printObject(13);
+#endif
+    
   }
   Serial.print("\r\nPress i to re-initialize.. other key to loop...");
   while (Serial.available()==0){} //Wait for user input
