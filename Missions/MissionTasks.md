@@ -32,7 +32,7 @@ https://www.eftlab.co.uk/index.php/downloads/bp-tools<br/>
 - [ ]  BootCamp orientation of hardware and software. Logistics and distribution of available resources.
 - [ ]  Attach the Trust X with magnetic connector to the Boot Camp breakout board and execute the E01_HelloBootcamp example.</br>
 
-**Trust X Questions:**
+**Questions & Discussion:**
 
 - [ ]  What is the current XMC and Trust X library version?
 - [ ]  Find out which file stores the Trust X library version number?
@@ -42,7 +42,7 @@ In this task, there will be some changes required for your Trust X library. You 
 - [ ]  Refer to Trust X datasheet V2.5 section 5.1.6.2
 - [ ]  Monitor and enable warm reset using GPIO (P0.0).</br>
 
-**Trust X Questions:**
+**Questions & Discussion:**
 
 - [ ]  What is the default Trust X I2C address?
 - [ ]  What is the current I2C bus speed?
@@ -88,7 +88,7 @@ https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Mission
   - [ ] Alice received the second message. She verifies the new message again using the previous signature and public key.
   - [ ] If time permits, Alice and Bob should switch roles.</br>
 
-  **Trust X Questions:**
+  **Questions & Discussion:**
 
   - [ ]  If we purely use the public key and secret key to perform verification of data message what is the potential problem?
   - [ ]  What is the potential weakness using such approach?
@@ -102,7 +102,7 @@ Study the E07_SignVerify sketch example carefully.
 - [ ] Turn on the "Replay Attack" macro and recompile and flash the image.
 - [ ] Replace the signature using your own replay attack.</br>
 
-**Trust X Questions:**
+**Questions & Discussion:**
 
 - What is the significance of Trust X generating the signature?
 - Why does the verification passes even on different signature?
@@ -215,7 +215,7 @@ openssl asn1parse -inform der -in signature.der
 
   ```
 
-**Trust X Questions:**
+**Questions & Discussion:**
 
   - [ ]  Create a new message "I want to go home early!". Sign the message and Client verify.
 
