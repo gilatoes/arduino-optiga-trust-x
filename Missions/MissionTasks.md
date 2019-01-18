@@ -1,5 +1,5 @@
 # Tasks and Mission:
-## Task 0: Setup Boot Camp Environment
+## Task 0: Boot Camp Environment Setup
 - [ ]  Download and setup all the required software and tools.<br/>
  - Follow XMC Arduino Github for instruction to install XMC & Arduino IDE.<br/>
 https://github.com/Infineon/XMC-for-Arduino<br/>
@@ -25,34 +25,39 @@ https://www.eftlab.co.uk/index.php/downloads/bp-tools<br/>
  - PDF reader e.g Adobe PDF reader (Optional)<br/>
 
 - [ ]  After installing the Boot Camp Trust X repo, start E00_Minimal example and ensure that it can be compiled without any error.
-- [ ]  Open the command prompt. On Windows 10, it is call Windows Powershell. For a more advance interface, open ise from powershell.
-- [ ]  Ensure that openssl is installed and can be accessed from the powershell. Use the "openssl version" to check the path accessibility.
+- [ ]  Open the Windows command prompt. Alternatively, on Windows 10, there is a more advance interface calls Windows Powershell. Open ise from the command prompt.
+- [ ]  Ensure that Openssl is installed and can be accessed from the powershell. Use the "openssl version" to check the path accessibility. If openssl is installed but cannot be found, please update the Windows System path.
 
 ## Task 1: HelloBootCamp
 - [ ]  BootCamp orientation of hardware and software. Logistics and distribution of available resources.
-- [ ]  Attach the Trust X to your platform and execute the E01_HelloBootcamp example.
+- [ ]  Attach the Trust X with magnetic connector to the Boot Camp breakout board and execute the E01_HelloBootcamp example.</br>
+
+**Trust X Questions:**
+
 - [ ]  What is the current XMC and Trust X library version?
 - [ ]  Find out which file stores the Trust X library version number?
 
 ## Task 2: GPIO and I2C Debug and Analysis Exercise
 In this task, there will be some changes required for your Trust X library. You are expected to take reference from Trust X Datasheet located in the doc folder, read up I2C fundamentals and connect up Logic analyzer and/or I2C analyzer for this task. Use E02_ConfigI2C sketch example as your starting point.
 - [ ]  Refer to Trust X datasheet V2.5 section 5.1.6.2
-- [ ]  Monitor and enable warm reset using GPIO (P0.0).
-Trust X I2C understanding:
+- [ ]  Monitor and enable warm reset using GPIO (P0.0).</br>
+
+**Trust X Questions:**
+
 - [ ]  What is the default Trust X I2C address?
 - [ ]  What is the current I2C bus speed?
-- [ ]  Modify and increase the I2C bus frequency. Monitor the update using either an I2C analyzer, logic analyzer or oscilloscope.
+- [ ]  Modify and increase the I2C bus frequency. Monitor the updated bus frequency using either an I2C analyzer, logic analyzer or oscilloscope.
 - [ ]  Modify the I2C address of Trust X to 0x40.
 
 ## Task 3: Trust X Object IDs
 This task consists of 2 parts. First, read and decode the Trust X UID. Second, using your issued Trust X, determine the Public Key issued by Infineon CA.
 - [ ] Read the Trust X UID Object.
-  * Decode the UID to determine the Trust X identity.
-- [ ] Determine the Signature algorithm, Certificate serial number, Issue date, Valid period and Public key and signature value issued by Infineon CA from your Trust X.
+  * Decode the Trust X UID to determine the Trust X identity.
+- [ ] Read and decode Trust X factory default certificate. Determine the signature algorithm, certificate serial number, issue date, valid period, public key and signature value issued by Infineon CA.
 *Hint:* Use E05_GetCertificate example as a starting point. You will need to convert the Hex value to Base64 value then decode it using certificate decoder tools.
 
 ## Task 4: Concepts of Digital Signature using ECC Asymmetric keys
-*Note:* In this task, only OpenSSL is used.
+*Note:* In this task, only OpenSSL program is used.
 
 Digital signature is a mathematical scheme for presenting the authenticity of digital messages or documents.
 A valid digital signature gives a recipient reason to believe that the message was created by a known sender
@@ -81,9 +86,13 @@ https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Mission
   The use of public key verification process has successfully prevented Eve (Evil Robot) from impersonating Bob from sending a "fake" message to Alice. Without Bob's Secret Key, all Eve's message will be rejected by Alice.
   - [ ] As a negative use case, Eve send a message "I am not joining Infineon Boot camp" to Alice and see if the verification works.
   - [ ] Alice received the second message. She verifies the new message again using the previous signature and public key.
-  - [ ] If time permits, Alice and Bob should switch roles.
-  - [ ] Discussion: If we purely use the public key and secret key to perform verification of data message what is the potential problem? What is the potential weakness using such approach?
-  - [ ] After verifying the message, can Bob really trust its contents?
+  - [ ] If time permits, Alice and Bob should switch roles.</br>
+
+  **Trust X Questions:**
+
+  - [ ]  If we purely use the public key and secret key to perform verification of data message what is the potential problem?
+  - [ ]  What is the potential weakness using such approach?
+  - [ ]  After verifying the message, can Bob really trust its contents?
 
 ## Task 5: Let's look at replay attack
 
@@ -93,7 +102,7 @@ Study the E07_SignVerify sketch example carefully.
 - [ ] Turn on the "Replay Attack" macro and recompile and flash the image.
 - [ ] Replace the signature using your own replay attack.</br>
 
-**Discussion:**
+**Trust X Questions:**
 
 - What is the significance of Trust X generating the signature?
 - Why does the verification passes even on different signature?
@@ -206,8 +215,12 @@ openssl asn1parse -inform der -in signature.der
 
   ```
 
+**Trust X Questions:**
+
+  - [ ]  Create a new message "I want to go home early!". Sign the message and Client verify.
+
 ## Task 7: A very special accessory authentication use case
-One-way authentication is a process where an entity is trying to identify the true identity of the communicating party. Prior to the authentication process, both parties had already established some common understanding. For example, they will need to agree upon common ECC parameters, type of hash process and message format.
+One-way authentication is a process where an entity is trying to identify the true identity of the communicating party. Prior to the authentication process, both parties should have already established some common understanding. For example, they will need to agree upon common ECC parameters, type of hash process and message format.
 
 In this task, there are 2 parts 7A and 7B.
 
@@ -230,7 +243,7 @@ Implements the One-way authentication with the least amount of time.
 
 # Mission: Simplified Firmware Update
 Study the example of E10_PseudoTLS where the ECDH operation occurs with a single Trust X.
-- Find a partner for this mission. In this mission, implements Secure Firmware update of XMC2Go using 2 Trust X(s) and OpenSSL.
+- Get a partner for this mission. For this mission, implements a simplified Secure Firmware update of XMC2Go using 2 Trust X(s) and OpenSSL.
 One of the Trust X operates the role of firmware update server and the other will be firmware update client.
 The server will prepare the firmware package for the client to be updated.
 
