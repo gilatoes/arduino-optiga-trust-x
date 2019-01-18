@@ -73,7 +73,7 @@ For this part of training, a XMC2Go board will be used as the MCU I2C host contr
 [XMC2Go]<br/>
 (https://www.infineon.com/cms/en/product/evaluation-boards/kit_xmc_2go_xmc1100_v1/).
 
-For the ease of use, you will be issued with a Boot Camp Edition of XMC2Go with Sheidl2Go token. All the exercises should be accomplished using this mission board.
+For the ease of use, you will be issued with a Boot Camp Edition of XMC2Go and a detachable Shield2Go token. All the exercises should be accomplished using this mission board.
 
 For manual wire jumping of XMC2Go board with a Trust X Shield2Go board, please refer to schematic and PCB information [Mission Arduino - XMC2Go with Shield2Go]<br/>
 (https://easyeda.com/gilatoes/mission-1-xmc2go)

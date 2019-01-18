@@ -1,19 +1,22 @@
 #######################################
-# Syntax Coloring Map For Wire
+# Syntax Coloring Map For TrustX
 #######################################
 
 #######################################
-# Datatypes (KEYWORD1)
+# Instances (KEYWORD1)
 #######################################
-eOID_d	KEYWORD1
-eSessionCtxId_d	KEYWORD1
+trustX	KEYWORD1
+Sha256	KEYWORD1
+uECC_verify	KEYWORD1
+aes	KEYWORD1
+
 #######################################
 # Methods and Functions (KEYWORD2)
 #######################################
 
-begin	KEYWORD2
+#begin	KEYWORD2
 checkChip	KEYWORD2
-reset	KEYWORD2
+#reset	KEYWORD2
 getCertificate	KEYWORD2
 getPublicKey	KEYWORD2
 getUniqueID	KEYWORD2
@@ -28,30 +31,31 @@ verifySignature	KEYWORD2
 sharedSecret	KEYWORD2
 sharedSecretWithExport	KEYWORD2
 generateKeypair	KEYWORD2
+getArbitaryDataObject	KEYWORD2
+setArbitaryDataObject	KEYWORD2
+getMetaData	KEYWORD2
+printDataObject	KEYWORD2
+printmetadata	KEYWORD2
+set_key	KEYWORD2
+cbc_encrypt	KEYWORD2
+cbc_decrypt	KEYWORD2
 
 #######################################
-# Instances (KEYWORD2)
+# PseudoTLS Constants (LITERAL1)
 #######################################
+PubKeyStore_OID_1	LITERAL1
+PrivateKeyStore_1	LITERAL1
+ShareSecretStore_OID_1	LITERAL1
+MasterKey_1	LITERAL1
+derivekey1	LITERAL1
+oid_data1	LITERAL1
 
-trustX	KEYWORD2
-
 #######################################
-# Constants (LITERAL1)
+# PseudoTLS Constants (LITERAL2)
 #######################################
-eLCS_G	LITERAL1
-eSECURITY_STATUS_G	LITERAL1
-eCOPROCESSOR_UID	LITERAL1
-eSLEEP_MODE_ACTIVATION_DELAY	LITERAL1
-eCURRENT_LIMITATION	LITERAL1
-eSECURITY_EVENT_COUNTER	LITERAL1
-eDEVICE_PUBKEY_CERT_IFX	LITERAL1
-eDEVICE_PUBKEY_CERT_PRJSPC_1	LITERAL1
-eDEVICE_PUBKEY_CERT_PRJSPC_2	LITERAL1
-eDEVICE_PUBKEY_CERT_PRJSPC_3	LITERAL1
-eFIRST_DEVICE_PRIKEY_1	LITERAL1
-eFIRST_DEVICE_PRIKEY_2	LITERAL1
-eFIRST_DEVICE_PRIKEY_3	LITERAL1
-eFIRST_DEVICE_PRIKEY_4	LITERAL1
-eLCS_A	LITERAL1
-eSECURITY_STATUS_A	LITERAL1
-eERROR_CODES	LITERAL1
+PubKeyStore_OID_2	LITERAL2
+PrivateKeyStore_2	LITERAL2
+ShareSecretStore_OID_2	LITERAL2
+MasterKey_2	LITERAL2
+derivekey2	LITERAL2
+oid_data2	LITERAL2
