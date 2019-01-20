@@ -219,7 +219,7 @@ openssl asn1parse -inform der -in signature.der
 
   - [ ]  Create a new message "I want to go home early!". Sign the message and Client verify.
 
-## Task 7: Unique accessory authentication use case
+## Task 7: Unique authentication and optimization
 One-way authentication is a process where an entity is trying to identify the true identity of the communicating party. Prior to the authentication process, both parties should have already established some common understanding. For example, they will need to agree upon common ECC parameters, type of hash process and message format.
 
 In this task, there are 2 parts 7A and 7B.
