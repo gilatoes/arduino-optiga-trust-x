@@ -7,7 +7,7 @@ Infineon's [OPTIGA&trade; Trust X] is a security controller (https://www.infineo
 ## Objectives of the OPTIGA&trade; Trust X Boot Camp
 The Boot Camp aims to guide its participant the fundamental concepts and principles of information security using Infineon OPTIGA&trade; Trust X (hereafter called Trust X). These concepts and principles are relevant in all computing environments regardless of hardware platform or operating systems. Apart from the theory, the Boot Camp emphasis on kinesthetic learning and activities  which further instil confidence and product knowledge.
 
-Infineon XMC2Go MCU and Arduino environment will be used as the embedded platform. Example codes a.k.a sketches in Arduino are provided with the Trust X integration library (hereafter called Library). These sample codes perform some useful tasks using the Library API are good starting point for the Mission and Tasks section. Apart from Arduino development, participants will also be utilizing the OpenSSL - most popular cryptography library to complete some of the more complex tasks.
+A hardware platform with Infineon XMC2Go MCU and Trust X magnetic connector (hereafter called Exerciser) together with Arduino environment will be used as the embedded platform. Example codes a.k.a sketches in Arduino are provided with the Trust X integration library (hereafter called Library). These sample codes perform some useful tasks using the Library API are good starting point for the Mission and Tasks section. Apart from Arduino development, participants will also be utilizing the OpenSSL - most popular cryptography library to complete some of the more complex tasks.
 
 At the end of this Boot Camp session, participants will understand basic security concepts, capabilities of the Library and applying Trust X hardware in real-world application.
 
@@ -67,15 +67,15 @@ There is a list of other software and tools useful for Boot Camp. They are fairl
 7. Decompression tool eg. Zip-7
 
 ## Hardware for Boot Camp
-For this part of training, a XMC2Go board will be used as the MCU I2C host controller for Trust X. The MCU board comes with a JTAG programmer needs to be connected to a Windows based PC for flashing the firmware.
+For this part of training, an Exerciser board will be used as the MCU I2C host controller for Trust X. The Exerciser comes with a JTAG programmer that needs to be connected to a Windows based PC for flashing the firmware.
 
-* XMC2Go (Infineon Technologies, XMC1100, Cortex M0)
+* Exerciser (Infineon Technologies, XMC1100, Cortex M0)
 [XMC2Go]<br/>
 (https://www.infineon.com/cms/en/product/evaluation-boards/kit_xmc_2go_xmc1100_v1/).
 
-For the ease of use, you will be issued with a Boot Camp Edition of XMC2Go and a detachable Shield2Go token. All the exercises should be accomplished using this mission board.
+The Boot Camp Edition of Exerciser comes with a magnetic detachable Shield2Go token. Unless stated otherwise, all tasks should be accomplished using the Exerciser.
 
-For manual wire jumping of XMC2Go board with a Trust X Shield2Go board, please refer to schematic and PCB information [Mission Arduino - XMC2Go with Shield2Go]<br/>
+For make-it-yourself board, please refer to schematic and PCB information [Mission Arduino - XMC2Go with Shield2Go]<br/>
 (https://easyeda.com/gilatoes/mission-1-xmc2go)
 
 Once the XMC and Trust X Library has been installed on the PC, you can try to open the helloBootCamp example. Perform the **Verify** and **Upload** to flash the MCU firmware to make sure that the environment has been properly setup.
@@ -91,7 +91,7 @@ This is a good time for you to setup the environment.
 
 From the menu, **Preferences**->"Show verbose output during compilation and upload." As the compilation and uploading can takes a few minutes enabling verbose output enables monitoring and debugging the software build process.
 
-With the XMC2Go connected to the host PC, check the device manager for the Port->"JLink CDC UART Port".
+With the Exerciser connected to the host PC, check the device manager for the Port->"JLink CDC UART Port".
 Take note of the communication port number.
 Going back to the Arduino IDE, select from the menu **Tool**->**Port**->Com number from the device manager
 
@@ -101,9 +101,9 @@ When the serial monitor is activating the serial monitor, make sure that the bau
 Select from the menu **Tool**->**Boards**->**XMC2Go** so that it will select the correct Infineon toolchain used for the software compilation.
 Click on the Verify button and check sketch is compiling using the Infineon toolchain. If there is no print message, make sure that you have enabled verbose output.
 
-Click on the Upload button to download the compiled binary to XMC2Go.
+Click on the Upload button to download the compiled binary to Exerciser.
 
-Click on the Serial Monitor button to show the serial output from XMC2Go. If there is no output, make sure that the baud rate is set to 115200 at the bottom of the serial monitor.
+Click on the Serial Monitor button to show the serial output from Exerciser. If there is no output, make sure that the baud rate is set to 115200 at the bottom of the serial monitor.
 
 ### E01_HelloBootCamp
 HelloBootCamp example helps to verify that the XMC and Trust X library are compiled correctly. Compiling and uploading the code should display both version number of the libraries indicating that the library has been executed correctly.

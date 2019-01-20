@@ -1,0 +1,6 @@
+{
+    "sketch": "E03_GetUniqueID.ino",
+    "port": "COM37",
+    "board": "Infineon:arm:XMC1100_XMC2GO",
+    "configuration": "UART=debug"
+}

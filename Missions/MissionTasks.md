@@ -219,17 +219,17 @@ openssl asn1parse -inform der -in signature.der
 
   - [ ]  Create a new message "I want to go home early!". Sign the message and Client verify.
 
-## Task 7: A very special accessory authentication use case
+## Task 7: Unique accessory authentication use case
 One-way authentication is a process where an entity is trying to identify the true identity of the communicating party. Prior to the authentication process, both parties should have already established some common understanding. For example, they will need to agree upon common ECC parameters, type of hash process and message format.
 
 In this task, there are 2 parts 7A and 7B.
 
 #### Part A
-Study E08_OneWay_Auth example carefully. This example works on any Trust X. Try switching Trust X with your fellow camp mate. In this part of the exercise, implement *asymmetric cryptography* such that only your Trust X can work on your board or host code.
+Study E08_OneWay_Auth example carefully. This example works on any Trust X. Try switching Trust X with your fellow camp mate. In this part of the exercise, implement *asymmetric cryptography* your Trust X works uniquely on your Exerciser.
 
 ### Condition:
-  - [ ] Your XMC2Go will only work with your own Trust X.
-  - [ ] Attaching other Trust X device should fail on your board.
+  - [ ] Personalize your Exerciser such that it will only works uniquely with a single Trust X.
+  - [ ] Attaching other Trust X device should fail on your Exerciser.
 
   *Hint:* There is something to do with the Public Key. :-)
 
@@ -238,12 +238,12 @@ Implements the One-way authentication with the least amount of time.
 
 ### Memory footprints
   - [ ] Compare hardware and software verification approach.
-  - [ ] Compete with your camp mates for the least XMC2Go memory foot print. Check the compiled memory footprint, least memory usage wins!
+  - [ ] Compete with your camp mates for the least Exerciser memory foot print. Check the compiled memory footprint, least memory usage wins!
   - [ ] Compete the speed of the 1-way Authentication. Least time wins!
 
 # Mission: Simplified Firmware Update
 Study the example of E10_PseudoTLS where the ECDH operation occurs with a single Trust X.
-- Get a partner for this mission. For this mission, implements a simplified Secure Firmware update of XMC2Go using 2 Trust X(s) and OpenSSL.
+- Get a partner for this mission. For this mission, implements a simplified Secure Firmware update of Exerciser using 2 Trust X(s) and OpenSSL.
 One of the Trust X operates the role of firmware update server and the other will be firmware update client.
 The server will prepare the firmware package for the client to be updated.
 
@@ -289,7 +289,7 @@ openssl dgst -sha256 XMC2Go_FWUpdate_2.hex.enc
 openssl enc -d -nosalt -aes-256-cbc -in XMC2Go_FWUpdate_2.hex.enc -out XMC2Go_FWUpdate_2.hex -base64 -K <key> -iv 61A813408638CCCD67DA288B4142BF10
 ```
 
-- [ ] Perform firmware update on XMC2Go. (Use JFlash in this step)
+- [ ] Perform firmware update on Exerciser. (Use JFlash in this step)
 - [ ] Use a terminal program to see what does the updated firmware do.
 
 ___
