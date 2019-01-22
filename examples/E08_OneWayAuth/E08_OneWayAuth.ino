@@ -41,7 +41,7 @@
 #define SIGN_LENGTH   80
 #define PUBKEY_LENGTH 68
 
-#define ASSERT(ret)   if(ret){debug_print("\r\nCheck:%d: %s\r\n", __LINE__, __func__);return 0;}
+#define ASSERT(ret)   if(ret){debug_print("\r\nCheck:%d: %s\r\n", __LINE__, __func__);}
 
 /*
  * Allocating buffers for further use in loop()
