@@ -30,7 +30,8 @@ https://www.eftlab.co.uk/index.php/downloads/bp-tools<br/>
 
 ## Task 1: HelloBootCamp
 - [ ]  BootCamp orientation of hardware and software. Logistics and distribution of available resources.
-- [ ]  Attach the Trust X with magnetic connector to the Boot Camp breakout board and execute the E01_HelloBootcamp example.</br>
+- [ ]  Attach the Trust X with magnetic connector to the Boot Camp breakout board and execute the E01_HelloBootcamp example.
+- [ ] Trust X library is installed in the following default folder. ***C:\Users\xxxx\Documents\Arduino\libraries\arduino-optiga-trust-x\***</br>
 
 **Questions & Discussion:**
 
