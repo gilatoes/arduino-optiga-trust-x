@@ -39,7 +39,7 @@ https://www.eftlab.co.uk/index.php/downloads/bp-tools<br/>
 - [ ]  Find out which file stores the Trust X library version number?
 
 ## Task 2: GPIO and I2C Debug and Analysis Exercise
-In this task, there will be some changes required for your Trust X library. You are expected to take reference from Trust X Datasheet located in the doc folder, read up I2C fundamentals and connect up Logic analyzer and/or I2C analyzer for this task. Use E02_ConfigI2C sketch example as your starting point.
+In this task, there will be some changes required for your *Trust X library*. You are expected to take reference from Trust X Datasheet located in the doc folder, read up I2C fundamentals and connect up Logic analyzer and/or I2C analyzer for this task. Use E02_ConfigI2C sketch example as your starting point.
 - [ ]  Refer to Trust X datasheet V2.5 section 5.1.6.2
 - [ ]  Monitor and enable warm reset using GPIO (P0.0).</br>
 
@@ -58,7 +58,7 @@ This task consists of 2 parts. First, read and decode the Trust X UID. Second, u
 *Hint:* Use E05_GetCertificate example as a starting point. You will need to convert the Hex value to Base64 value then decode it using certificate decoder tools.
 
 ## Task 4: Concepts of Digital Signature using ECC Asymmetric keys
-*Note:* In this task, only OpenSSL program is used.
+*Note:* In this task, please use Windows Powershell and OpenSSL program.
 
 Digital signature is a mathematical scheme for presenting the authenticity of digital messages or documents.
 A valid digital signature gives a recipient reason to believe that the message was created by a known sender
