@@ -17,8 +17,6 @@ https://www.saleae.com/downloads/<br/>
 https://www.eclipse.org/downloads/<br/>
  - Terminal Software e.g MobaXterm(Free edition), Tera Term or Putty (Optional)<br/>
 https://mobaxterm.mobatek.net/download.html<br/>
- - Total Phase Beagle Software and driver (Optional)<br/>
-https://www.totalphase.com/products/data-center/<br/>
  - BP Tools (Optional)<br/>
 https://www.eftlab.co.uk/index.php/downloads/bp-tools<br/>
  - Decompression tool e.g Zip-7 (Optional)<br/>
