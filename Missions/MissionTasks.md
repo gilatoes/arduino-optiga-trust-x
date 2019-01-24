@@ -24,10 +24,12 @@ https://www.eftlab.co.uk/index.php/downloads/bp-tools<br/>
 
 - [ ]  After installing the Boot Camp Trust X repo, start E00_Minimal example and ensure that it can be compiled without any error.
 - [ ]  Open the Windows command prompt. Alternatively, on Windows 10, there is a more advance interface calls Windows Powershell. Open ise from the command prompt.
-- [ ]  Ensure that Openssl is installed and can be accessed from the powershell. Use the "openssl version" to check the path accessibility. If openssl is installed but cannot be found, please update the Windows System path.
+- [ ]  Ensure that Openssl is installed and can be accessed from the *powershell*. Use the "openssl version" to check the path accessibility. If openssl is installed but cannot be found, please update the Windows System path.
+- [ ]  Access the OpenSSL sandbox folder. Try out some of the OpenSSL commands from the Trust X BootCamp Cheatsheet.
 
 ## Task 1: HelloBootCamp
-- [ ]  BootCamp orientation of hardware and software. Logistics and distribution of available resources.
+- [ ]  BootCamp orientation of hardware and software (Arduino and OpenSSL sandbox).
+- [ ]  Logistics and distribution of available resources.
 - [ ]  Attach the Trust X with magnetic connector to the Boot Camp breakout board and execute the E01_HelloBootcamp example.
 - [ ] Trust X library is installed in the following default folder. ***C:\Users\xxxx\Documents\Arduino\libraries\arduino-optiga-trust-x\***</br>
 
