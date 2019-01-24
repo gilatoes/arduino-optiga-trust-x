@@ -166,6 +166,7 @@ Study the E07_SignVerify sketch example carefully.
 - [ ] Hash the message.
 - [ ] Sign the message with the server secret key.
 - [ ] Server will provides the server certificate, message and signature to client.
+*Important*: Use Windows Powershell to execute the commands below. Alternatively, you can to manually create the message file.
 
 ```
 #Message=OPTIGA Trust X BootCamp
