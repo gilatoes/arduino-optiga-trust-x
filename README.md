@@ -11,6 +11,8 @@ A hardware platform with Infineon XMC2Go MCU and Trust X magnetic connector (her
 
 At the end of this Boot Camp session, participants will understand basic security concepts, capabilities of the Library and applying Trust X hardware in real-world application.
 
+*Important*: The Trust X driver source code is forked from Infineon Github and frozen for training purposes. Hence, it is neither updated regularly nor qualify for production. Please refer to offical Infineon Github https://github.com/Infineon/arduino-optiga-trust-x for the updated and latest release.
+
 ## Getting Started
 
 The Boot Camp is designed based on the assumption that its trainee had little or no prior knowledge on information security.
