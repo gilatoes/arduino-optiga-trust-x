@@ -47,7 +47,7 @@ In this task, there will be some changes required for your *Trust X library*. Yo
 
 - [ ]  What is the default Trust X I2C address?
 - [ ]  What is the current I2C bus speed?
-- [ ]  Modify and increase the I2C bus frequency. Monitor the updated bus frequency using either an I2C analyzer, logic analyzer or oscilloscope.
+- [ ]  Modify and increase the I2C bus frequency. Monitor the updated bus frequency using either an I2C analyzer or logic analyzer.
 - [ ]  Modify the I2C address of Trust X to 0x40.
 
 ## Task 3: Trust X Object IDs
