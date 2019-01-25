@@ -160,11 +160,9 @@ uint8_t reset()
   }
   Serial.println("OK");
 
-   /*
-   * Speedup the board (from 6 mA to 15 mA)
-   */
-  Serial.println("Limiting Current consumption (15mA - means no limitation)");
-  ret = trustX.setCurrentLimit(15);
+
+  Serial.println("Initializing Current consumption");
+  ret = trustX.setCurrentLimit(6);
   if (ret) {
     Serial.println("Failed");
     return -1;

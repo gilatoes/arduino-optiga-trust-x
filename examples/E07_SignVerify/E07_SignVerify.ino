@@ -30,6 +30,7 @@ Please refer to offical Infineon Github https://github.com/Infineon/arduino-opti
 #include "OPTIGATrustX.h"
 #include "debug.h"
 
+#define Generate_New_Key   0
 //Max length of DER Encoded ECDSA signature using 256-bit EC Key
 #define SIGN_MAX_LENGTH		72
 #define MESSAGE_LENGTH    16
@@ -185,12 +186,14 @@ uint8_t ret=0;
     if(ret==0){
       Serial.println("Sign and Verify IFX key failed");
     }
-
+	
+#if (Generate_New_Key==1)
     Serial.println("Sign Message and verify a signature using a new generated public key");
     ret = calculateSignVerifySign_Newkey();
     if(ret==0){
        Serial.println("Sign and Verify new key failed");
     }
+#endif	
   }
 
   Serial.println("\r\nPress i to re-initialize.. other key to loop...");
@@ -220,11 +223,8 @@ uint8_t reset()
   ret = trustX.begin();
   ASSERT(ret);
 
-   /*
-   * Speedup the board (from 6 mA to 15 mA)
-   */
-  Serial.println("Limiting Current consumption (15mA - means no limitation)");
-  ret = trustX.setCurrentLimit(15);
+  Serial.println("Initializing Current setting");
+  ret = trustX.setCurrentLimit(6);
   ASSERT(ret);
 
   return 1;

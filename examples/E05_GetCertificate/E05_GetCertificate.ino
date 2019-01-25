@@ -27,6 +27,25 @@ Please refer to offical Infineon Github https://github.com/Infineon/arduino-opti
  * Infineon Technologies AG OPTIGA™ Trust X Arduino library
  */
 
+ /*
+ * GetCertificate example reads a digital certificate stored within Trust X data Object 0xE0E0. The certificate is encoded in X.509 format and dump out as hex output.
+ * A X.509 certificate contains a public key and an identity that is signed by Infineon Certificate Authority (CA). The certificate can be copy-and-paste into a Hex to Base64 convertor.
+ * Once the certificate is encoded into Base64 format, it should be enclosed with the following text.
+ * certificate format
+ * "-----BEGIN CERTIFICATE----- "
+ * ....
+ * ....
+ * "-----END CERTIFICATE----- ".
+ * [Hex and PEM (Base64) Converter] https://holtstrom.com/michael/tools/hextopem.php
+ * Either use a local OpenSSL software or an online openssl tool to decode the certificate.
+ *
+ * [Certificate Decoder] https://www.sslshopper.com/certificate-decoder.html
+ *
+ * OpenSSL command:
+ * openssl x509 -in <certificate.pem> -text -noout
+ * 
+ */
+ 
 #include "OPTIGATrustX.h"
 #include "debug.h"
 
@@ -115,8 +134,8 @@ uint8_t reset()
    /*
    * Speedup the board (from 6 mA to 15 mA)
    */
-  Serial.println("Limiting Current consumption (15mA - means no limitation)");
-  ret = trustX.setCurrentLimit(15);
+  Serial.println("Initializing Current consumption");
+  ret = trustX.setCurrentLimit(6);
   if (ret) {
     Serial.println("Failed");
     return -1;
