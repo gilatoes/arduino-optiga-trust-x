@@ -163,7 +163,7 @@ host_lib_status_t optiga_comms_set_address(optiga_comms_t *p_ctx, uint8_t new_ad
 		print_debug("Error: Invalid I2C address\r\n");
 		return status;
 	}
-	//print_debug("-calling set address");
+   //print_debug("-calling set address");
 	status = ifx_i2c_set_slave_address((ifx_i2c_context_t*)(p_ctx->comms_ctx), new_address, NON_PERSISTENT);
 
 	if(status==IFX_I2C_STACK_SUCCESS)
