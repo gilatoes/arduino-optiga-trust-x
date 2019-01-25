@@ -45,10 +45,10 @@ In this task, there will be some changes required for your *Trust X library*. Yo
 
 **Questions & Discussion:**
 
-- [ ]  What is the default Trust X I2C address?
+- [ ]  Decode the current Trust X address on I2C bus.
 - [ ]  What is the current I2C bus speed?
 - [ ]  Modify and increase the I2C bus frequency. Monitor the updated bus frequency using either an I2C analyzer or logic analyzer.
-- [ ]  Modify the I2C address of Trust X to 0x40.
+- [ ]  Modify the I2C host code to communicate with a Trust X which has address 0x66.
 
 ## Task 3: Trust X Object IDs
 This task consists of 2 parts. First, read and decode the Trust X UID. Second, using your issued Trust X, determine the Public Key issued by Infineon CA.
