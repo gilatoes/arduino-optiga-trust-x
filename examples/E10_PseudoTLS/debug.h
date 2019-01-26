@@ -1,5 +1,8 @@
-/* This source code is forked from Infineon Github and frozen for training purposes. Hence, it is neither updated regularly nor qualify for production. 
-Please refer to offical Infineon Github https://github.com/Infineon/arduino-optiga-trust-x for the updated and latest release */
+/* This source code is forked from Infineon GitHub, frozen and modified for training purposes. 
+ * Therefore, it is neither updated regularly nor qualify for production. 
+ * Please refer to official Infineon GitHub https://github.com/Infineon/arduino-optiga-trust-x 
+ * for the updated and latest release. 
+ */
 #ifndef FPRINT_H
 #define FPRINT_H
 
