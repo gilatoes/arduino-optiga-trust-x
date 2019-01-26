@@ -39,7 +39,7 @@ https://www.eftlab.co.uk/index.php/downloads/bp-tools<br/>
 - [ ]  Find out which file stores the Trust X library version number?
 
 ## Task 2: GPIO and I2C Debug and Analysis Exercise
-In this task, there will be some changes required for your *Trust X library*. You are expected to take reference from Trust X Datasheet located in the doc folder, read up I2C fundamentals and connect up Logic analyzer and/or I2C analyzer for this task. Use E02_ConfigI2C sketch example as your starting point.
+In this task, there will be some changes required for your *Trust X library*. You are expected to take reference from Trust X Datasheet located in the doc folder, read up I2C fundamentals and connect up Logic analyzer and/or I2C analyzer for this task. Use E02_ReadMaxCommBufferSize sketch example as your starting point.
 - [ ]  Refer to Trust X datasheet V2.5 section 5.1.6.2
 - [ ]  Monitor and enable warm reset using GPIO (P0.0).</br>
 
@@ -48,7 +48,8 @@ In this task, there will be some changes required for your *Trust X library*. Yo
 - [ ]  Decode the current Trust X address on I2C bus.
 - [ ]  What is the current I2C bus speed?
 - [ ]  Modify and increase the I2C bus frequency. Monitor the updated bus frequency using either an I2C analyzer or logic analyzer.
-- [ ]  Modify the I2C host code to communicate with a Trust X which has address 0x66.
+- [ ]  Replace a new Trust X with address 0x66. Modify the I2C host library to communicate this Trust X.
+- [ ]  Restore the host library to original value.
 
 ## Task 3: Trust X Object IDs
 This task consists of 2 parts. First, read and decode the Trust X UID. Second, using your issued Trust X, determine the Public Key issued by Infineon CA.
