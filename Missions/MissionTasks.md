@@ -1,27 +1,70 @@
 # Tasks and Mission:
 ## Task 0: Boot Camp Environment Setup
-- [ ]  Download and setup all the required software and tools.<br/>
- - Follow XMC Arduino Github for instruction to install XMC & Arduino IDE.<br/>
-https://github.com/Infineon/XMC-for-Arduino<br/>
- - XMC Library version 1.2.1 (Github)<br/>
-https://github.com/Infineon/XMC-for-Arduino<br/>
- - Arduino IDE version 1.8.8<br/>
-https://www.arduino.cc/en/main/software<br/>
- - SEGGER J-Link (J-Link Software and Documentation pack for Windows)<br/>
-https://www.segger.com/downloads/jlink<br/>
- - OpenSSL for Windows v1.1.0j<br/>
-https://slproweb.com/products/Win32OpenSSL.html<br/>
- - Saleae Logic Analyzer<br/>
-https://www.saleae.com/downloads/<br/>
- - Source editor e.g Eclipse (Optional)<br/>
-https://www.eclipse.org/downloads/<br/>
- - Terminal Software e.g MobaXterm(Free edition), Tera Term or Putty (Optional)<br/>
-https://mobaxterm.mobatek.net/download.html<br/>
- - BP Tools (Optional)<br/>
-https://www.eftlab.co.uk/index.php/downloads/bp-tools<br/>
- - Decompression tool e.g Zip-7 (Optional)<br/>
- - PDF reader e.g Adobe PDF reader (Optional)<br/>
 
+ - Follow XMC-for-Arduino GitHub for Arduino.<br/>
+ https://github.com/Infineon/XMC-for-Arduino<br/>
+
+- SEGGER J-Link (J-Link Software and Documentation pack for Windows)<br/>
+https://www.segger.com/downloads/jlink</br>
+
+- Arduino IDE version 1.8.8<br/>
+https://www.arduino.cc/en/main/software<br/>
+
+### Trust X and Library
+Download this GitHub contents to get the Trust X integration library and examples.<br/>
+
+To install Trust X Library in the Arduino IDE:<br/>
+Click on the Clone or download button on GitHub. Select Download ZIP and download the GitHub repository as a Zip file. The zip file will be saved as arduino-optiga-trust-x-master.zip in your local disk drive.<br/>
+
+**Sketch** > **Include Library** > **Add .ZIP Library...** in the Arduino IDE and navigate to the downloaded .ZIP file of this repository. The library will be installed in your Arduino sketch folder in libraries and you can select as well as include this one to your project under **Sketch** > **Include Library** > **OPTIGATrustX**.
+
+![Install Library](https://raw.githubusercontent.com/infineon/assets/master/Pictures/Library_Install_ZIP.png)
+
+### OpenSSL for Windows:<br/>
+Windows version of OpenSSL can be downloaded from the following website.<br/>
+https://slproweb.com/products/Win32OpenSSL.html<br/>
+The latest OpenSSL version tested with this is 1.1.0j.
+
+Alternative 64-bit OpenSSL version 1.1.0j<br/>
+https://drive.google.com/open?id=1_vJvLmCBT-J4bUEO13knatdqlXihJlxA
+
+Alternative 32-bit OpenSSL version 1.1.0j<br/>
+https://drive.google.com/open?id=14hmdRW_pZ-m2mHYHeaOgdNiHAnBf8aeZ
+
+After installing OpenSSL, the binary path location needs to be added to the Environment Path variable. This allows OpenSSL to be accessible from any folder from the computer.
+
+### Testing OpenSSL
+Open the Command Prompt window from the Windows menu, type in "openssl version".
+If OpenSSL has been installed correctly with the Path setting, it will shows the current OpenSSL version.
+
+Apart from the simple test, another option is the "openssl speed" command that will run some cryptographic commands and benchmarking to verify that OpenSSL is operational.
+
+### Other softwares and tools
+There is a list of other software and tools useful for Boot Camp. They are fairly straight-forward to install therefore there shall be no further explaination.
+1. Terminal software e.g MobaXterm (free), Tera Terminal or Putty (https://mobaxterm.mobatek.net/download.html)
+2. Saleae Logic Analyzer software (https://www.saleae.com/downloads/)
+3. BP Tools (https://www.eftlab.co.uk/index.php/downloads/bp-tools)
+4. Source Code editor e.g Eclipse (https://www.eclipse.org/downloads/)
+5. Source Code editor e.g Notepad++ (https://notepad-plus-plus.org/download/v7.6.2.html)
+5. PDF reader e.g. Adobe PDF reader
+6. Decompression tool eg. Zip-7
+
+## Hardware for Boot Camp
+An Exerciser board will be used as the MCU I2C host controller for Trust X. The Exerciser comes with a JTAG programmer that needs to be connected to a Windows based PC for flashing the firmware.
+
+* Exerciser (Infineon Technologies, XMC1100, Cortex M0)
+[XMC2Go]<br/>
+(https://www.infineon.com/cms/en/product/evaluation-boards/kit_xmc_2go_xmc1100_v1/).
+
+The Boot Camp Edition of Exerciser comes with a magnetic detachable Shield2Go token. Unless stated otherwise, all tasks should be accomplished using the Exerciser.
+
+For make-it-yourself board, please refer to schematic and PCB information [Mission Arduino - XMC2Go with Shield2Go]<br/>
+(https://easyeda.com/gilatoes/mission-1-xmc2go)
+
+Once the XMC and Trust X Library has been installed on the PC, you can try to open the helloBootCamp example. Perform the **Verify** and **Upload** to flash the MCU firmware to make sure that the environment has been properly setup.
+
+### Task 0 Checklist:
+- [ ]  Download and setup all the required software and tools.<br/>
 - [ ]  After installing the Boot Camp Trust X repo, start E00_Minimal example and ensure that it can be compiled without any error.
 - [ ]  Open the Windows Powershell. Alternatively, on Windows 10, there is a more advance interface calls "ise". Open ise from the Powershell prompt.
 - [ ]  Ensure that OpenSSL is installed and can be accessed from the *powershell*. Use the "openssl version" to check the path accessibility. If OpenSSL is installed but cannot be found, please update the Windows System path.
@@ -37,15 +80,18 @@ https://www.eftlab.co.uk/index.php/downloads/bp-tools<br/>
 
 - [ ]  What is the current XMC and Trust X library version?
 - [ ]  Find out which file stores the Trust X library version number?
+*Hint:* You might need to use a search tool to speed up the process.
 
 ## Task 2: GPIO and I2C Debug and Analysis Exercise
+*Note:* Get your Exerciser COM port using Windows Device Manager.
+
 In this task, there will be some changes required for your *Trust X library*. You are expected to take reference from Trust X Datasheet located in the doc folder, read up I2C fundamentals and connect up Logic analyzer and/or I2C analyzer for this task. Use E02_ReadMaxCommBufferSize sketch example as your starting point.
 - [ ]  Refer to Trust X datasheet V2.5 section 5.1.6.2
 - [ ]  Monitor and enable warm reset using GPIO (P0.0).</br>
 
 **Questions & Discussion:**
 
-- [ ]  Decode the current Trust X address on I2C bus.
+- [ ]  Capture some logic signal on the SCL, SDA and GND lines. Decode the current Trust X address on I2C bus.
 - [ ]  What is the current I2C bus speed?
 - [ ]  Modify and increase the I2C bus frequency. Monitor the updated bus frequency using either an I2C analyzer or logic analyzer.
 - [ ]  Replace a new Trust X with address 0x66. Modify the I2C host library to communicate this Trust X.
