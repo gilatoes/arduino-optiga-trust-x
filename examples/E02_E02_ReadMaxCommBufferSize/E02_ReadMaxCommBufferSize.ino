@@ -66,21 +66,18 @@ uint8_t reset()
 
 void loop()
 {
-   uint8_t  security_event_counter[1];
+   uint8_t  max_comm_buffer_size[1];
    uint32_t ret=0;
-   uint16_t SEC_OID=0xE0C5;
-   uint16_t SEC_SIZE=1;
+   uint16_t MAX_COM_BUFFER_SIZE_OID=0xE0C6;
+   uint16_t MAX_COM_BUFFER_SIZE_SIZE=1;
 
   if(sys_init)
   {
-    Serial.println("Implement the I2C address change here!");
-    //ret = trustX.getArbitaryDataObject(SEC_OID, security_event_counter, SEC_SIZE);
-    //Serial.print("Security event counter:");
-    //Serial.println(security_event_counter[0], HEX);
+    //Get Max Com buffer Size  = 0xE0C6
+    ret = trustX.getArbitaryDataObject(MAX_COM_BUFFER_SIZE_OID, max_comm_buffer_size, MAX_COM_BUFFER_SIZE_SIZE);
+    Serial.print("Max Communication Buffer Size:");
+    Serial.println(max_comm_buffer_size[0], HEX);
 
-    //restore the I2C address to default(optional)
-
-    Serial.println("End of I2C address routine.");
   }
   Serial.println("\r\nPress i to re-initialize.. other key to loop...");
   while (Serial.available()==0){} //Wait for user input
