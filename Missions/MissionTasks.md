@@ -58,10 +58,25 @@ An Exerciser board will be used as the MCU I2C host controller for Trust X. The 
 
 The Boot Camp Edition of Exerciser comes with a magnetic detachable Shield2Go token. Unless stated otherwise, all tasks should be accomplished using the Exerciser.
 
-For make-it-yourself board, please refer to schematic and PCB information [Mission Arduino - XMC2Go with Shield2Go]<br/>
-(https://easyeda.com/gilatoes/mission-1-xmc2go)
+Once you got the Exercise, ensure that Segger, XMC and Trust X library are installed on your PC. you can try to open the helloBootCamp example.
 
-Once the XMC and Trust X Library has been installed on the PC, you can try to open the helloBootCamp example. Perform the **Verify** and **Upload** to flash the MCU firmware to make sure that the environment has been properly setup.
+From the menu, **Preferences**->"Show verbose output during compilation and upload." As the compilation and uploading can takes a few minutes enabling verbose output enables monitoring and debugging the software build process.
+
+With the Exerciser connected to the host PC, check the device manager for the **Port->"JLink CDC UART Port"**.
+Take note of the communication port number.
+Going back to the Arduino IDE, select from the menu **Tool**->**Port**->Com number from the device manager.
+
+The default serial monitor of all the programs used in this boot camp is **115200 baud, 8 bit None parity and 1 stop bit**.
+When the serial monitor is activating the serial monitor, make sure that the baud rate is set correctly.
+
+Select from the menu **Tool**->**Boards**->**XMC2Go** so that it will select the correct Infineon toolchain used for the software compilation.
+Click on the **Verify** button and check sketch is compiling using the Infineon toolchain. If there is no print message, make sure that you have enabled verbose output.
+
+Click on the **Upload** button to download the compiled binary to Exerciser.
+
+Click on the **Serial Monitor** button to show the serial output from Exerciser. If there is no output, make sure that the baud rate is set to 115200 at the bottom of the serial monitor.
+
+There should be no error during Verify and Upload.
 
 ### Task 0 Checklist:
 - [ ]  Download and setup all the required software and tools.<br/>

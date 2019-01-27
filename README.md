@@ -19,7 +19,12 @@ The Boot Camp is designed based on the assumption that its trainee had little or
 
 It is recommended that using a Windows OS computer (Windows 10 64-bit preferred) with at least 5GB of free disk space for all the software tools and documentation. You must have administration rights for software installation and execution.
 
-Follow the kinesthetic tasks here:
+### Exerciser Information
+For make-it-yourself board, please refer to schematic and PCB information [Mission Arduino - XMC2Go with Shield2Go]<br/>
+(https://easyeda.com/gilatoes/mission-1-xmc2go)
+
+### kinesthetic Tasks
+Follow the detail setup here:
 https://github.com/gilatoes/arduino-optiga-trust-x/blob/master/Missions/MissionTasks.md
 
 ## Examples and sample codes
@@ -28,24 +33,6 @@ The Library is equipped with eleven examples which can be found on the following
 The following section describe all the examples in detail.
 ### E00_Minimal
 The minimal example contains less than 10 lines of codes needed for a sketch to compile in the Arduino Software (IDE). There are only setup() and loop() methods.
-
-This is a good time for you to setup the environment.
-
-From the menu, **Preferences**->"Show verbose output during compilation and upload." As the compilation and uploading can takes a few minutes enabling verbose output enables monitoring and debugging the software build process.
-
-With the Exerciser connected to the host PC, check the device manager for the Port->"JLink CDC UART Port".
-Take note of the communication port number.
-Going back to the Arduino IDE, select from the menu **Tool**->**Port**->Com number from the device manager
-
-The default serial monitor of all the programs used in this boot camp is 115200 baud, 8 bit None parity and 1 stop bit.
-When the serial monitor is activating the serial monitor, make sure that the baud rate is set correctly.
-
-Select from the menu **Tool**->**Boards**->**XMC2Go** so that it will select the correct Infineon toolchain used for the software compilation.
-Click on the Verify button and check sketch is compiling using the Infineon toolchain. If there is no print message, make sure that you have enabled verbose output.
-
-Click on the Upload button to download the compiled binary to Exerciser.
-
-Click on the Serial Monitor button to show the serial output from Exerciser. If there is no output, make sure that the baud rate is set to 115200 at the bottom of the serial monitor.
 
 ### E01_HelloBootCamp
 HelloBootCamp example helps to verify that the XMC and Trust X library are compiled correctly. Compiling and uploading the code should display both version number of the libraries indicating that the library has been executed correctly.
