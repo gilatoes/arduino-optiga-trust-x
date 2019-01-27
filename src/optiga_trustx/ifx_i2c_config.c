@@ -59,7 +59,7 @@
 ifx_i2c_context_t ifx_i2c_context_0 =
 {
     /// Slave address
-    0x66,
+    0x30,
     /// i2c-master frequency
     100,
     /// IFX-I2C frame size
