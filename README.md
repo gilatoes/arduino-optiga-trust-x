@@ -91,9 +91,16 @@ The generated key pair can be used for cryptographic operations.
 PseudoTLS is a simplified example of a TLS session. This example establishes secure channel by generating 2 public-private key pairs within the same Trust X. The public keys are "exchanged" and used to generate common shared secret. This process of establishing common shared secret is known as ECDH. The shared secrets can be used to compute a secret key using the Key derivation function (KDF). KDF can be used to stretch keys into longer keys or converting into symmetric key application. In this case, the derived secret key is used as ephemeral AES encryption-decryption key to securely transmit encrypted messages over insecure medium.
 
 ## Helper Routines
-### H01ObjectDump
-objectDump is a helper routine that displays all Trust X objects. These objects including all data objects and status objects.
+### H01_ObjectDump
+H01_ObjectDump is a helper routine that displays all Trust X objects. These objects including all data objects and status objects.
 This is especially useful for certificates locations.
+
+### H02_ChangeI2CAddress
+H02_ChangeI2CAddress is a helper routine that changes Trust X I2C address. Make sure that Trust X address is pre-programmed in the Trust X driver.
+
+### H03_SearchI2CAddress
+H03_SearchI2CAddress is a helper routine that search for valid Trust X I2C on the bus.
+Valid Trust X address will be shown.
 
 ## Troubleshooting
 1. There are many ways of getting the Arduino platform to work. However, it is advisable to counter check with the original Arduino IDE to duplicate the issue.
