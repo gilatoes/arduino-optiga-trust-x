@@ -109,7 +109,7 @@ In this task, there will be some changes required for your *Trust X library*. Yo
 - [ ]  Capture some logic signal on the SCL, SDA and GND lines. Decode the current Trust X address on I2C bus.
 - [ ]  What is the current I2C bus speed?
 - [ ]  Modify and increase the I2C bus frequency. Monitor the updated bus frequency using either an I2C analyzer or logic analyzer.
-- [ ]  Replace a new Trust X with address 0x66. Modify the I2C host library to communicate this Trust X.
+- [ ]  Replace a new Trust X. Determine its address. Modify the I2C host library to communicate with this Trust X and read out its UID.
 - [ ]  Restore the host library to original value.
 
 ## Task 3: Trust X Object IDs
