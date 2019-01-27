@@ -66,6 +66,66 @@ static void ifx_i2c_event_handler(void* upper_layer_ctx, host_lib_status_t event
  *********************************************************************************************************************/
 
 /**
+ * Initializes the commmunication with OPTIGA with a variable address input.<br>
+ *
+ *<b>Pre Conditions:</b>
+ * - None<br>
+ *
+ *<b>API Details:</b>
+ * - Initializes OPTIGA and establishes the communication channel.<br>
+ * - Initializes the ifx i2c protocol stack and registers the event callbacks.<br>
+ * - Negotiates the frame size and bit rate with the OPTIGA.<br>
+ *<br>
+ *
+ *<b>User Input:</b><br>
+ * - The input #optiga_comms_t p_ctx must not be NULL.<br>
+ * - The following parameters in #optiga_comms_t must be initialized with appropriate values.<br>
+ *      - The <b>comms_ctx</b> must be initialized with a valid #ifx_i2c_context.<br>
+ *      - The <b>upper_layer_event_handler</b> parameter must be properly initialized.
+ *          This is invoked when #optiga_comms_open is asynchronously completed.<br>
+ *      - The <b>upper_layer_ctx</b> must be properly initialized.<br>
+ *
+ *<b>Notes:</b>
+ * - None<br>
+ *
+ *<br>
+ * \param[in,out] p_ctx   Pointer to optiga comms context
+ * \param[in]     uint8_t   search_address 
+ *
+ * \retval  #OPTIGA_COMMS_SUCCESS
+ * \retval  #OPTIGA_COMMS_ERROR
+ * */
+host_lib_status_t optiga_comms_search(optiga_comms_t *p_ctx, uint8_t search_address)
+{
+    host_lib_status_t status = OPTIGA_COMMS_ERROR;
+
+    char tmp[200];
+
+    //print_debug(">optiga_comms_search");
+
+    //Update I2C stack to use the new address
+	((ifx_i2c_context_t*)(p_ctx->comms_ctx))->slave_address=search_address;
+	((ifx_i2c_context_t*)(p_ctx->comms_ctx))->p_pal_i2c_ctx->slave_address=search_address;
+
+	//sprintf(tmp, "current search slave address: 0x%x", ((ifx_i2c_context_t*)(p_ctx->comms_ctx))->slave_address);
+	//print_debug(tmp);
+
+	//sprintf(tmp, "current search slave address: 0x%x\r\n", ((ifx_i2c_context_t*)(p_ctx->comms_ctx))->p_pal_i2c_ctx->slave_address);
+	//print_debug(tmp);
+
+    ((ifx_i2c_context_t*)(p_ctx->comms_ctx))->p_upper_layer_ctx = (void*)p_ctx;
+    ((ifx_i2c_context_t*)(p_ctx->comms_ctx))->upper_layer_event_handler = ifx_i2c_event_handler;
+    status = ifx_i2c_open((ifx_i2c_context_t*)(p_ctx->comms_ctx)); 
+    if (IFX_I2C_STACK_SUCCESS != status)
+    {
+        //Unable to allocate host I2C resources
+        p_ctx->state = OPTIGA_COMMS_FREE;
+    }
+
+    //print_debug("<optiga_comms_search");
+    return status;
+}
+/**
  * Initializes the commmunication with OPTIGA.<br>
  *
  *<b>Pre Conditions:</b>
@@ -317,7 +377,7 @@ host_lib_status_t optiga_comms_transceive(optiga_comms_t *p_ctx,const uint8_t* p
 host_lib_status_t optiga_comms_close(optiga_comms_t *p_ctx)
 {
     host_lib_status_t status = OPTIGA_COMMS_ERROR;
-    print_debug(">optiga_comms_close");
+    //print_debug(">optiga_comms_close");
     if (OPTIGA_COMMS_SUCCESS == check_optiga_comms_state(p_ctx))
     {      
         ((ifx_i2c_context_t*)(p_ctx->comms_ctx))->p_upper_layer_ctx = (void*)p_ctx;
@@ -328,7 +388,7 @@ host_lib_status_t optiga_comms_close(optiga_comms_t *p_ctx)
             p_ctx->state = OPTIGA_COMMS_FREE;
         } 
     }
-    print_debug("<optiga_comms_close");
+    //print_debug("<optiga_comms_close");
     return status;
 }
 

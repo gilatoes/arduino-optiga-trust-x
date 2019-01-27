@@ -96,6 +96,11 @@ int32_t IFX_OPTIGA_TrustX::begin(void)
     return begin(Wire);
 }
 
+int32_t IFX_OPTIGA_TrustX::begin(uint8_t search_address)
+{
+    return begin(Wire, search_address);
+}
+
 
 int32_t IFX_OPTIGA_TrustX::checkChip(void)
 {
@@ -185,6 +190,61 @@ static void optiga_comms_event_handler(void* upper_layer_ctx, host_lib_status_t 
     optiga_comms_status = event;
 }
 
+int32_t IFX_OPTIGA_TrustX::begin(TwoWire& CustomWire, uint8_t address)
+{
+    sOpenApp_d openapp_opt;
+    int32_t ret = CMD_LIB_ERROR;
+
+    do {
+        //Invoke optiga_comms_open to initialize the IFX I2C Protocol and security chip
+        optiga_comms_status = OPTIGA_COMMS_BUSY;
+        optiga_comms.upper_layer_handler = optiga_comms_event_handler;
+
+        //Serial.println("calling optiga_comms_search()");
+
+        if(E_COMMS_SUCCESS != optiga_comms_search(&optiga_comms, address))
+        {
+        	Serial.print("Error: optiga_comms_open() failed.");
+            Serial.println(address,HEX);
+            break;
+        }
+        else{
+            //Serial.print("Address open successfully");
+            //Serial.println(address,HEX);
+
+            //Wait until IFX I2C initialization is complete
+        while(optiga_comms_status == OPTIGA_COMMS_BUSY) {
+            // Push forward timer dependent actions.
+            pal_os_event_process();
+        }
+
+        //Set OPTIGA comms context in Command library before invoking the use case APIs or command library APIs
+        //This context will be used by command library to communicate with OPTIGA using IFX I2C Protocol.
+        CmdLib_SetOptigaCommsContext(&optiga_comms);
+
+        openapp_opt.eOpenType = eInit;
+
+        //Serial.println("Open Trust X application");
+
+        //Open the application in security chip
+        ret = CmdLib_OpenApplication(&openapp_opt);
+        if (CMD_LIB_OK == ret) {
+            CmdLib_GetMaxCommsBufferSize();
+            ret = 0;
+			active = true;
+        }else {
+                optiga_comms_close(&optiga_comms);
+			    //Serial.print(ret, HEX);
+                if((address!=0) && (address%15==0)){
+                    Serial.print("\n");
+                }
+                Serial.print(".");
+            }
+        }
+    }while (0);
+
+    return ret;
+}
 int32_t IFX_OPTIGA_TrustX::begin(TwoWire& CustomWire)
 {
 

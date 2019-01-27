@@ -80,6 +80,10 @@ extern optiga_comms_t optiga_comms;
 /**********************************************************************************************************************
  * API Prototypes
  *********************************************************************************************************************/
+/**
+ * \brief   Search the address of Trust X on I2C.
+ */
+LIBRARY_EXPORTS host_lib_status_t optiga_comms_search(optiga_comms_t *p_ctx, uint8_t search_address);
 
 /**
  * \brief   Opens the communication channel with OPTIGA.

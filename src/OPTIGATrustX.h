@@ -173,6 +173,7 @@ public:
      * @retval  1    If the operation failed.
      */
     int32_t begin(void);
+    int32_t begin(uint8_t search_address);
 
     /**
      *
@@ -186,6 +187,7 @@ public:
      * @retval  1  If the operation failed.
      */
     int32_t begin(TwoWire& CustomWire);
+    int32_t begin(TwoWire& CustomWire, uint8_t search_address);
 
 
 	int32_t checkChip(void);
