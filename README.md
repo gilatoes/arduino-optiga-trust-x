@@ -102,6 +102,9 @@ H02_ChangeI2CAddress is a helper routine that changes Trust X I2C address. Make 
 H03_SearchI2CAddress is a helper routine that search for valid Trust X I2C on the bus.
 Valid Trust X address will be shown.
 
+### H04_CheckValidPublicKey
+H04_CheckValidPublicKey is a helper routine that checks if the ECC Public key is a valid EC point that lies on the ECC curve. Useful for debugging ECDH related issue.
+
 ## Troubleshooting
 1. There are many ways of getting the Arduino platform to work. However, it is advisable to counter check with the original Arduino IDE to duplicate the issue.
 2. Ensure that you can execute the HelloBootCamp example before moving to the crypto examples.

@@ -319,6 +319,7 @@ https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Mission
 - [ ] Generate a new key pair.
  *Hint:* Refer to E07_SignVerify to get the public key.
 - [ ] Exchange the newly generated public key.
+- [ ] Use H04_CheckValidPublicKey example to ensure that the public key is valid.
 - [ ] Both parties calculate the shared secrets and export derived key.
 - [ ] Display the share secrets to proof that ECDH is successful using 2 Trust X(s).
 - [ ] Generate the AES Key from the derived key and display the key.
