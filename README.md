@@ -7,8 +7,6 @@ Infineon's [OPTIGA&trade; Trust X] is a security controller (https://www.infineo
 ## Objectives of the OPTIGA&trade; Trust X Boot Camp
 The Boot Camp aims to guide its participant the fundamental concepts and principles of information security using Infineon OPTIGA&trade; Trust X (hereafter called Trust X). These concepts and principles are relevant in all computing environments regardless of hardware platform or operating systems. Apart from the theory, the Boot Camp emphasis on kinesthetic learning and activities  which further instil confidence and product knowledge.
 
-A hardware platform with Infineon XMC2Go MCU and Trust X magnetic connector (hereafter called Exerciser) together with Arduino environment will be used as the embedded platform. Example codes a.k.a sketches in Arduino are provided with the Trust X integration library (hereafter called Library). These sample codes perform some useful tasks using the Library API are good starting point for the Mission and Tasks section. Apart from Arduino development, participants will also be utilizing the OpenSSL - most popular cryptography library to complete some of the more complex tasks.
-
 At the end of this Boot Camp session, participants will understand basic security concepts, capabilities of the Library and applying Trust X hardware in real-world application.
 
 ***Important***: The Trust X driver source code used in this Boot Camp is forked from Infineon Github, frozen and modified for training purposes. Hence, it is neither updated regularly nor qualify for production. Please refer to official Infineon Github https://github.com/Infineon/arduino-optiga-trust-x for the updated and latest driver release.
@@ -17,14 +15,14 @@ At the end of this Boot Camp session, participants will understand basic securit
 
 The Boot Camp is designed based on the assumption that its trainee had little or no prior knowledge on information security.
 
-It is recommended that using a Windows OS computer (Windows 10 64-bit preferred) with at least 5GB of free disk space for all the software tools and documentation. You must have administration rights for software installation and execution.
-
 ### Exerciser Information
-For make-it-yourself board, please refer to schematic and PCB information [Mission Arduino - XMC2Go with Shield2Go]<br/>
+A hardware platform with Infineon XMC2Go MCU and Trust X magnetic connector (hereafter called Exerciser) together with Arduino environment will be used as the embedded platform. It will be provided during Boot Camp.
+
+If you would like to DIY your own board, please refer to schematic and PCB information [Mission Arduino - XMC2Go with Shield2Go]<br/>
 (https://easyeda.com/gilatoes/mission-1-xmc2go)
 
-### kinesthetic Tasks
-Follow the detail setup here:
+### Kinesthetic Tasks
+Detail task description here:
 https://github.com/gilatoes/arduino-optiga-trust-x/blob/master/Missions/MissionTasks.md
 
 ## Examples and sample codes

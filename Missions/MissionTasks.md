@@ -1,5 +1,6 @@
 # Tasks and Mission:
 ## Task 0: Boot Camp Environment Setup
+It is recommended that using a Windows OS computer (Windows 10 64-bit preferred) with at least 5GB of free disk space for all the software tools and documentation. You must have administration rights for software installation and execution.
 
  - Follow XMC-for-Arduino GitHub for Arduino.<br/>
  https://github.com/Infineon/XMC-for-Arduino<br/>
