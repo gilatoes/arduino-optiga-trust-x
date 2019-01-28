@@ -3,13 +3,13 @@
 ## Objectives of the OPTIGA&trade; Trust X Boot Camp
 The Boot Camp aims to guide its participant the fundamental concepts and principles of information security using Infineon OPTIGA&trade; Trust X (hereafter called Trust X). These concepts are relevant in all computing environments. At the end of this Boot Camp session, participants will understand basic security concepts, capabilities of the Trust X Library and applying Trust X hardware security in real-world application.
 
-***Important***: The Trust X driver source code used in this Boot Camp is forked from Infineon Github, frozen and modified for training purposes. Hence, it is neither updated regularly nor qualify for production. Please refer to official [Infineon Github] (https://github.com/Infineon/arduino-optiga-trust-x) for the updated and latest driver release.
+***Important***: The Trust X driver source code used in this Boot Camp is forked from Infineon Github, frozen and modified for training purposes. Hence, it is neither updated regularly nor qualify for production. Please refer to official [Infineon Github](https://github.com/Infineon/arduino-optiga-trust-x) for the updated and latest driver release.
 
 ## Getting Started
 
 The Boot Camp is designed based on the assumption that its trainee had little or no prior knowledge on information security.
 
-### Kinesthetic Tasks
+### Boot Camp Tasks
 Detail task description here:</br>
 https://github.com/gilatoes/arduino-optiga-trust-x/blob/master/Missions/MissionTasks.md
 
@@ -51,10 +51,10 @@ Once the certificate is encoded into Base64 format, it should be enclosed with t
 "-----END CERTIFICATE----- ".
 ```
 
-[Hex and PEM (Base64) Converter] https://holtstrom.com/michael/tools/hextopem.php
+[Hex and PEM (Base64) Converter](https://holtstrom.com/michael/tools/hextopem.php)
 
 Either use a local OpenSSL software or an online openssl tool to decode the certificate.
-[Certificate Decoder] https://www.sslshopper.com/certificate-decoder.html
+[Certificate Decoder](https://www.sslshopper.com/certificate-decoder.html)
 
 OpenSSL command:
 ```
