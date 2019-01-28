@@ -3,7 +3,7 @@
 ## Objective
 The Boot Camp aims to guide its participant the fundamental concepts and principles of information security using Infineon OPTIGA&trade; Trust X (hereafter called Trust X). These concepts are relevant in all computing environments. At the end of this Boot Camp session, participants will understand basic security concepts, capabilities of the Trust X Library and applying Trust X hardware security in real-world application.
 
-***Important***: The Trust X driver source code used in this Boot Camp is forked from Infineon Github, frozen and modified for training purposes. Hence, it is neither updated regularly nor qualify for production. Please refer to official [Infineon Github](https://github.com/Infineon/arduino-optiga-trust-x) for the updated and latest driver release.
+***Important***: *The Trust X driver source code used in this Boot Camp is forked from Infineon Github, frozen and modified for training purposes. Hence, it is neither updated regularly nor qualify for production. Please refer to official [Infineon Github](https://github.com/Infineon/arduino-optiga-trust-x) for the updated and latest driver release.*
 
 ## Getting Started
 
