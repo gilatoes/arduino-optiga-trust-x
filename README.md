@@ -3,20 +3,20 @@
 ## Objectives of the OPTIGA&trade; Trust X Boot Camp
 The Boot Camp aims to guide its participant the fundamental concepts and principles of information security using Infineon OPTIGA&trade; Trust X (hereafter called Trust X). These concepts are relevant in all computing environments. At the end of this Boot Camp session, participants will understand basic security concepts, capabilities of the Trust X Library and applying Trust X hardware security in real-world application.
 
-***Important***: The Trust X driver source code used in this Boot Camp is forked from Infineon Github, frozen and modified for training purposes. Hence, it is neither updated regularly nor qualify for production. Please refer to official Infineon Github https://github.com/Infineon/arduino-optiga-trust-x for the updated and latest driver release.
+***Important***: The Trust X driver source code used in this Boot Camp is forked from Infineon Github, frozen and modified for training purposes. Hence, it is neither updated regularly nor qualify for production. Please refer to official [Infineon Github] (https://github.com/Infineon/arduino-optiga-trust-x) for the updated and latest driver release.
 
 ## Getting Started
 
 The Boot Camp is designed based on the assumption that its trainee had little or no prior knowledge on information security.
 
 ### Kinesthetic Tasks
-Detail task description here:
+Detail task description here:</br>
 https://github.com/gilatoes/arduino-optiga-trust-x/blob/master/Missions/MissionTasks.md
 
 ### Exerciser Information
 A hardware platform with Infineon XMC2Go MCU and Trust X magnetic connector (hereafter called Exerciser) together with Arduino environment will be used as the embedded platform. It will be provided during Boot Camp.
 
-If you would like to DIY your own board, please refer to schematic and PCB information [Mission Arduino - XMC2Go with Shield2Go]<br/>
+If you would like to DIY your own board, please refer to the schematic and PCB information:<br/>
 (https://easyeda.com/gilatoes/mission-1-xmc2go)
 
 ## Examples and sample codes

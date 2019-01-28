@@ -16,7 +16,7 @@ https://www.arduino.cc/en/main/software<br/>
 Download this GitHub contents to get the Trust X integration library and examples.<br/>
 
 To install Trust X Library in the Arduino IDE:<br/>
-Click on the Clone or download button on GitHub. Select Download ZIP and download the GitHub repository as a Zip file. The zip file will be saved as arduino-optiga-trust-x-master.zip in your local disk drive.<br/>
+Click on the Clone or download button on GitHub. Select Download ZIP and download the GitHub repository as a Zip file. The zip file will be saved as **arduino-optiga-trust-x-master.zip** in your local disk drive.<br/>
 
 **Sketch** > **Include Library** > **Add .ZIP Library...** in the Arduino IDE and navigate to the downloaded .ZIP file of this repository. The library will be installed in your Arduino sketch folder in libraries and you can select as well as include this one to your project under **Sketch** > **Include Library** > **OPTIGATrustX**.
 
@@ -52,15 +52,16 @@ There is a list of other software and tools useful for Boot Camp. They are fairl
 6. Decompression tool eg. Zip-7
 
 ## Hardware for Boot Camp
-An Exerciser board will be used as the MCU I2C host controller for Trust X. The Exerciser comes with a JTAG programmer that needs to be connected to a Windows based PC for flashing the firmware.
+An Exerciser board will be used as the MCU I2C host controller for Trust X.
+It has a detachable but non-reversible magnetic Shield2Go token. Unless stated otherwise, all tasks should be accomplished using the Exerciser.
+
+The Exerciser comes with a JTAG programmer that needs to be connected to a Windows based PC for flashing the firmware.
 
 * Exerciser (Infineon Technologies, XMC1100, Cortex M0)
 [XMC2Go]<br/>
 (https://www.infineon.com/cms/en/product/evaluation-boards/kit_xmc_2go_xmc1100_v1/).
 
-The Boot Camp Edition of Exerciser comes with a magnetic detachable Shield2Go token. Unless stated otherwise, all tasks should be accomplished using the Exerciser.
-
-Once you got the Exercise, ensure that Segger, XMC and Trust X library are installed on your PC. you can try to open the helloBootCamp example.
+Once you are issued with an Exerciser, ensure that Segger, XMC and Trust X library are installed on your PC. You can try to open the helloBootCamp example.
 
 From the menu, **Preferences**->"Show verbose output during compilation and upload." As the compilation and uploading can takes a few minutes enabling verbose output enables monitoring and debugging the software build process.
 
@@ -90,7 +91,7 @@ There should be no error during Verify and Upload.
 ## Task 1: HelloBootCamp
 - [ ]  BootCamp orientation of hardware and software (Arduino and OpenSSL sandbox).
 - [ ]  Logistics and distribution of available resources.
-- [ ]  Attach the Trust X with magnetic connector to the Boot Camp Exerciser and execute the E01_HelloBootcamp example.
+- [ ]  Attach the Trust X with magnetic connector to the Boot Camp Exerciser and execute the E01_HelloBootcamp example. Please make sure that the Trust X LED is lighted up.
 - [ ] Trust X library is installed in the following default folder. ***C:\Users\xxxx\Documents\Arduino\libraries\arduino-optiga-trust-x\***</br>
 
 **Questions & Discussion:**
