@@ -1,9 +1,5 @@
 # Boot Camp for Infineon OPTIGA&trade; Trust X
 
-## Infineon OPTIGA&trade; Trust X <Mission Arduino>
-
-Infineon's [OPTIGA&trade; Trust X] is a security controller (https://www.infineon.com/cms/en/product/security-smart-card-solutions/optiga-embedded-security-solutions/optiga-trust/optiga-trust-x-sls-32aia/)
-
 ## Objectives of the OPTIGA&trade; Trust X Boot Camp
 The Boot Camp aims to guide its participant the fundamental concepts and principles of information security using Infineon OPTIGA&trade; Trust X (hereafter called Trust X). These concepts are relevant in all computing environments. At the end of this Boot Camp session, participants will understand basic security concepts, capabilities of the Trust X Library and applying Trust X hardware security in real-world application.
 
