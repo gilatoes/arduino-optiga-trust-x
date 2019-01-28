@@ -5,9 +5,7 @@
 Infineon's [OPTIGA&trade; Trust X] is a security controller (https://www.infineon.com/cms/en/product/security-smart-card-solutions/optiga-embedded-security-solutions/optiga-trust/optiga-trust-x-sls-32aia/)
 
 ## Objectives of the OPTIGA&trade; Trust X Boot Camp
-The Boot Camp aims to guide its participant the fundamental concepts and principles of information security using Infineon OPTIGA&trade; Trust X (hereafter called Trust X). These concepts and principles are relevant in all computing environments regardless of hardware platform or operating systems. Apart from the theory, the Boot Camp emphasis on kinesthetic learning and activities  which further instil confidence and product knowledge.
-
-At the end of this Boot Camp session, participants will understand basic security concepts, capabilities of the Library and applying Trust X hardware in real-world application.
+The Boot Camp aims to guide its participant the fundamental concepts and principles of information security using Infineon OPTIGA&trade; Trust X (hereafter called Trust X). These concepts and principles are relevant in all computing environments regardless of hardware platform or operating systems. At the end of this Boot Camp session, participants will understand basic security concepts, capabilities of the Library and applying Trust X hardware in real-world application.
 
 ***Important***: The Trust X driver source code used in this Boot Camp is forked from Infineon Github, frozen and modified for training purposes. Hence, it is neither updated regularly nor qualify for production. Please refer to official Infineon Github https://github.com/Infineon/arduino-optiga-trust-x for the updated and latest driver release.
 
