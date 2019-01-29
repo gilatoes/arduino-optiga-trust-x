@@ -337,8 +337,11 @@ int32_t IFX_OPTIGA_TrustX::restore(void)
 int32_t IFX_OPTIGA_TrustX::reset(void)
 {
     // Soft reset
+    //Serial.println(">IFX_OPTIGA_TrustX::reset");
+    //ifx_i2c_reset_type
     optiga_comms_reset(&optiga_comms, 1);
     end();
+    //Serial.println("<IFX_OPTIGA_TrustX::reset");
     return begin(Wire);
 }
 
