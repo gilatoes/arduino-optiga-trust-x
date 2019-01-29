@@ -105,15 +105,17 @@ There should be no error during Verify and Upload.
 
 In this task, there will be some changes required for your *Trust X library*. You are expected to take reference from Trust X Datasheet located in the doc folder, read up I2C fundamentals and connect up Logic analyzer and/or I2C analyzer for this task. Use E02_ReadMaxCommBufferSize sketch example as your starting point.
 - [ ]  Refer to Trust X datasheet V2.5 section 5.1.6.2
-- [ ]  Monitor and enable warm reset using GPIO (P0.0).</br>
+- [ ]  Implement warm reset using GPIO (P0.0).</br>
 
 **Questions & Discussion:**
 
-- [ ]  Download the pre-captured Saleae Logic file. https://github.com/gilatoes/arduino-optiga-trust-x/blob/master/missions/mission_files/task2/ReadUID.logicdata Decode the Trust X address on I2C bus.
-- [ ]  What is the current I2C bus speed?
-- [ ]  Modify and increase the I2C bus frequency. Monitor the updated bus frequency using either an I2C analyzer or logic analyzer.
+- [ ]  Download the pre-captured Saleae Logic file and decode the Trust X address.</br>
+Right-Click and use the "Save link as..." option.
+https://github.com/gilatoes/arduino-optiga-trust-x/blob/master/missions/mission_files/task2/ReadUID.logicdata
+- [ ]  What is the decoded I2C bus speed?
+- [ ]  Modify and increase your host I2C driver to increase the I2C bus frequency. Monitor the updated bus frequency using either an I2C analyzer or logic analyzer.
 - [ ]  Replace a new Trust X. Determine its address. Modify the I2C host library to communicate with this Trust X and read out its UID.
-- [ ]  Restore the host library to original value.
+- [ ]  Restore the host library Trust X address to the original value.
 
 ## Task 3: Trust X Object IDs
 This task consists of 2 parts. First, read and decode the Trust X UID. Second, using your issued Trust X, determine the Public Key issued by Infineon CA.
