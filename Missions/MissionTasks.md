@@ -1,4 +1,6 @@
 # Tasks and Mission:
+It is recommended that using a Windows OS computer (Windows 10 64-bit preferred) with at least 5GB of free disk space for all the software tools and documentation. You must have administration rights for software installation and execution.
+
 ## Task 0: Boot Camp Environment Setup
 
  - Follow XMC-for-Arduino GitHub for Arduino.<br/>
@@ -14,7 +16,7 @@ https://www.arduino.cc/en/main/software<br/>
 Download this GitHub contents to get the Trust X integration library and examples.<br/>
 
 To install Trust X Library in the Arduino IDE:<br/>
-Click on the Clone or download button on GitHub. Select Download ZIP and download the GitHub repository as a Zip file. The zip file will be saved as arduino-optiga-trust-x-master.zip in your local disk drive.<br/>
+Click on the Clone or download button on GitHub. Select Download ZIP and download the GitHub repository as a Zip file. The zip file will be saved as **arduino-optiga-trust-x-master.zip** in your local disk drive.<br/>
 
 **Sketch** > **Include Library** > **Add .ZIP Library...** in the Arduino IDE and navigate to the downloaded .ZIP file of this repository. The library will be installed in your Arduino sketch folder in libraries and you can select as well as include this one to your project under **Sketch** > **Include Library** > **OPTIGATrustX**.
 
@@ -33,7 +35,7 @@ https://drive.google.com/open?id=14hmdRW_pZ-m2mHYHeaOgdNiHAnBf8aeZ
 
 After installing OpenSSL, the binary path location needs to be added to the Environment Path variable. This allows OpenSSL to be accessible from any folder from the computer.
 
-### Testing OpenSSL
+### Test driving OpenSSL
 Open the Command Prompt window from the Windows menu, type in "openssl version".
 If OpenSSL has been installed correctly with the Path setting, it will shows the current OpenSSL version.
 
@@ -50,15 +52,16 @@ There is a list of other software and tools useful for Boot Camp. They are fairl
 6. Decompression tool eg. Zip-7
 
 ## Hardware for Boot Camp
-An Exerciser board will be used as the MCU I2C host controller for Trust X. The Exerciser comes with a JTAG programmer that needs to be connected to a Windows based PC for flashing the firmware.
+An Exerciser board will be used as the MCU I2C host controller for Trust X.
+It has a detachable but non-reversible magnetic Shield2Go token. Unless stated otherwise, all tasks should be accomplished using the Exerciser.
+
+The Exerciser comes with a JTAG programmer that needs to be connected to a Windows based PC for flashing the firmware.
 
 * Exerciser (Infineon Technologies, XMC1100, Cortex M0)
 [XMC2Go]<br/>
 (https://www.infineon.com/cms/en/product/evaluation-boards/kit_xmc_2go_xmc1100_v1/).
 
-The Boot Camp Edition of Exerciser comes with a magnetic detachable Shield2Go token. Unless stated otherwise, all tasks should be accomplished using the Exerciser.
-
-Once you got the Exercise, ensure that Segger, XMC and Trust X library are installed on your PC. you can try to open the helloBootCamp example.
+Once you are issued with an Exerciser, ensure that Segger, XMC and Trust X library are installed on your PC. You can try to open the helloBootCamp example.
 
 From the menu, **Preferences**->"Show verbose output during compilation and upload." As the compilation and uploading can takes a few minutes enabling verbose output enables monitoring and debugging the software build process.
 
@@ -88,7 +91,7 @@ There should be no error during Verify and Upload.
 ## Task 1: HelloBootCamp
 - [ ]  BootCamp orientation of hardware and software (Arduino and OpenSSL sandbox).
 - [ ]  Logistics and distribution of available resources.
-- [ ]  Attach the Trust X with magnetic connector to the Boot Camp Exerciser and execute the E01_HelloBootcamp example.
+- [ ]  Attach the Trust X with magnetic connector to the Boot Camp Exerciser and execute the E01_HelloBootcamp example. Please make sure that the Trust X LED is lighted up.
 - [ ] Trust X library is installed in the following default folder. ***C:\Users\xxxx\Documents\Arduino\libraries\arduino-optiga-trust-x\***</br>
 
 **Questions & Discussion:**
@@ -97,7 +100,7 @@ There should be no error during Verify and Upload.
 - [ ]  Find out which file stores the Trust X library version number?
 *Hint:* You might need to use a search tool to speed up the process.
 
-## Task 2: GPIO and I2C Debug and Analysis Exercise
+## Task 2: Understanding GPIO and I2C
 *Note:* Get your Exerciser COM port using Windows Device Manager.
 
 In this task, there will be some changes required for your *Trust X library*. You are expected to take reference from Trust X Datasheet located in the doc folder, read up I2C fundamentals and connect up Logic analyzer and/or I2C analyzer for this task. Use E02_ReadMaxCommBufferSize sketch example as your starting point.
@@ -157,7 +160,7 @@ https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Mission
   - [ ]  What is the potential weakness using such approach?
   - [ ]  After verifying the message, can Bob really trust its contents?
 
-## Task 5: Let's look at replay attack
+## Task 5: Replay attack
 
 Study the E07_SignVerify sketch example carefully.
 - [ ] Print out (using output_result()) the signature generated by Trust X for IFX public key.
