@@ -109,7 +109,7 @@ In this task, there will be some changes required for your *Trust X library*. Yo
 
 **Questions & Discussion:**
 
-- [ ]  Download the capture file. https://github.com/gilatoes/arduino-optiga-trust-x/blob/master/missions/Mission_files/task2/ReadUID.logicdata Decode the Trust X address on I2C bus.
+- [ ]  Download the pre-captured Saleae Logic file. https://github.com/gilatoes/arduino-optiga-trust-x/blob/master/missions/mission_files/task2/ReadUID.logicdata Decode the Trust X address on I2C bus.
 - [ ]  What is the current I2C bus speed?
 - [ ]  Modify and increase the I2C bus frequency. Monitor the updated bus frequency using either an I2C analyzer or logic analyzer.
 - [ ]  Replace a new Trust X. Determine its address. Modify the I2C host library to communicate with this Trust X and read out its UID.
@@ -136,7 +136,7 @@ Bob wants to sends Alice a Private Message (PM). "I am joining Infineon Trust X 
 Alice received the PM and wonders about its integrity.
 
 **Alice message**<br/>
-https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Missions/Mission_files/task4/Alice-Message.txt
+https://github.com/gilatoes/arduino-optiga-trust-x/blob/master/missions/mission_files/task4/Alice-Message.txt
 
   - [ ] Bob generates a set of ECC keypair using ECC NIST P384 curve.
   ```
@@ -183,7 +183,7 @@ Study the E07_SignVerify sketch example carefully.
   Certificate Authority issues the certificate which binds a public key to it. Certificate helps to prevents fake public keys for impersonation. Only public key that is certified by the CA will work with the corresponding private key that is owned by the certificate owner. In this task, we are creating a self-signed certificate signed by a private entity rather than a trusted certificate authority.
 
   **Configuration file openssl.cnf for OpenSSL CA**<br/>
-  https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Missions/Mission_files/openssl.cnf
+  https://github.com/gilatoes/arduino-optiga-trust-x/blob/master/missions/mission_files/openssl.cnf
 
 ### Create a Certificate Authority (CA)
 - [ ]  Create a pair of ECC 384 Public Key and secret key.
@@ -317,7 +317,7 @@ The server will prepare the firmware package for the client to be updated.
 ### Firmware Update Server
 The firmware update image has been prepared for the server.<br/>
 **Firmware Image:**<br/>
-https://raw.githubusercontent.com/gilatoes/arduino-optiga-trust-x/master/Missions/Mission_files/XMC2Go_FWUpdate_2.hex
+https://github.com/gilatoes/arduino-optiga-trust-x/blob/master/missions/mission_files/XMC2Go_FWUpdate_2.hex
 
 - [ ] Generate a new key pair.
  *Hint:* Refer to E07_SignVerify to get the public key.

@@ -11,7 +11,7 @@ The Boot Camp is designed based on the assumption that its trainee had little or
 
 ### Tasks
 Detail task description here:</br>
-https://github.com/gilatoes/arduino-optiga-trust-x/blob/master/Missions/MissionTasks.md
+https://github.com/gilatoes/arduino-optiga-trust-x/blob/master/missions/tasks.md
 
 ### Exerciser Information
 A hardware platform with Infineon XMC2Go MCU and Trust X magnetic connector (hereafter called Exerciser) together with Arduino environment will be used as the embedded platform. It will be provided during Boot Camp.
