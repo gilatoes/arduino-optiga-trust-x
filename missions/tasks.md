@@ -100,7 +100,7 @@ There should be no error during Verify and Upload.
 - [ ]  Find out which file stores the Trust X library version number?
 *Hint:* You might need to use a search tool to speed up the process.
 
-## Task 2: Understanding GPIO and I2C
+## Task 2: Understanding I2C and GPIO
 *Note:* Get your Exerciser COM port using Windows Device Manager.
 
 In this task, there will be some changes required for your *Trust X library*.</br>
@@ -118,6 +118,11 @@ https://github.com/gilatoes/arduino-optiga-trust-x/blob/master/missions/mission_
 - [ ]  Modify and increase your host I2C driver to increase the I2C bus frequency. Monitor the updated bus frequency using either an I2C analyzer or logic analyzer.
 - [ ]  Replace a new Trust X. Determine its address. Modify the I2C host library to communicate with this Trust X and read out its UID.
 - [ ]  Restore the host library Trust X address to the original value.
+- [ ]  Make sure that your host library is using the default I2C value.  
+1. Implement the reset control using GPIO. Reset control improves the system stability.
+2. Execute the H02_ChangeI2CAddress example which will temporarily change the I2C address.
+3. If the reset is successfully implemented, the I2C address will be restored to the default value during initialization. You can use other examples such as E03_GetUniqueID to check. In the event of no proper reset, I2C address will not be found.  
+4. Manually, power down and up the device will also restore the default Trust X address.  
 
 ## Task 3: Trust X Object IDs
 This task consists of 2 parts. First, read and decode the Trust X UID. Second, using your issued Trust X, determine the Public Key issued by Infineon CA.
