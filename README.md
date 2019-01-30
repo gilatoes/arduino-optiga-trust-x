@@ -97,6 +97,12 @@ Valid Trust X address will be shown.
 ### H04_CheckValidPublicKey
 H04_CheckValidPublicKey is a helper routine that checks if the ECC Public key is a valid EC point that lies on the ECC curve. Useful for debugging ECDH related issue.
 
+### H05_LoopReadUID
+H05_LoopReadUID is a helper routine that checks perform an operation is loops. This is helpful for debugging and benchmarking.
+
+### H06_SecurityCounter
+H06_SecurityCounter is a helper routine show-case Trust X Security Monitor. The security event counter (SEC) gets increment when Trust X secret key is used for computation. When a high frequency of the secret key is being utilized, there is a possibility of brute-force attack. As such, Trust X will throttle down its performance. Refer to Chapter 4.5.2 Security policy of Trust X Solution Reference Manual.
+
 ## Troubleshooting
 1. There are many ways of getting the Arduino platform to work. However, it is advisable to counter check with the original Arduino IDE to duplicate the issue.
 2. Ensure that you can execute the HelloBootCamp example before moving to the crypto examples.
