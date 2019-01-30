@@ -126,22 +126,18 @@ void loop()
 uint8_t reset()
 {
   uint32_t ret = 0;
-  Serial.println("Initialize Trust X");
+  Serial.println("Initialize Trust X...");
   ret = trustX.begin();
   if (ret) {
-    Serial.println("Failed");
+    Serial.print("Failed");
     return -1;
   }
-  Serial.println("OK");
-
-  Serial.println("Initializing setting");
-  ret = trustX.setCurrentLimit(6);  
   
+  Serial.print("Initializing setting: ");
+  ret = trustX.setCurrentLimit(6);
   if (ret) {
     Serial.println("Failed");
     return -1;
   }
-  Serial.println("OK");
-
-  return 0;
+  Serial.println("Ok");
 }

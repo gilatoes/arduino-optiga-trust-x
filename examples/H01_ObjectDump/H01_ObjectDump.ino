@@ -71,17 +71,20 @@ void setup()
 uint8_t reset()
 {
   uint32_t ret = 0;
-  Serial.println("Initialize Trust X");
   ret = trustX.begin();
   if (ret) {
-    Serial.println("Failed");
+    Serial.println("Error: Failed to initialize.");
     return -1;
   }
-  
-  Serial.println("Initializing setting");
-  ret = trustX.setCurrentLimit(6);  
-  
-  Serial.println("OK");
+
+  Serial.print("Initializing setting:");
+  ret = trustX.setCurrentLimit(6);
+  if (ret) {
+    Serial.println("Failed to change current limit");
+    return -1;
+  }
+  Serial.println("Ok");
+
   return 0;
 }
 

@@ -241,7 +241,7 @@ void loop()
 uint8_t reset()
 {
   uint32_t ret = 0;
-  Serial.println("Initialize Trust X");
+  Serial.println("Initialize Trust X...");
   ret = trustX.begin();
   if (ret) {
     Serial.println("Failed");

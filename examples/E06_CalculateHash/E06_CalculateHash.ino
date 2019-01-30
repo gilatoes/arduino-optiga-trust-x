@@ -66,7 +66,7 @@ void setup()
  /*
    * Initialise an OPTIGA™ Trust X Board
    */
-  if(reset()==1){
+  if(reset()==0){
     sys_init=1;
   }else{
     sys_init=0;
@@ -156,7 +156,7 @@ void loop()
   input.trim();
   if(input=="i") 
   {
-    if(reset()==0)
+    if(reset()!=0)
     {
       //Do not execute
       sys_init=0;
@@ -172,15 +172,22 @@ void loop()
 
 uint8_t reset()
 {
-  uint8_t ret = 0;   
-  Serial.println("Initialize Trust X");
+  uint32_t ret = 0;
+  Serial.println("Initialize Trust X...");
   ret = trustX.begin();
-  ASSERT(ret);
+  if (ret) {
+    Serial.print("Failed");
+    return -1;
+  }
   
-  Serial.println("Initializing setting");
+  Serial.print("Initializing setting: ");
   ret = trustX.setCurrentLimit(6);
-  ASSERT(ret);
-
-  return 1;
+  if (ret) {
+    Serial.println("Failed");
+    return -1;
+  }
+  Serial.println("Ok");
+  
+  return 0;
 }
 
