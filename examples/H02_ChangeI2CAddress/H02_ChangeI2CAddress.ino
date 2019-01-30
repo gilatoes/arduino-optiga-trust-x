@@ -64,6 +64,10 @@ uint8_t reset()
     Serial.print("Failed");
     return -1;   
   }
+  
+  Serial.println("Initializing setting");
+  ret = trustX.setCurrentLimit(6);  
+  
   Serial.println("Done");
   
   return 0;

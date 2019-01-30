@@ -177,7 +177,7 @@ uint8_t reset()
   ret = trustX.begin();
   ASSERT(ret);
   
-  Serial.println("Initializing Current consumption");
+  Serial.println("Initializing setting");
   ret = trustX.setCurrentLimit(6);
   ASSERT(ret);
 

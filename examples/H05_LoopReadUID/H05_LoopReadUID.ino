@@ -55,15 +55,9 @@ void setup()
 
 uint8_t reset()
 {
-/*  
-  uint32_t ret = 0;
-  //Serial.println("Initialize Trust X");
-  //ret = trustX.begin();
-  if (ret) {
-    Serial.print("Failed");
-    return -1;
-  }  
-*/
+  uint32_t ret=0;
+  Serial.println("Initializing setting");
+  ret = trustX.setCurrentLimit(6);  
   return 0;
 }
 
@@ -72,7 +66,7 @@ void loop()
    uint32_t ret=0;
    uint8_t  uid[UID_LENGTH];
    uint16_t passed=0;
-   uint16_t test_count=100;
+   uint16_t test_count=10;
 
   if(sys_init)
   {

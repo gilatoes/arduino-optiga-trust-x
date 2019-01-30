@@ -226,7 +226,7 @@ uint8_t reset()
   ret = trustX.begin();
   ASSERT(ret);
 
-  Serial.println("Initializing Current setting");
+  Serial.println("Initializing setting");
   ret = trustX.setCurrentLimit(6);
   ASSERT(ret);
 

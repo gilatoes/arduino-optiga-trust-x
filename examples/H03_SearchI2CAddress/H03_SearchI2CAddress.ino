@@ -37,6 +37,7 @@
 uint8_t sys_init =0;
 void setup()
 {
+  uint32_t ret = 0;
   Serial.begin(115200, SERIAL_8N1);
   delay(100);
 
@@ -48,6 +49,9 @@ void setup()
   }else{
     sys_init=0;
   }
+  
+  Serial.println("Initializing setting");
+  ret = trustX.setCurrentLimit(6);  
 }
 
 uint8_t reset()

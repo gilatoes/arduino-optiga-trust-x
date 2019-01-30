@@ -52,6 +52,9 @@ void setup()
   }else{
     sys_init=0;
   }
+  
+  Serial.println("Initializing setting");
+  ret = trustX.setCurrentLimit(6);  
 }
 
 uint8_t reset()

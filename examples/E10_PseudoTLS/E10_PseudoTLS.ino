@@ -508,7 +508,7 @@ uint8_t reset()
     return -1;
   }
 
-  Serial.println("Initializing Current consumption");
+  Serial.println("Initializing setting");
   ret = trustX.setCurrentLimit(6);
   if (ret) {
     Serial.println("Failed to change current limit");
