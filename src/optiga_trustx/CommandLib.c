@@ -1830,7 +1830,7 @@ int32_t CmdLib_VerifySign(const sVerifyOption_d* PpsVerifySign,const sbBlob_d * 
 	#define OID_APDU_INDATA_LEN				11
 /// @endcond	
 
-    print_debug(">CmdLib_VerifySign");
+    //print_debug(">CmdLib_VerifySign");
 
     do
 	{
