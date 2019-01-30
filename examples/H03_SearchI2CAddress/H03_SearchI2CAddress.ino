@@ -71,7 +71,13 @@ void loop()
     for(int i=0; i< 0x7F; i++){
       ret = trustX.begin(i);
       if (ret) {
-        //Serial.println("Failed");
+        //retry the same address again
+		ret = trustX.begin(i);
+		if(!ret)
+		{
+			Serial.print("\r\nAddress found: 0x");
+			Serial.println(i, HEX);
+		}
       }else{
       Serial.print("\r\nAddress found: 0x");
       Serial.println(i, HEX);

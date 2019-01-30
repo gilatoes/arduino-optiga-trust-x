@@ -85,7 +85,7 @@ void loop()
     //Make sure that the driver is configured with a valid current address.
 	//The set_i2c_address will change the Trust X address register. 
 	// If the persistent mode is set, the change will be committed into the NVM.
-    Serial.println("Implement the I2C address change here!");
+    Serial.println("I2C address is changed.");
     trustX.set_i2c_address(0x20);
 
     ret = trustX.getArbitaryDataObject(SEC_OID, security_event_counter, SEC_SIZE);
@@ -93,7 +93,6 @@ void loop()
     Serial.print("Security event counter:");  
     Serial.println(security_event_counter[0], HEX);
     
-    Serial.println("End of I2C address routine.");
   }
   Serial.println("\r\nPress i to re-initialize.. other key to loop...");   
   while (Serial.available()==0){} //Wait for user input  
