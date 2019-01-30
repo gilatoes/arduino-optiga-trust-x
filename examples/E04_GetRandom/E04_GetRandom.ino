@@ -125,7 +125,7 @@ void loop()
     }
     output_result("Random", ts, rnd, 256);
 
-      Serial.println("\r\nPress i to re-initialize.. other key to loop...");
+      Serial.println("\r\nPress i for an iteration...");
       while (Serial.available()==0){} //Wait for user input
       String input = Serial.readString();  //Reading the Input string from Serial port.
       input.trim();

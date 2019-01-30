@@ -99,7 +99,7 @@ void loop()
     output_result("Public Key ", pubKey, pubKeyLen);
     output_result("Private Key ", privKey, privKeyLen);
 
-    Serial.println("\r\nPress i to re-initialize.. other key to loop...");
+    Serial.println("\r\nPress i for an iteration...");
     while (Serial.available()==0){} //Wait for user input
     String input = Serial.readString();  //Reading the Input string from Serial port.
     input.trim();

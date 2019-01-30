@@ -39,6 +39,9 @@ uint16_t UID_LENGTH=27;
 uint8_t sys_init =0;
 void setup()
 {
+  /*
+   * Initialise a serial port for debug output
+   */
   Serial.begin(115200, SERIAL_8N1);
   delay(100);
 
@@ -93,21 +96,21 @@ void loop()
     HEXDUMP(uid, UID_LENGTH);
     }
 
+	//close the connection
+    trustX.end();
+
   }
-  Serial.println("\r\nPress i to re-initialize..");
+  Serial.println("\r\nPress i for an iteration...");
   while (Serial.available()==0){} //Wait for user input
   String input = Serial.readString();  //Reading the Input string from Serial port.
   input.trim();
-  if(input=="i")
-  {
-    if(reset()!=0)
-    {
+  if(input=="i"){
+    if(reset()!=0){
       //Do not execute
       sys_init=0;
       //close the connection
       trustX.end();
-    }else
-    {
+    }else{
       sys_init=1;
       }
   }

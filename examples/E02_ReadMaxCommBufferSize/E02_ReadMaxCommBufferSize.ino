@@ -57,7 +57,7 @@ uint8_t reset()
   Serial.println("Initialize Trust X");
   ret = trustX.begin();
   if (ret) {
-    Serial.print("Failed");
+    Serial.println("Failed");
     return -1;
   }
 
@@ -78,11 +78,22 @@ void loop()
   {
     //Get Max Com buffer Size  = 0xE0C6
     ret = trustX.getArbitaryDataObject(MAX_COM_BUFFER_SIZE_OID, max_comm_buffer_size, MAX_COM_BUFFER_SIZE_SIZE);
+ if (ret) {
+      Serial.println("Failed");
+      Serial.println(ret,HEX);
+      //close the connection
+      trustX.end();
+    }else{
     Serial.print("Max Communication Buffer Size:");
     Serial.println(max_comm_buffer_size[0], HEX);
+    }
+	
+	//close the connection
+    trustX.end();
+    
 
   }
-  Serial.println("\r\nPress i to re-initialize.. other key to loop...");
+	Serial.println("\r\nPress i for an iteration...");
   while (Serial.available()==0){} //Wait for user input
   String input = Serial.readString();  //Reading the Input string from Serial port.
   input.trim();
