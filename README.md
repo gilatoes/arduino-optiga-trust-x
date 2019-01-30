@@ -101,7 +101,7 @@ H04_CheckValidPublicKey is a helper routine that checks if the ECC Public key is
 H05_LoopReadUID is a helper routine that checks perform an operation is loops. This is helpful for debugging and benchmarking.
 
 ### H06_SecurityCounter
-H06_SecurityCounter is a helper routine show-case Trust X Security Monitor. The security event counter (SEC) gets increment when Trust X secret key is used for computation. When a high frequency of the secret key is being utilized, there is a possibility of brute-force attack. As such, Trust X will throttle down its performance. Refer to Chapter 4.5.2 Security policy of Trust X Solution Reference Manual.
+H06_SecurityCounter is a helper routine which show-case Trust X Security Monitor. The security event counter (SEC) gets increment when Trust X secret key is used for computation. When a high frequency of the secret key is being utilized within a short period of time, there is a possibility of brute-force attack. In defense, Trust X will throttle down and limit the private key usage. Refer to Chapter 4.5.2 Security policy of Trust X Solution Reference Manual.
 
 ## Troubleshooting
 1. There are many ways of getting the Arduino platform to work. However, it is advisable to counter check with the original Arduino IDE to duplicate the issue.
