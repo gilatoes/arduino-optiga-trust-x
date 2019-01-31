@@ -34,12 +34,12 @@
 #include "debug.h"
 #include "aes/AES.h"
 
-#define UID_LENGTH        27
-
 //"Provision me" enables 2 new pair of public and private key being generated.
 //The purpose of this is to calculate share secret between the 2 parties.
 #define PROVISION_ME
 //#define READBACK_TEST
+
+#define UID_LENGTH        27
 
 //Choice of Public Key storage
 uint16_t PubKeyStore_OID_1 = 0xF1D0;
@@ -503,9 +503,13 @@ uint8_t reset()
 {
   uint32_t ret = 0;
   ret = trustX.begin();
-  if (ret) {
-    Serial.println("Error: Failed to initialize.");
-    return -1;
+   if (ret) {
+	//Retry again
+	ret = trustX.begin();
+	if (ret) {
+		Serial.println("Failed");
+		return -1;
+	}
   }
 
   Serial.print("Initializing setting:");

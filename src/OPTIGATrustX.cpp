@@ -292,7 +292,8 @@ int32_t IFX_OPTIGA_TrustX::begin(TwoWire& CustomWire)
             ret = 0;
 			active = true;
         }else {
-			Serial.print(ret, HEX);
+            Serial.print("Failed to open application: ");
+			Serial.println(ret, HEX);
 		}
 
     } while (0);

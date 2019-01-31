@@ -35,6 +35,8 @@
 #include "debug.h"
 
 uint8_t sys_init =0;
+uint16_t UID_LENGTH=27;
+
 void setup() 
 {
   /*
@@ -60,9 +62,13 @@ uint8_t reset()
   uint32_t ret = 0;   
   Serial.print("Begin to trust ... ");
   ret = trustX.begin();
-  if (ret) {
-    Serial.print("Failed");
-    return -1;   
+   if (ret) {
+	//Retry again
+	ret = trustX.begin();
+	if (ret) {
+		Serial.println("Failed");
+		return -1;
+	}
   }
   
   Serial.println("Initializing setting");
@@ -74,24 +80,35 @@ uint8_t reset()
 }
 
 void loop()
-{
-   uint8_t  security_event_counter[1];
+{   
    uint32_t ret = 0; 
-   uint16_t SEC_OID = 0xE0C5;
-   uint16_t SEC_SIZE =1;
+   uint8_t  uid[UID_LENGTH];
+   uint8_t address_changed = 0x20;
      
   if(sys_init)
   {
     //Make sure that the driver is configured with a valid current address.
 	//The set_i2c_address will change the Trust X address register. 
 	// If the persistent mode is set, the change will be committed into the NVM.
-    Serial.println("I2C address is changed.");
-    trustX.set_i2c_address(0x20);
+    Serial.print("I2C address is changed to: 0x");
+	Serial.println(address_changed, HEX);
+	
+    trustX.set_i2c_address(address_changed);
 
-    ret = trustX.getArbitaryDataObject(SEC_OID, security_event_counter, SEC_SIZE);
+    /*
+     * Getting co-processor Unique ID of 27 bytes
+     */
+    Serial.println("\r\nGetting co-processor Unique ID:");
+    ret = trustX.getUniqueID(uid, UID_LENGTH);
 
-    Serial.print("Security event counter:");  
-    Serial.println(security_event_counter[0], HEX);
+    if (ret) {
+      Serial.println("Failed");
+      Serial.println(ret,HEX);
+      //close the connection
+      trustX.end();
+    }else{
+    HEXDUMP(uid, UID_LENGTH);
+    }
     
   }
   Serial.println("\r\nPress i for an iteration...");

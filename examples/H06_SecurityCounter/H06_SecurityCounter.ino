@@ -34,7 +34,13 @@
 #include <Arduino.h>
 #include "debug.h"
 
-#define VERIFY     0
+#define SECRET_KEY_EXERCISE_COUNT   300  // Number of times to use the secret key
+#define INCREASE_COUNTER              1  //Perform signature function which exercise the secret key. This will increase the security counter value.
+#define MONITOR_COUNTER               1  //Monitors the security counter value until it reaches 0.
+
+#define VERIFY                        0 //Perform verification of the public key. 
+
+
 uint8_t sys_init =0;
 uint16_t UID_LENGTH=27;
 
@@ -73,6 +79,27 @@ void setup()
 
 uint8_t reset()
 {
+	uint32_t ret = 0;
+	ret = trustX.begin();
+	
+	if (ret) {
+		//Retry again
+		ret = trustX.begin();
+		if (ret) {
+		Serial.println("Failed");
+		return -1;
+	}
+	 Serial.print("Initializing setting:");
+  ret = trustX.setCurrentLimit(6);
+  if (ret) {
+    Serial.println("Failed to change current limit");
+    return -1;
+  }
+  Serial.println("Ok");
+  trustX.end();
+  
+  }
+
   return 0;
 }
 
@@ -139,7 +166,7 @@ void loop()
    uint8_t  uid[UID_LENGTH];
    uint16_t passed=0;
    uint16_t test_count=100;
-   uint16_t exercise_secret_count=300;//Use Trust X Secret Key
+   uint16_t exercise_secret_count=SECRET_KEY_EXERCISE_COUNT;//Use Trust X Secret Key
 
    uint8_t  security_event_counter[1]={0};
    uint16_t SEC_OID=0xE0C5;
@@ -149,12 +176,17 @@ void loop()
   {
     Serial.println("Initialize Trust X");
 
+#if (INCREASE_COUNTER == 1)	
     //Prepare the Public Key and hash message as signature input parameters
     ret = trustX.begin(); 
+	Serial.print("Initializing setting:");
+	ret = trustX.setCurrentLimit(6);
     ret = setup_PublickeyandHash();
     trustX.end();     
+#endif	
 
     if(ret==0){
+#if (INCREASE_COUNTER == 1)		
       //Exercise the secret key by performing signature operation
       //Should observe performance throttling down when counter reaches certain threshold.
       for(int j=0;j<exercise_secret_count; j++){
@@ -176,7 +208,13 @@ void loop()
         
         trustX.end(); 
       }    
-      
+#endif
+   
+#if (MONITOR_COUNTER == 1)
+	  ret = trustX.begin(); 
+      ret = trustX.getArbitaryDataObject(SEC_OID, security_event_counter, SEC_SIZE);	  
+	  trustX.end(); 
+	  
       while(security_event_counter[0]){
       ret = trustX.begin();    
       ret = trustX.getArbitaryDataObject(SEC_OID, security_event_counter, SEC_SIZE);
@@ -194,6 +232,7 @@ void loop()
       trustX.end(); 
       delay(3000);    
       }
+#endif	  
     }
 
     //Serial.print("Test Completed (passed/total): ");

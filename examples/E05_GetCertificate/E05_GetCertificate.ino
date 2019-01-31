@@ -128,9 +128,13 @@ uint8_t reset()
   uint32_t ret = 0;
   Serial.println("Initialize Trust X...");
   ret = trustX.begin();
-  if (ret) {
-    Serial.print("Failed");
-    return -1;
+   if (ret) {
+	//Retry again
+	ret = trustX.begin();
+	if (ret) {
+		Serial.println("Failed");
+		return -1;
+	}
   }
   
   Serial.print("Initializing setting: ");
