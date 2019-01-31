@@ -43,8 +43,6 @@ extern "C" {
 
 #ifndef SUPPRESSHEXDUMP
 #define SUPPRESSHEXDUMP   0
-#else
-#define SUPPRESSHEXDUMP   1
 #endif
 #define HEXDUMP(a, b)   (SUPPRESSHEXDUMP==0) ? __hexdump__(a,b) : (void) 0;
 
@@ -111,7 +109,7 @@ int debug_print(char *str, ...)
  * @param[in] l_len   Length of a data
  *
  * @retval  None
- * @example  
+ * @example
  0x000000: 2e 2f 68 65 78 64 75 6d ./hexdum
  0x000008: 70 00 53 53 48 5f 41 47 p.SSH_AG
  0x000010: 45 4e 54 5f             ENT_
@@ -154,8 +152,20 @@ inline void __hexdump__(const void* p_buf, uint32_t l_len) {
       }
       Serial.print('\r');
       Serial.print('\n');
-      delay(10);
     }
+  }
+}
+
+//Display the output. When in_len is 0, there is no data dump
+static void output_result(uint32_t result, uint8_t* in, uint16_t in_len)
+{
+  if(result !=0){
+    Serial.print("Error code:");
+    Serial.println(result, HEX);
+  }
+
+  if(in_len!=0){
+    HEXDUMP(in, in_len);
   }
 }
 
@@ -186,7 +196,7 @@ inline void __hexonlydump__(const void* p_buf, uint32_t l_len) {
 
     /* print hex data */
     if (i < l_len) {
-      sprintf(str, "%02x ", 0xFF & ((char*) p_buf)[i]);
+      sprintf(str, "0x%02x, ", 0xFF & ((char*) p_buf)[i]);
       Serial.print(str);
     } else /* end of block, just aligning for ASCII dump */
     {
@@ -212,19 +222,6 @@ inline void __hexonlydump__(const void* p_buf, uint32_t l_len) {
       Serial.print('\n');
     }
     delay(10);
-  }
-}
-
-//Display the output. When in_len is 0, there is no data dump
-static void output_result(uint32_t result, uint8_t* in, uint16_t in_len)
-{
-  if(result !=0){
-    Serial.print("Error code:");
-    Serial.println(result, HEX);
-  }
-
-  if(in_len!=0){
-    HEXDUMP(in, in_len);
   }
 }
 #ifdef __cplusplus
