@@ -128,6 +128,7 @@ https://github.com/gilatoes/arduino-optiga-trust-x/blob/master/missions/mission_
 This task consists of 2 parts. First, read and decode the Trust X UID. Second, using your issued Trust X, determine the Public Key issued by Infineon CA.
 - [ ] Read the Trust X UID Object.
   * Decode the Trust X UID to determine the Trust X identity.
+- [ ] Read Meta data of the Device Public Key certificate issued by Infineon data object.
 - [ ] Read and decode Trust X factory default certificate. Determine the signature algorithm, certificate serial number, issue date, valid period, public key and signature value issued by Infineon CA.
 *Hint:* Use E05_GetCertificate example as a starting point. You will need to convert the Hex value to Base64 value then decode it using certificate decoder tools.
 

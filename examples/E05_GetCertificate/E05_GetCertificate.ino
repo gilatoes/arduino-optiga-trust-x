@@ -100,7 +100,15 @@ void loop()
     Serial.println(certLen);
     Serial.println("Certificate:");
 
+	Serial.println("Hex Dump:");
     HEXDUMP(cert, certLen);
+#if 0	
+	Serial.println("Hex Array Dump:");
+	HEXARRAYDUMP(cert, certLen);
+	Serial.println("Hex Only Dump:");
+	HEXONLYDUMP(cert, certLen);
+#endif
+	
   }
 
   Serial.println("\r\nPress i for an iteration...");
