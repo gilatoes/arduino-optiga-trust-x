@@ -177,6 +177,7 @@ Study the E07_SignVerify sketch example carefully.
 - [ ] Execute a few loops and observe the output.
 - [ ] Turn on the "Replay Attack" macro and recompile and flash the image.
 - [ ] Replace the signature using your own replay attack.</br>
+*Hint:* Use different print function to ease the cut-and-paste.
 
 **Questions & Discussion:**
 
