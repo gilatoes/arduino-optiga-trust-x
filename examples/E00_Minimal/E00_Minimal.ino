@@ -35,7 +35,7 @@ void setup()
    * Initialise a serial port for debug output
    */
   Serial.begin(115200, SERIAL_8N1);
-  delay(1000);
+  delay(5000);
   Serial.println("Initializing XMC... ");
 
   //Set LED GPIO as output
@@ -50,4 +50,5 @@ void loop()
    digitalWrite(15, HIGH); // turn the LED2 on (HIGH is the voltage level) 
 
    Serial.println("Minimal setup completed. Looks like you are ready to start!");
+   delay(2000);
 }
