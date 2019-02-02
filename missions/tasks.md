@@ -94,14 +94,16 @@ There should be no error during Verify and Upload.
 - [ ]  Attach the Trust X with magnetic connector to the Boot Camp Exerciser and execute the E01_HelloBootcamp example. Please make sure that the Trust X LED is lighted up.
 - [ ] Trust X library is installed in the following default folder. ***C:\Users\xxxx\Documents\Arduino\libraries\arduino-optiga-trust-x\***</br>
 
-**Questions & Discussion:**
+*Note:* Get your Exerciser COM port using Windows Device Manager.
 
+- [ ]  Getting familiar with Arduino environment. The Exercise board comes with 2 LEDs. Write a sketch to make them blink. You can use E00_Minimal as a starting point.
+
+**Questions & Discussion:**
 - [ ]  What is the current XMC and Trust X library version?
 - [ ]  Find out which file stores the Trust X library version number?
 *Hint:* You might need to use a search tool to speed up the process.
 
 ## Task 2: Understanding I2C and GPIO
-*Note:* Get your Exerciser COM port using Windows Device Manager.
 
 In this task, there will be some changes required for your *Trust X library*.</br>
 You are expected to take reference from Trust X Datasheet located in the doc folder, read up I2C fundamentals and connect up Logic analyzer and/or I2C analyzer for this task.</br>
@@ -114,11 +116,11 @@ Use E02_ReadMaxCommBufferSize sketch example as your starting point.</br>
 - [ ]  Download the pre-captured Saleae Logic file and decode the Trust X address.</br>
 Right-Click and use the "Save link as..." option.</br>
 https://github.com/gilatoes/arduino-optiga-trust-x/blob/master/missions/mission_files/task2/ReadUID.logicdata
-- [ ]  What is the decoded I2C bus speed?
-- [ ]  Modify and increase your host I2C driver to increase the I2C bus frequency. Monitor the updated bus frequency using either an I2C analyzer or logic analyzer.
-- [ ]  Replace a new Trust X. Determine its address. Modify the I2C host library to communicate with this Trust X and read out its UID.
+- [ ]  What is the I2C bus speed used in the Logic Analyzer trace?
+- [ ]  The default host I2C driver is 100KHz. Modify to increase your host I2C driver I2C bus frequency.
+- [ ]  Get a round mold Trust X and replace it in your Exerciser. Determine its address. Modify the I2C host library to communicate with this Trust X and read out its UID.
 - [ ]  Restore the host library Trust X address to the original value.
-- [ ]  Make sure that your host library is using the default I2C value.  
+- [ ]  Make sure that your host library is using the default I2C value.
 1. Implement the reset control using GPIO. Reset control improves the system stability.
 2. Execute the H02_ChangeI2CAddress example which will temporarily change the I2C address.
 3. If the reset is successfully implemented, the I2C address will be restored to the default value during initialization. You can use other examples such as E03_GetUniqueID to check. In the event of no proper reset, I2C address will not be found.  
