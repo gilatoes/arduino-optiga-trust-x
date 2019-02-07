@@ -1,6 +1,8 @@
 #include <string.h>
+#if defined ARDUINO_ARM_XMC
 #include <avr/io.h>
 #include <avr/pgmspace.h>
+#endif
 #include "sha256.h"
 
 const uint32_t sha256K[] PROGMEM = {

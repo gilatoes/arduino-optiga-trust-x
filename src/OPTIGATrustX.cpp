@@ -35,7 +35,10 @@
 #include "optiga_trustx/ifx_i2c_config.h"
 #include "optiga_trustx/pal_os_event.h"
 #include "third_crypto/uECC.h"
+
+#if defined ARDUINO_ARM_XMC  
 #include "aes/AES.h"
+#endif
 
 ///OID of IFX Certificate
 #define     OID_IFX_CERTIFICATE                 0xE0E0
@@ -73,7 +76,9 @@ static volatile uint8_t* m_optiga_rx_buffer;
 static volatile uint16_t  m_optiga_rx_len;
 
 //Preinstantiated object
+#if defined ARDUINO_ARM_XMC  
 AES aes = AES();
+#endif
 IFX_OPTIGA_TrustX trustX = IFX_OPTIGA_TrustX();
 optiga_comms_t optiga_comms = {static_cast<void*>(&ifx_i2c_context_0), NULL, NULL, 0};
 static host_lib_status_t optiga_comms_status;
@@ -387,7 +392,7 @@ int32_t IFX_OPTIGA_TrustX::getGenericData(uint16_t oid, uint8_t* p_data, uint16_
 
 int32_t IFX_OPTIGA_TrustX::getState(uint16_t oid, uint8_t& byte)
 {
-    uint16_t length = 1;
+    //uint16_t length = 1;
     int32_t  ret = (int32_t)CMD_LIB_ERROR;
 	uint8_t  bt = 0;
 	sGetData_d sGDVector;
@@ -1094,7 +1099,7 @@ int32_t IFX_OPTIGA_TrustX::deriveKey(uint16_t ShareSecret_OID,
 
     //Provide the expected length of the derive secret
 	//min length is 16, max is 256 bytes
-	if(ExportDeriveKey_Len < 8 || ExportDeriveKey_Len > 256)
+	if(ExportDeriveKey_Len < 8 || ExportDeriveKey_Len >= 256)
     {
 		Serial.println("Error: Invalid length using default 16 bytes");
 		key.wLen = 16;

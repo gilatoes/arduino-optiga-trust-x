@@ -436,7 +436,7 @@ public:
      */
     int32_t verifySignature(uint8_t hash[], uint16_t hashLength, uint8_t signature[], uint16_t signatureLength, uint16_t publicKey_oid);
     int32_t verifySignature(uint8_t hash[], uint16_t hashLength, uint8_t signature[], uint16_t signatureLength ) {
-		verifySignature(hash, hashLength, signature, signatureLength, eDEVICE_PUBKEY_CERT_IFX);
+		return verifySignature(hash, hashLength, signature, signatureLength, eDEVICE_PUBKEY_CERT_IFX);
 	}
     int32_t verifySignature(uint8_t hash[], uint16_t hashLength, uint8_t signature[], uint16_t signatureLength, uint8_t pubKey[], uint16_t plen);
 
@@ -542,7 +542,7 @@ public:
     /*
      * Derive key
      */
-    int32_t IFX_OPTIGA_TrustX::deriveKey(uint16_t ShareSecret_OID,
+    int32_t deriveKey(uint16_t ShareSecret_OID,
     									 uint16_t ShareSecret_OID_Len,
     		                             uint16_t DeriveKey_OID,
     									 int8_t* ExportDeriveKey,

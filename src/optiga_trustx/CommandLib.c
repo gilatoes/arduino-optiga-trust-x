@@ -40,6 +40,7 @@
 #include "CommandLib.h"
 #include "MemoryMgmt.h"
 
+#include "pal_os_event.h"
 #include "debug.h"
 
 /// @cond hidden
