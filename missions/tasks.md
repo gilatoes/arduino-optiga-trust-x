@@ -120,7 +120,9 @@ https://github.com/gilatoes/arduino-optiga-trust-x/blob/master/missions/mission_
 - [ ]  The default host I2C driver is 100KHz. Modify to increase your host I2C driver I2C bus frequency.
 - [ ]  Get a round mold Trust X and replace it in your Exerciser. Determine its address. Modify the I2C host library to communicate with this Trust X and read out its UID.
 - [ ]  Restore the host library Trust X address to the original value.
-- [ ]  Make sure that your host library is using the default I2C value.
+- [ ]  Make sure that your host library is using the default I2C value.</br>
+
+Implements the Trust X reset using GPIO:</br>
 1. Implement the reset control using GPIO. Reset control improves the system stability.
 2. Execute the H02_ChangeI2CAddress example which will temporarily change the I2C address.
 3. If the reset is successfully implemented, the I2C address will be restored to the default value during initialization. You can use other examples such as E03_GetUniqueID to check. In the event of no proper reset, I2C address will not be found.  
