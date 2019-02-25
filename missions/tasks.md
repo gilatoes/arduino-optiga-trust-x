@@ -86,7 +86,7 @@ There should be no error during Verify and Upload.
 - [ ]  After installing the Boot Camp Trust X repo, start E00_Minimal example and ensure that it can be compiled without any error.
 - [ ]  Open the Windows Powershell. Alternatively, on Windows 10, there is a more advance interface calls "ise". Open ise from the Powershell prompt.
 - [ ]  Ensure that OpenSSL is installed and can be accessed from the *powershell*. Use the "openssl version" to check the path accessibility. If OpenSSL is installed but cannot be found, please update the Windows System path.
-- [ ]  Access the OpenSSL sandbox folder. Try out some of the OpenSSL commands from the Trust X BootCamp reference.<br/> https://github.com/gilatoes/arduino-optiga-trust-x/blob/master/doc/BootCampReference.pdf<br/>
+- [ ]  Access the OpenSSL sandbox folder. Try out some of the OpenSSL commands from the Trust X BootCamp reference.<br/> https://github.com/gilatoes/arduino-optiga-trust-x/blob/master/doc/BootCampReferenceAndTask.pdf<br/>
 
 ## Task 1: HelloBootCamp
 - [ ]  BootCamp orientation of hardware and software (Arduino and OpenSSL sandbox).
