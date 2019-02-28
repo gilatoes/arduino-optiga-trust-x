@@ -289,7 +289,7 @@ openssl asn1parse -inform der -in signature.der
   #hash a message in file
   openssl dgst -sha256 message.txt
 
-  #Extract server public key from the RootCA
+  #Extract server public key from the Server Certificate
   openssl x509 -in .\server.cert.pem -pubkey -noout | Out-File -filePath .\publickey.pem -Encoding ASCII
 
   #Verify the signature using server public key
