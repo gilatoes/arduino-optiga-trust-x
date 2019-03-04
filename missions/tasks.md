@@ -35,6 +35,15 @@ https://drive.google.com/open?id=14hmdRW_pZ-m2mHYHeaOgdNiHAnBf8aeZ
 
 After installing OpenSSL, the binary path location needs to be added to the Environment Path variable. This allows OpenSSL to be accessible from any folder from the computer.
 
+**Important: The OpenSSL path should be appended to the system path. Do not overwrite your system path.**
+
+It is also possible to add a temporary OpenSSL path to the Environment path while in current session of PowerShell.
+$env:path += ";C:\OpenSSL-Win64\bin"
+
+Note that the path needs to be added again once the Powershell session is restarted. However, this approach reduces the risk of overwriting your system path.
+
+You can display the current environment path using the using $env:path in Powershell.
+
 ### Test driving OpenSSL
 Open the Command Prompt window from the Windows menu, type in "openssl version".
 If OpenSSL has been installed correctly with the Path setting, it will shows the current OpenSSL version.
@@ -172,7 +181,7 @@ https://github.com/gilatoes/arduino-optiga-trust-x/blob/master/missions/mission_
 
   - [ ]  If we purely use the public key and secret key to perform verification of data message what is the potential problem?
   - [ ]  What is the potential weakness using such approach?
-  - [ ]  After verifying the message, can Bob really trust its contents?
+  - [ ]  What is the possible method for Bob to implement such that Alice can trust the message indeed comes from him?
 
 ## Task 5: Replay attack
 
